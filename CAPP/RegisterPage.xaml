@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CAPP.RegisterPage"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui">
+    
+    <VerticalStackLayout x:Name="VerticalLayout">
+        <Label Text="Регистрация"
+               FontAttributes="Bold"
+               FontFamily="OpenSans"
+               FontSize="40"
+               HorizontalOptions="Center"
+               Margin="0,90,0,55"/>
+        <Border Style="{StaticResource borderStyle}">
+            <Entry Placeholder="Имя пользователя"
+                   x:Name="UsernameEntry"
+                   TextChanged="UsernameChanged"
+                   Style="{StaticResource entryStyle}"/>
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                        Offset="0,4"
+                        Opacity="0.15"/>
+            </Border.Shadow>
+        </Border>
+        <Label x:Name="EmailLabel"
+               Style="{StaticResource labelWarning}"/>
+        <Border Style="{StaticResource borderStyle}">
+            <Entry Placeholder="Электронная почта"
+                   Keyboard="Email"
+                   TextChanged="EmailChanged"
+                   Style="{StaticResource entryStyle}"/>
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                        Offset="0,4"
+                        Opacity="0.15"/>
+            </Border.Shadow>
+        </Border>
+        <Label x:Name="LabelOne"
+               Style="{StaticResource labelWarning}"/>
+        <Border Style="{StaticResource borderStyle}">
+            <Entry Placeholder="Пароль"
+                   x:Name="PasswordEntryOne"
+                   IsPassword="True"
+                   TextChanged="PasswordChangedOne"
+                   Style="{StaticResource entryStyle}"/>
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                        Offset="0,4"
+                        Opacity="0.15"/>
+            </Border.Shadow>
+        </Border>
+        <Label x:Name="LabelTwo"
+               Style="{StaticResource labelWarning}"/>
+        <Border Style="{StaticResource borderStyle}"
+                Margin="0">
+            <Entry Placeholder="Подтвердите пароль"
+                   x:Name="PasswordEntryTwo"
+                   TextChanged="PasswordChangedTwo"
+                   IsPassword="True"
+                   Style="{StaticResource entryStyle}"/>
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                        Offset="0,4"
+                        Opacity="0.15"/>
+            </Border.Shadow>
+        </Border>
+
+        <HorizontalStackLayout HorizontalOptions="Center" Margin="0,30,0,30">
+            <input:CheckBox CornerRadius="50"
+                            BoxSizeRequest="30"
+                            x:Name="InputCheckBox"
+                            Color="#F83D7F"
+                            Type="Material"
+                            Margin="0,0,15,0"
+                            CheckChanged="CheckChanged"/>
+            <VerticalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Я согласен с "
+                           TextColor="#9AA0A6"
+                           Style="{StaticResource miniText}"/>
+                    <Label Text="Пользовательским соглашением"
+                           TextDecorations="Underline"
+                           Style="{StaticResource miniText}"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="и "
+                           TextColor="#9AA0A6"
+                           Style="{StaticResource miniText}"/>
+                    <Label Text="Политикой конфиденциальности"
+                           TextDecorations="Underline"
+                           Style="{StaticResource miniText}"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+        <Button Text="Продолжить"
+                x:Name="GoNextButton"
+                FontAttributes="Bold"
+                FontFamily="OpenSans"
+                FontSize="24"
+                WidthRequest="349"
+                HeightRequest="66"
+                CornerRadius="50"
+                BackgroundColor="#747474">
+            <Button.Shadow>
+                <Shadow Brush="Black"
+                        Offset="0,4"
+                        Opacity="0.15"/>
+            </Button.Shadow>
+        </Button>
+    </VerticalStackLayout>
+
+</ContentPage>

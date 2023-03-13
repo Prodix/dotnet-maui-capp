@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="CAPP.LoginPage">
+
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="Responsive">
+            <VisualState x:Name="density480">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="360"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter TargetName="ButtonTest" Property="Button.WidthRequest" Value="339"/>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="density560">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="300"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter TargetName="welcomeLabel" Property="Label.FontSize" Value="30"/>
+                    <Setter TargetName="cappLabel" Property="Label.FontSize" Value="30"/>
+                    <Setter TargetName="textHeaderLabel" Property="Label.FontSize" Value="18"/>
+                    <Setter TargetName="textLabel" Property="Label.FontSize" Value="12"/>
+                    <Setter TargetName="ButtonTest" Property="Button.FontSize" Value="18"/>
+                    <Setter TargetName="LoginLabel" Property="Label.FontSize" Value="18"/>
+                    <Setter TargetName="LoginLabelTwo" Property="Label.FontSize" Value="18"/>
+                    <Setter TargetName="ButtonTest" Property="Button.WidthRequest" Value="256"/>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="default">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="0"/>
+                </VisualState.StateTriggers>
+            </VisualState>
+            
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+    
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="Transparent" StatusBarStyle="DarkContent"/>
+    </ContentPage.Behaviors>
+    <VerticalStackLayout VerticalOptions="Center">
+        <Label Text="Добро пожаловать в"
+               x:Name="welcomeLabel"
+               FontSize="34"
+               HorizontalOptions="Center"
+               FontFamily="OpenSans"
+               TextColor="#202124"/>
+        
+        <Label Text="CAPP"
+               FontSize="34"
+               TextColor="#F83D7F"
+               x:Name="cappLabel"
+               FontAttributes="Bold"
+               FontFamily="OpenSans"
+               HorizontalOptions="Center"/>
+        
+        <Image Source="login_page_image"/>
+        
+        <Label Text="Отслеживайте своё здоровье"
+               FontSize="24"
+               HorizontalOptions="Center"
+               x:Name="textHeaderLabel"
+               FontFamily="OpenSans"
+               FontAttributes="Bold"
+               TextColor="#3C4043"/>
+        
+        <Label Text=" Вы сможете отслеживать свою активность,&#10;  потребляемые каллории и выпитую воду"
+               FontSize="16"
+               x:Name="textLabel"
+               HorizontalOptions="Center"
+               FontFamily="OpenSans"
+               TextColor="#3C4043"/>
+
+        <Button Text="Начать"
+                WidthRequest="349"
+                HeightRequest="66"
+                BackgroundColor="#F83D7F"
+                FontAttributes="Bold"
+                FontSize="24"
+                CornerRadius="50"
+                Margin="0,50,0,20"
+                Clicked="OnRegisterButtonClicked"
+                FontFamily="OpenSans"
+                x:Name="ButtonTest">
+            <Button.Shadow>
+                <Shadow Brush="Black"
+                        Offset="0,4"
+                        Opacity="0.15"/>
+            </Button.Shadow>
+        </Button>
+
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+
+            <Label Text="Уже есть аккаунт?"
+                   FontSize="20"
+                   TextColor="#9AA0A6"
+                   FontFamily="OpenSans"
+                   x:Name="LoginLabel"/>
+
+            <Label Text="Войти"
+                   FontSize="20"
+                   TextColor="#F83D7F"
+                   FontFamily="OpenSans"
+                   FontAttributes="Bold"
+                   x:Name="LoginLabelTwo"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+    
+
+</ContentPage>

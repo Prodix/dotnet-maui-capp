@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 291 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="74.5" cy="84.5" r="62" stroke="#FFFCFD" stroke-width="25"/>
+  <circle cx="216.5" cy="181.5" r="62" stroke="#FFFCFD" stroke-width="25"/>
+  <path d="M 216.5 125 L 216.5 21 M 223.377 19.281 L 180 49.541 M 209.279 19.281 L 253 49.541" stroke-width="25" style="stroke: rgb(255, 252, 253);"/>
+  <path d="M74.5 156L74.5 226.118M74.5 226.118L111 226.117M74.5 226.118L38 226.117M74.5 226.118L74.5 256" stroke-width="25" stroke="#FFFCFD"/>
+</svg>

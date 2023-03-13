@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="CAPP.GoalPage">
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="Transparent" StatusBarStyle="LightContent"/>
+    </ContentPage.Behaviors>
+
+    <VerticalStackLayout >
+        <VerticalStackLayout.Background>
+            <LinearGradientBrush EndPoint="0,1">
+                <GradientStop Color="#F54B87"
+                              Offset="0.3"/>
+                <GradientStop Color="#F83D7F"
+                              Offset="1.0"/>
+            </LinearGradientBrush>
+        </VerticalStackLayout.Background>
+        <Label Text="1 / 5"
+               FontSize="24"
+               FontFamily="OpenSans"
+               TextColor="White"
+               HorizontalOptions="Center"
+               Margin="0,60,0,0"/>
+        <Label Text="Какая у вас цель?"
+               FontSize="36"
+               FontFamily="OpenSans"
+               TextColor="White"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,25,0,0"/>
+        <Label Text="Выберите вашу цель"
+               FontSize="20"
+               FontFamily="OpenSans"
+               TextColor="White"
+               HorizontalOptions="Center"/>
+        <FlexLayout Wrap="Wrap"
+                    JustifyContent="Center"
+                    Margin="0,75,0,75">
+            <Border WidthRequest="150" 
+                    HeightRequest="150"
+                    Margin="0,0,5,5"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20,20,20,20">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTapOne"/>
+                </Border.GestureRecognizers>
+                <AbsoluteLayout WidthRequest="150"
+                                HeightRequest="150">
+                    <Image Source="flame_emoji.png"
+                           AbsoluteLayout.LayoutBounds="43, 11"/>
+                    <Label Text="Потеря жира"
+                           FontFamily=""
+                           AbsoluteLayout.LayoutBounds="35, 86"
+                           HorizontalTextAlignment="Center"
+                           FontSize="20"
+                           WidthRequest="80"/>
+                    <input:CheckBox CornerRadius="50"
+                           BoxSizeRequest="30"
+                           AbsoluteLayout.LayoutBounds="5, 7"
+                           Color="#F83D7F"
+                           Type="Material"
+                           HorizontalOptions="Center"
+                           IsEnabled="False"
+                           CheckChanged="CheckChanged"
+                           x:Name="CheckOne"/>
+                </AbsoluteLayout>
+            </Border>
+
+            <Border WidthRequest="150" 
+                    HeightRequest="150"
+                    StrokeThickness="0"
+                    Margin="5,0,0,5"
+                    StrokeShape="RoundRectangle 20,20,20,20">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTapTwo"/>
+                </Border.GestureRecognizers>
+                <AbsoluteLayout WidthRequest="150"
+                                HeightRequest="150">
+                    <Image Source="burger_emoji.png"
+                           AbsoluteLayout.LayoutBounds="43, 11"/>
+                    <Label Text="Набор массы"
+                           FontFamily=""
+                           AbsoluteLayout.LayoutBounds="35, 86"
+                           HorizontalTextAlignment="Center"
+                           FontSize="20"
+                           WidthRequest="80"/>
+                    <input:CheckBox CornerRadius="50"
+                           BoxSizeRequest="30"
+                           AbsoluteLayout.LayoutBounds="5, 7"
+                           Color="#F83D7F"
+                           Type="Material"
+                           HorizontalOptions="Center"
+                           IsEnabled="False"
+                           CheckChanged="CheckChanged"
+                           x:Name="CheckTwo"/>
+                </AbsoluteLayout>
+            </Border>
+
+            <Border WidthRequest="150" 
+                    HeightRequest="150"
+                    Margin="0,5,5,0"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20,20,20,20">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTapThree"/>
+                </Border.GestureRecognizers>
+                <AbsoluteLayout WidthRequest="150"
+                                HeightRequest="150">
+                    <Image Source="biceps_emoji.png"
+                           AbsoluteLayout.LayoutBounds="43, 11"/>
+                    <Label Text="Укрепление мышц"
+                           FontFamily=""
+                           AbsoluteLayout.LayoutBounds="14, 86"
+                           HorizontalTextAlignment="Center"
+                           FontSize="20"
+                           WidthRequest="120"/>
+                    <input:CheckBox CornerRadius="50"
+                           BoxSizeRequest="30"
+                           AbsoluteLayout.LayoutBounds="5, 7"
+                           Color="#F83D7F"
+                           Type="Material"
+                           CheckChanged="CheckChanged"
+                           HorizontalOptions="Center"
+                           IsEnabled="False"
+                           x:Name="CheckThree"/>
+                </AbsoluteLayout>
+            </Border>
+
+            <Border WidthRequest="150" 
+                    HeightRequest="150"
+                    Margin="5,5,0,0"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20,20,20,20">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTapFour"/>
+                </Border.GestureRecognizers>
+                <AbsoluteLayout WidthRequest="150"
+                                HeightRequest="150">
+                    <Image Source="weight_emoji.png"
+                           AbsoluteLayout.LayoutBounds="43, 11"/>
+                    <Label Text="Поддержание веса"
+                           FontFamily=""
+                           AbsoluteLayout.LayoutBounds="7, 86"
+                           HorizontalTextAlignment="Center"
+                           FontSize="20"
+                           WidthRequest="136"/>
+                    <input:CheckBox CornerRadius="50"
+                           BoxSizeRequest="30"
+                           AbsoluteLayout.LayoutBounds="5, 7"
+                           Color="#F83D7F"
+                           Type="Material"
+                           HorizontalOptions="Center"
+                           IsEnabled="False"
+                           CheckChanged="CheckChanged"
+                           x:Name="CheckFour"/>
+                </AbsoluteLayout>
+            </Border>
+
+        </FlexLayout>
+        <Button Text="Далее"
+                x:Name="GoNextButton"
+                WidthRequest="349"
+                HeightRequest="66"
+                CornerRadius="50"
+                BackgroundColor="#747474"
+                TextColor="White"
+                FontAttributes="Bold"
+                FontFamily="OpenSans"
+                IsEnabled="False"
+                Clicked="OnAccountCreating"
+                FontSize="24"/>
+    </VerticalStackLayout>
+    
+
+</ContentPage>

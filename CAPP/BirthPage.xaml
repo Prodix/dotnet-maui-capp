@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="CAPP.BirthPage">
+
+
+    <VerticalStackLayout >
+        <VerticalStackLayout.Background>
+            <LinearGradientBrush EndPoint="0,1">
+                <GradientStop Color="#F54B87"
+                              Offset="0.3"/>
+                <GradientStop Color="#F83D7F"
+                              Offset="1.0"/>
+            </LinearGradientBrush>
+        </VerticalStackLayout.Background>
+        <Label Text="5 / 5"
+               FontSize="24"
+               FontFamily="OpenSans"
+               TextColor="White"
+               HorizontalOptions="Center"
+               Margin="0,60,0,0"/>
+        <Label Text="Когда вы родились?"
+               FontSize="36"
+               FontFamily="OpenSans"
+               TextColor="White"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,25,0,0"/>
+        <Label Text="Количество калорий меняется с каждым годом"
+               FontSize="20"
+               FontFamily="OpenSans"
+               TextColor="White"
+               HorizontalTextAlignment="Center"/>
+        <Image Source="birthday_cake"
+               Margin="0,30,0,35"/>
+        <FlexLayout WidthRequest="349"
+                    HeightRequest="66"
+                    JustifyContent="SpaceBetween"
+                    Margin="0,0,0,25">
+            <Border StrokeShape="RoundRectangle 50,50,50,50"
+                WidthRequest="103"
+                HeightRequest="66"
+                StrokeThickness="0"
+                Margin="0,0,0,25">
+                <Entry Placeholder="DD"
+                   WidthRequest="40"
+                   HeightRequest="66"
+                   FontFamily="OpenSans"
+                   FontSize="20"
+                   />
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                        Offset="0,4"
+                        Opacity="0.15"/>
+                </Border.Shadow>
+            </Border>
+            <Border StrokeShape="RoundRectangle 50,50,50,50"
+                WidthRequest="103"
+                HeightRequest="66"
+                StrokeThickness="0"
+                Margin="0,0,0,25">
+                <Entry Placeholder="MM"
+                   WidthRequest="45"
+                   HeightRequest="66"
+                   FontFamily="OpenSans"
+                   FontSize="20"
+                   />
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                        Offset="0,4"
+                        Opacity="0.15"/>
+                </Border.Shadow>
+            </Border>
+            <Border StrokeShape="RoundRectangle 50,50,50,50"
+                WidthRequest="103"
+                HeightRequest="66"
+                StrokeThickness="0"
+                Margin="0,0,0,25">
+                <Entry Placeholder="YYYY"
+                   WidthRequest="65"
+                   HeightRequest="66"
+                   FontFamily="OpenSans"
+                   FontSize="20"
+                   />
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                        Offset="0,4"
+                        Opacity="0.15"/>
+                </Border.Shadow>
+            </Border>
+        </FlexLayout>
+        <Button Text="Далее"
+                WidthRequest="349"
+                HeightRequest="66"
+                CornerRadius="50"
+                BackgroundColor="White"
+                TextColor="#F83D7F"
+                FontAttributes="Bold"
+                FontFamily="OpenSans"
+                FontSize="24"/>
+    </VerticalStackLayout>
+    
+
+</ContentPage>
