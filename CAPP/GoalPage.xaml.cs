@@ -2,10 +2,12 @@
 
 public partial class GoalPage : ContentPage
 {
+    double heightValue = 0;
 
-	public GoalPage()
+	public GoalPage(double height)
 	{
 		InitializeComponent();
+        heightValue = height;
 	}
 
     private void OnTapOne(object sender, TappedEventArgs e)
@@ -72,14 +74,14 @@ public partial class GoalPage : ContentPage
     {
         if (CheckOne.IsChecked)
         {
-            await Navigation.PushAsync(new WeightPage(true, 1), false);
+            await Navigation.PushAsync(new WeightPage(true, 1, heightValue), false);
         }
         else if (CheckTwo.IsChecked)
         {
-            await Navigation.PushAsync(new WeightPage(true, 2), false);
+            await Navigation.PushAsync(new WeightPage(true, 2, heightValue), false);
         }
         else
-            await Navigation.PushAsync(new WeightPage(false, 0), false);
+            await Navigation.PushAsync(new WeightPage(false, 0, heightValue), false);
 
     }
 }

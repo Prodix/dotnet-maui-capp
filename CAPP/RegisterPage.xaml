@@ -12,6 +12,8 @@
                FontSize="40"
                HorizontalOptions="Center"
                Margin="0,90,0,55"/>
+        <Label x:Name="UsernameLabel"
+               Style="{StaticResource labelWarning}"/>
         <Border Style="{StaticResource borderStyle}">
             <Entry Placeholder="Имя пользователя"
                    x:Name="UsernameEntry"

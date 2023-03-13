@@ -8,6 +8,7 @@ public partial class RegisterPage : ContentPage
     private bool IsWarningShownTwo = false;
     private bool IsNotEqualWarningShown = false;
     private bool IsPasswordsValid = false;
+    private bool IsUsernameValid = false;
     private bool IsEmailValid = false;
 
     public RegisterPage()
@@ -22,13 +23,25 @@ public partial class RegisterPage : ContentPage
 
     private void UsernameChanged(object sender, EventArgs e)
     {
+        if (UsernameEntry.Text.Length < 5)
+        {
+            UsernameLabel.Text = "Имя пользователя менее 5 символов";
+            ((Border)UsernameEntry.Parent).StrokeThickness = 1;
+            IsUsernameValid = false;
+        }
+        else
+        {
+            UsernameLabel.Text = "";
+            ((Border)UsernameEntry.Parent).StrokeThickness = 0;
+            IsUsernameValid = true;
+        }
         CheckChanged(InputCheckBox, new EventArgs());
     }
 
     private void EmailChanged(object sender, EventArgs e)
     {
         Entry emailElement = (Entry)sender;
-        if (Regex.IsMatch(emailElement.Text, @".{1,}@.{1,}\..{1,}"))
+        if (Regex.IsMatch(emailElement.Text, @"[a-z]{1,}@[a-z]{1,}\.[a-z]{1,}"))
         {
             EmailLabel.Text = "";
             ((Border)emailElement.Parent).StrokeThickness = 0;
@@ -45,8 +58,11 @@ public partial class RegisterPage : ContentPage
 
     private void CheckChanged(object sender, EventArgs e)
     {
-        if (((InputKit.Shared.Controls.CheckBox)sender).IsChecked && IsPasswordsValid && IsEmailValid && !String.IsNullOrEmpty(UsernameEntry.Text))
+        if (((InputKit.Shared.Controls.CheckBox)sender).IsChecked && IsPasswordsValid && IsEmailValid && IsUsernameValid)
         {
+            //
+            // TODO: Изменить метод перехода на IsEnabled
+            //
             GoNextButton.Background = new SolidColorBrush(Color.FromRgb(248, 61, 127));
             GoNextButton.Clicked += OnAccountCreating;
         }

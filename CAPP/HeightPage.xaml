@@ -35,13 +35,13 @@
         <Image Source="height"
                x:Name="img"
                Margin="0,40,0,40"/>
-        
-        <!--<Label x:Name="FirstLabel"
+        <Label x:Name="FirstLabel"
                Style="{StaticResource labelWarning}"
                TextColor="#9CF93D"/>
         <Border StrokeShape="RoundRectangle 50,50,50,50"
                 WidthRequest="349"
                 HeightRequest="66"
+                Stroke="#9CF93D"
                 StrokeThickness="0"
                 x:Name="border"
                 Margin="0,0,0,25">
@@ -59,7 +59,7 @@
                         Offset="0,4"
                         Opacity="0.15"/>
             </Border.Shadow>
-        </Border>-->
+        </Border>
         <Button Text="Далее"
                 WidthRequest="349"
                 HeightRequest="66"
@@ -69,8 +69,8 @@
                 x:Name="GoNextButton"
                 IsEnabled="False"
                 FontAttributes="Bold"
-                FontFamily="OpenSans"
                 Clicked="OnAccountCreating"
+                FontFamily="OpenSans"
                 FontSize="24"/>
     </VerticalStackLayout>
     

@@ -7,12 +7,16 @@ public partial class WeightPage : ContentPage
 
     bool IsFirstEntryValid = false;
     bool IsSecondEntryValid = false;
-    int mode;
+    bool IsTwo = false;
+    double heightValue = 0;
+    int mode = 0;
     Border border;
 
-	public WeightPage(bool IsTwo, int mode)
+	public WeightPage(bool IsTwo, int mode, double heightValue)
 	{
         this.mode = mode;
+        this.IsTwo = IsTwo;
+        this.heightValue = heightValue;
         InitializeComponent();
         if (IsTwo)
         {
@@ -56,7 +60,13 @@ public partial class WeightPage : ContentPage
 
     private void buttonValid()
     {
-        if (IsFirstEntryValid && IsSecondEntryValid)
+        if (IsFirstEntryValid && IsSecondEntryValid && IsTwo)
+        {
+            GoNextButton.IsEnabled = true;
+            GoNextButton.TextColor = new SolidColorBrush(Color.FromArgb("#F83D7F")).Color;
+            GoNextButton.Background = SolidColorBrush.White.Color;
+        }
+        else if (IsFirstEntryValid && !IsTwo)
         {
             GoNextButton.IsEnabled = true;
             GoNextButton.TextColor = new SolidColorBrush(Color.FromArgb("#F83D7F")).Color;
@@ -72,7 +82,7 @@ public partial class WeightPage : ContentPage
 
     private void entryChangedOne(object sender, TextChangedEventArgs e)
     {
-        if (!String.IsNullOrEmpty(((Entry)sender).Text))
+        if (!String.IsNullOrEmpty(((Entry)sender).Text) && ((Entry)sender).Text != ".")
         {
             if (Convert.ToDouble(((Entry)sender).Text) < 40)
             {
@@ -88,7 +98,11 @@ public partial class WeightPage : ContentPage
             }
         }
         else 
-        { 
+        {
+            if (((Entry)sender).Text == ".")
+            {
+                ((Entry)sender).Text = "";
+            }
             IsFirstEntryValid = false;
             FirstLabel.Text = "Поле не может быть пустым";
             DefaultBorder.StrokeThickness = 1;
@@ -99,10 +113,11 @@ public partial class WeightPage : ContentPage
 
     private void entryChangedTwo(object sender, TextChangedEventArgs e)
     {
-        if (!String.IsNullOrEmpty(((Entry)sender).Text))
+        if (!String.IsNullOrEmpty(((Entry)sender).Text) && ((Entry)sender).Text != ".")
         {
             double value = Convert.ToDouble(((Entry)sender).Text);
-            if (value >= 50 && value <= 150)
+            double bmi = value / ((heightValue / 100) * (heightValue / 100));
+            if (bmi >= 18.5 && bmi <= 25)
             {
                 if (mode == 2 && (value == Convert.ToDouble(FirstEntry.Text) || value < Convert.ToDouble(FirstEntry.Text)))
                 {
@@ -123,15 +138,25 @@ public partial class WeightPage : ContentPage
                     border.StrokeThickness = 0;
                 }
             }
+            else if (bmi >= 25)
+            {
+                IsSecondEntryValid = false;
+                SecondLabel.Text = "Вес слишком большой";
+                border.StrokeThickness = 1;
+            }
             else
             {
                 IsSecondEntryValid = false;
-                SecondLabel.Text = value.ToString();
+                SecondLabel.Text = "Вес слишком маленький";
                 border.StrokeThickness = 1;
             }
         }
         else
         {
+            if (((Entry)sender).Text == ".")
+            {
+                ((Entry)sender).Text = "";
+            }
             SecondLabel.Text = "Поле не может быть пустым";
             border.StrokeThickness = 1;
         }
