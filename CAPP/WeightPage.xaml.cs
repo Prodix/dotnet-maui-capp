@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls.Shapes;
+﻿using Android.Hardware.Lights;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace CAPP;
 
@@ -84,10 +85,18 @@ public partial class WeightPage : ContentPage
     {
         if (!String.IsNullOrEmpty(((Entry)sender).Text) && ((Entry)sender).Text != ".")
         {
-            if (Convert.ToDouble(((Entry)sender).Text) < 40)
+            double value = Convert.ToDouble(((Entry)sender).Text.Replace(".", ","));
+            double bmi = value / (heightValue / 100 * (heightValue / 100));
+            if (bmi < 18.5 && mode == 1)
             {
                 IsFirstEntryValid = false;
-                FirstLabel.Text = "Слишком маленькиий вес";
+                FirstLabel.Text = "У вас дефицит веса, мы не рекомендуем вам худеть";
+                DefaultBorder.StrokeThickness = 1;
+            }
+            else if (bmi > 25 && mode == 2)
+            {
+                IsFirstEntryValid = false;
+                FirstLabel.Text = "Ваш вес слишком высок мы не рекомендуем вам его повышать";
                 DefaultBorder.StrokeThickness = 1;
             }
             else
@@ -115,17 +124,17 @@ public partial class WeightPage : ContentPage
     {
         if (!String.IsNullOrEmpty(((Entry)sender).Text) && ((Entry)sender).Text != ".")
         {
-            double value = Convert.ToDouble(((Entry)sender).Text);
-            double bmi = value / ((heightValue / 100) * (heightValue / 100));
+            double value = Convert.ToDouble(((Entry)sender).Text.Replace(".", ","));
+            double bmi = value / (heightValue / 100 * (heightValue / 100));
             if (bmi >= 18.5 && bmi <= 25)
             {
-                if (mode == 2 && (value == Convert.ToDouble(FirstEntry.Text) || value < Convert.ToDouble(FirstEntry.Text)))
+                if (mode == 2 && (value == Convert.ToDouble(FirstEntry.Text.Replace(".", ",")) || value < Convert.ToDouble(FirstEntry.Text.Replace(".", ","))))
                 {
                     IsSecondEntryValid = false;
                     SecondLabel.Text = "Желаемый вес должен быть больше";
                     border.StrokeThickness = 1;
                 }
-                else if (mode == 1 && (value == Convert.ToDouble(FirstEntry.Text) || value > Convert.ToDouble(FirstEntry.Text)))
+                else if (mode == 1 && (value == Convert.ToDouble(FirstEntry.Text.Replace(".", ",")) || value > Convert.ToDouble(FirstEntry.Text.Replace(".", ","))))
                 {
                     IsSecondEntryValid = false;
                     SecondLabel.Text = "Желаемый вес должен быть меньше";

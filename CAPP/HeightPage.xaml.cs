@@ -14,20 +14,20 @@ public partial class HeightPage : ContentPage
     {
         if (!String.IsNullOrEmpty(height.Text) && height.Text != ".")
         {
-            if (Convert.ToDouble(height.Text) < 30)
+            if (Convert.ToDouble(height.Text.Replace(".", ",")) < 30)
             {
                 border.StrokeThickness = 1;
                 GoNextButton.Background = new SolidColorBrush(Color.FromRgb(116, 116, 116));
                 GoNextButton.IsEnabled = false;
                 GoNextButton.TextColor = SolidColorBrush.White.Color;
-                FirstLabel.Text = "Слишком маленький вес";
+                FirstLabel.Text = "Слишком маленький рост";
             }
-            else if (Convert.ToDouble(height.Text) > 270){
+            else if (Convert.ToDouble(height.Text.Replace(".", ",")) > 270){
                 border.StrokeThickness = 1;
                 GoNextButton.Background = new SolidColorBrush(Color.FromRgb(116, 116, 116));
                 GoNextButton.IsEnabled = false;
                 GoNextButton.TextColor = SolidColorBrush.White.Color;
-                FirstLabel.Text = "Слишком большой вес";
+                FirstLabel.Text = "Слишком большой рост";
             }
             else
             {
@@ -36,7 +36,7 @@ public partial class HeightPage : ContentPage
                 GoNextButton.TextColor = new SolidColorBrush(Color.FromRgb(248, 61, 127)).Color;
                 GoNextButton.Background = SolidColorBrush.White;
                 FirstLabel.Text = "";
-                heightValue = Convert.ToDouble(height.Text);
+                heightValue = Convert.ToDouble(height.Text.Replace(".", ","));
             }
         }
         else

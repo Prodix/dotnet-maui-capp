@@ -46,6 +46,10 @@
                 <Entry Placeholder="DD"
                    WidthRequest="40"
                    HeightRequest="66"
+                   Keyboard="Numeric"
+                   MaxLength="2"
+                   TextChanged="Days_TextChanged"
+                   x:Name="Days"
                    FontFamily="OpenSans"
                    FontSize="20"
                    />
@@ -63,9 +67,12 @@
                 <Entry Placeholder="MM"
                    WidthRequest="45"
                    HeightRequest="66"
+                   Keyboard="Numeric"
+                   MaxLength="2"
+                   TextChanged="Months_TextChanged"
+                   x:Name="Months"
                    FontFamily="OpenSans"
-                   FontSize="20"
-                   />
+                   FontSize="20"/>
                 <Border.Shadow>
                     <Shadow Brush="Black"
                         Offset="0,4"
@@ -81,8 +88,11 @@
                    WidthRequest="65"
                    HeightRequest="66"
                    FontFamily="OpenSans"
-                   FontSize="20"
-                   />
+                   Keyboard="Numeric"
+                   MaxLength="4"
+                   TextChanged="Years_TextChanged"
+                   x:Name="Years"
+                   FontSize="20"/>
                 <Border.Shadow>
                     <Shadow Brush="Black"
                         Offset="0,4"
@@ -94,8 +104,10 @@
                 WidthRequest="349"
                 HeightRequest="66"
                 CornerRadius="50"
-                BackgroundColor="White"
-                TextColor="#F83D7F"
+                IsEnabled="False"
+                x:Name="GoNextButton"
+                BackgroundColor="#747474"
+                TextColor="White"
                 FontAttributes="Bold"
                 FontFamily="OpenSans"
                 FontSize="24"/>
