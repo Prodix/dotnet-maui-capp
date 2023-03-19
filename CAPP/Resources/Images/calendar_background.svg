@@ -1,0 +1,14 @@
+<svg width="49.99999999999999" height="150" xmlns="http://www.w3.org/2000/svg" fill="none">
+ <g>
+  <title>Layer 1</title>
+  <circle id="svg_2" stroke-width="25" stroke="#FFFCFD" r="62" cy="181.5" cx="216.5"/>
+  <path id="svg_3" stroke-width="25" stroke="#FFFCFD" d="m216.5,125l0,-104m0,0l-36.5,28.5414m36.5,-28.5414l36.5,28.5414"/>
+  <path id="svg_4" stroke-width="25" stroke="#FFFCFD" d="m74.5,156l0,70.118m0,0l36.5,-0.001m-36.5,0.001l-36.5,-0.001m36.5,0.001l0,29.882"/>
+  <line fill="none" x1="49.90566" y1="50" x2="-0.26415" y2="50" id="svg_5" stroke-linejoin="undefined" stroke-linecap="undefined" stroke="#ffffff"/>
+  <line fill="none" x1="49.90566" y1="50" x2="-0.26415" y2="50" id="svg_6" stroke-linejoin="undefined" stroke-linecap="undefined" stroke="#fcfcfc" stroke-dasharray="2,2"/>
+  <line fill="none" stroke="#ffffff" y1="100" x2="50" y2="100" id="svg_7" stroke-linejoin="undefined" stroke-linecap="undefined"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_1" y2="50" x2="50" y1="50" x1="0" stroke="#ffffff" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_8" y2="100" x2="50" y1="100" x1="0" stroke="#ffffff" fill="none"/>
+ </g>
+
+</svg>

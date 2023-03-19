@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CAPP.Controls.SpinnerCalendar">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="CalendarTemplate">
+                <Grid Style="{StaticResource OpacityStyle}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{Binding .}" 
+                           FontFamily="OpenSans"
+                           TextColor="White"
+                           FontSize="20"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Grid>
+            </DataTemplate>
+            <LinearItemsLayout x:Key="CalendarItemsLayout"
+                               Orientation="Vertical"
+                               SnapPointsType="Mandatory"
+                               SnapPointsAlignment="Start"/>
+        </ResourceDictionary>
+        <Style x:Key="OpacityStyle" TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Opacity"
+                                        Value="0.5"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="Opacity"
+                                        Value="1"/>
+                                <Setter Property="BackgroundColor"
+                                        Value="Transparent"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        <Style x:Key="CalendarStyle" TargetType="CollectionView">
+            <Setter Property="WidthRequest" Value="50"/>
+            <Setter Property="HeightRequest" Value="150"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Never"/>
+            <Setter Property="ItemTemplate" Value="{StaticResource CalendarTemplate}"/>
+            <Setter Property="ItemsLayout" Value="{StaticResource CalendarItemsLayout}"/>
+        </Style>
+    </ContentView.Resources>
+    <Border WidthRequest="{Binding Width}" 
+            BackgroundColor="{Binding CalendarBackground}"
+            StrokeThickness="0">
+        <Grid WidthRequest="{Binding Width}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid WidthRequest="54">
+                <Image Source="calendar_background"/>
+                <CollectionView ItemsSource="{Binding daysList}"
+                                Scrolled="DaysScrolled"
+                                x:Name="scrollDays"
+                                Style="{StaticResource CalendarStyle}">
+                </CollectionView>
+            </Grid>
+            <Grid WidthRequest="54" Grid.Column="1">
+                <Image Source="calendar_background"/>
+                <CollectionView Margin="10" 
+                                ItemsSource="{Binding monthsList}" 
+                                Scrolled="MonthsScrolled"
+                                x:Name="scrollMonths"
+                                Loaded="MonthsLoaded"
+                                Style="{StaticResource CalendarStyle}">
+                </CollectionView>
+            </Grid>
+            <Grid WidthRequest="54" Grid.Column="2">
+                <Image Source="calendar_background"/>
+                <CollectionView Margin="10" 
+                                ItemsSource="{Binding yearsList}"
+                                Scrolled="YearsScrolled"
+                                Loaded="YearsLoaded"
+                                x:Name="scrollYears"
+                                Style="{StaticResource CalendarStyle}">  
+                </CollectionView>
+            </Grid>
+        </Grid>
+    </Border>
+</ContentView>
+

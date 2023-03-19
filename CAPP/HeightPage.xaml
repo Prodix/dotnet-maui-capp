@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
-             x:Class="CAPP.HeightPage">
+             x:Class="CAPP.HeightPage"
+             xmlns:controls="clr-namespace:CAPP.Controls">
 
 
     <VerticalStackLayout >
@@ -35,39 +36,21 @@
         <Image Source="height"
                x:Name="img"
                Margin="0,40,0,40"/>
-        <Label x:Name="FirstLabel"
-               Style="{StaticResource labelWarning}"
-               TextColor="#9CF93D"/>
-        <Border StrokeShape="RoundRectangle 50,50,50,50"
-                WidthRequest="349"
-                HeightRequest="66"
-                Stroke="#9CF93D"
-                StrokeThickness="0"
-                x:Name="border"
-                Margin="0,0,0,25">
-            <Entry Placeholder="Введите ваш рост"
-                   WidthRequest="320"
-                   HeightRequest="66"
-                   x:Name="height"
-                   TextChanged="heightChanged"
-                   Keyboard="Numeric"
-                   FontFamily="OpenSans"
-                   FontSize="20"
-                   />
-            <Border.Shadow>
-                <Shadow Brush="Black"
-                        Offset="0,4"
-                        Opacity="0.15"/>
-            </Border.Shadow>
-        </Border>
+        <controls:IncrementalEntry MinimalValue="100"
+                                   MaximalValue="300"
+                                   ColumnSpacing="50"
+                                   Width="350"
+                                   x:Name="HeightEntry"
+                                   Measure="см"
+                                   Margin="0,0,0,20"/>
         <Button Text="Далее"
                 WidthRequest="349"
                 HeightRequest="66"
                 CornerRadius="50"
-                BackgroundColor="#747474"
-                TextColor="White"
+                BackgroundColor="White"
+                TextColor="#F83D7F"
                 x:Name="GoNextButton"
-                IsEnabled="False"
+                IsEnabled="True"
                 FontAttributes="Bold"
                 Clicked="OnAccountCreating"
                 FontFamily="OpenSans"

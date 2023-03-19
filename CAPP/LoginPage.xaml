@@ -7,27 +7,59 @@
 
     <VisualStateManager.VisualStateGroups>
         <VisualStateGroup x:Name="Responsive">
-            <VisualState x:Name="density480">
+            <VisualState x:Name="xxhdpi">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="360" MinWindowHeight="720"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter TargetName="welcomeLabel" Property="Label.FontSize" Value="32"/>
+                    <Setter TargetName="cappLabel" Property="Label.FontSize" Value="32"/>
+                    <Setter TargetName="textHeaderLabel" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="textLabel" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="img" Property="Image.WidthRequest" Value="320"/>
+                    <Setter TargetName="img" Property="Image.Margin" Value="0,38,0,38"/>
+                    <Setter TargetName="ButtonTest" Property="Button.FontSize" Value="24"/>
+                    <Setter TargetName="LoginLabel" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="LoginLabelTwo" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="ButtonTest" Property="Button.WidthRequest" Value="320"/>
+                    <Setter TargetName="ButtonTest" Property="Button.HeightRequest" Value="60"/>
+                    <Setter TargetName="ButtonTest" Property="Button.Margin" Value="0,27,0,23"/>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="xhdpi">
                 <VisualState.StateTriggers>
                     <AdaptiveTrigger MinWindowWidth="360"/>
                 </VisualState.StateTriggers>
                 <VisualState.Setters>
-                    <Setter TargetName="ButtonTest" Property="Button.WidthRequest" Value="339"/>
+                    <Setter TargetName="welcomeLabel" Property="Label.FontSize" Value="32"/>
+                    <Setter TargetName="cappLabel" Property="Label.FontSize" Value="32"/>
+                    <Setter TargetName="textHeaderLabel" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="textLabel" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="img" Property="Image.WidthRequest" Value="275"/>
+                    <Setter TargetName="ButtonTest" Property="Button.FontSize" Value="24"/>
+                    <Setter TargetName="LoginLabel" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="LoginLabelTwo" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="ButtonTest" Property="Button.WidthRequest" Value="320"/>
+                    <Setter TargetName="ButtonTest" Property="Button.HeightRequest" Value="60"/>
+                    <Setter TargetName="ButtonTest" Property="Button.Margin" Value="0,23,0,10"/>
                 </VisualState.Setters>
             </VisualState>
-            <VisualState x:Name="density560">
+            <VisualState x:Name="mdpi">
                 <VisualState.StateTriggers>
                     <AdaptiveTrigger MinWindowWidth="300"/>
                 </VisualState.StateTriggers>
                 <VisualState.Setters>
-                    <Setter TargetName="welcomeLabel" Property="Label.FontSize" Value="30"/>
-                    <Setter TargetName="cappLabel" Property="Label.FontSize" Value="30"/>
-                    <Setter TargetName="textHeaderLabel" Property="Label.FontSize" Value="18"/>
+                    <Setter TargetName="welcomeLabel" Property="Label.FontSize" Value="24"/>
+                    <Setter TargetName="cappLabel" Property="Label.FontSize" Value="24"/>
+                    <Setter TargetName="textHeaderLabel" Property="Label.FontSize" Value="16"/>
                     <Setter TargetName="textLabel" Property="Label.FontSize" Value="12"/>
-                    <Setter TargetName="ButtonTest" Property="Button.FontSize" Value="18"/>
-                    <Setter TargetName="LoginLabel" Property="Label.FontSize" Value="18"/>
-                    <Setter TargetName="LoginLabelTwo" Property="Label.FontSize" Value="18"/>
-                    <Setter TargetName="ButtonTest" Property="Button.WidthRequest" Value="256"/>
+                    <Setter TargetName="img" Property="Image.WidthRequest" Value="250"/>
+                    <Setter TargetName="ButtonTest" Property="Button.FontSize" Value="19"/>
+                    <Setter TargetName="LoginLabel" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="LoginLabelTwo" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="ButtonTest" Property="Button.WidthRequest" Value="296"/>
+                    <Setter TargetName="ButtonTest" Property="Button.HeightRequest" Value="57"/>
+                    <Setter TargetName="ButtonTest" Property="Button.Margin" Value="0,8,0,10"/>
                 </VisualState.Setters>
             </VisualState>
             <VisualState x:Name="default">
@@ -58,7 +90,8 @@
                FontFamily="OpenSans"
                HorizontalOptions="Center"/>
         
-        <Image Source="login_page_image"/>
+        <Image x:Name="img" 
+               Source="login_page_image"/>
         
         <Label Text="Отслеживайте своё здоровье"
                FontSize="24"

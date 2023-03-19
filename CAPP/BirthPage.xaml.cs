@@ -10,7 +10,12 @@ public partial class BirthPage : ContentPage
 		InitializeComponent();
 	}
 
-    private void CheckValid()
+    private void GoNextButton_Clicked(object sender, EventArgs e)
+    {
+        //Console.WriteLine($"{Calendar.CurrentDay}.{Calendar.CurrentMonth}.{Calendar.CurrentYear}");
+    }
+
+    /*private void CheckValid()
     {
         if (Days.Text.Length == 2 && Months.Text.Length == 2 && Years.Text.Length == 4)
         {
@@ -77,7 +82,7 @@ public partial class BirthPage : ContentPage
             if (!String.IsNullOrEmpty(Days.Text) && !String.IsNullOrEmpty(Months.Text))
                 CheckValid();
         }
-    }
+    }*/
 
 }
 

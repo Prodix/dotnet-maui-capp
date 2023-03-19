@@ -2,9 +2,9 @@
 
 public partial class GoalPage : ContentPage
 {
-    double heightValue = 0;
+    int heightValue = 0;
 
-	public GoalPage(double height)
+	public GoalPage(int height)
 	{
 		InitializeComponent();
         heightValue = height;

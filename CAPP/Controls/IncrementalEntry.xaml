@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CAPP.Controls.IncrementalEntry"
+             Loaded="PageLoaded">
+    <ContentView.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="BorderColor" Value="Transparent"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="CornerRadius" Value="25"/>
+        </Style>
+    </ContentView.Resources>
+    <Grid WidthRequest="{Binding Width}"
+          ColumnSpacing="{Binding ColumnSpacing}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Button Style="{StaticResource ButtonStyle}"
+                Clicked="MinusTapped"/>
+        <Image Source="minus"
+               WidthRequest="25"/>
+        <Frame Grid.Column="1" 
+               BorderColor="Transparent"
+               CornerRadius="25"
+               WidthRequest="{Binding EntryWidth}"
+               Padding="0"
+               x:Name="ClickableFrame">
+            <Label VerticalOptions="Center"
+                   x:Name="label"
+                   HorizontalOptions="Center"
+                   FontFamily="OpenSans"
+                   FontSize="20">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}{0} {1}">
+                        <Binding Path="Value"/>
+                        <Binding Path="Measure"/>
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+        </Frame>
+        <Button Grid.Column="2"
+                Style="{StaticResource ButtonStyle}"
+                Clicked="PlusTapped"/>
+        <Image Grid.Column="2"
+               Source="plus"
+               WidthRequest="25"/>
+    </Grid>
+
+</ContentView>

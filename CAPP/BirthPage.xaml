@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
+             xmlns:controls="clr-namespace:CAPP.Controls"
              x:Class="CAPP.BirthPage">
 
 
@@ -33,8 +34,14 @@
                TextColor="White"
                HorizontalTextAlignment="Center"/>
         <Image Source="birthday_cake"
-               Margin="0,30,0,35"/>
-        <FlexLayout WidthRequest="349"
+               Margin="0,30,0,35"
+               HeightRequest="280"/>
+        <controls:SpinnerCalendar Width="180" 
+                                  AgeLimit="18" 
+                                  CalendarBackground="Transparent" 
+                                  Margin="0,0,0,20"
+                                  x:Name="Calendar"/>
+        <!--<FlexLayout WidthRequest="349"
                     HeightRequest="66"
                     JustifyContent="SpaceBetween"
                     Margin="0,0,0,25">
@@ -99,15 +106,15 @@
                         Opacity="0.15"/>
                 </Border.Shadow>
             </Border>
-        </FlexLayout>
+        </FlexLayout>-->
         <Button Text="Далее"
                 WidthRequest="349"
                 HeightRequest="66"
                 CornerRadius="50"
-                IsEnabled="False"
                 x:Name="GoNextButton"
-                BackgroundColor="#747474"
-                TextColor="White"
+                BackgroundColor="White"
+                Clicked="GoNextButton_Clicked"
+                TextColor="#F83D7F"
                 FontAttributes="Bold"
                 FontFamily="OpenSans"
                 FontSize="24"/>

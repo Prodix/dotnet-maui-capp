@@ -9,11 +9,11 @@ public partial class WeightPage : ContentPage
     bool IsFirstEntryValid = false;
     bool IsSecondEntryValid = false;
     bool IsTwo = false;
-    double heightValue = 0;
+    int heightValue = 0;
     int mode = 0;
     Border border;
 
-	public WeightPage(bool IsTwo, int mode, double heightValue)
+	public WeightPage(bool IsTwo, int mode, int heightValue)
 	{
         this.mode = mode;
         this.IsTwo = IsTwo;

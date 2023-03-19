@@ -1,58 +1,43 @@
-﻿namespace CAPP;
+﻿using CAPP.Controls;
+using CommunityToolkit.Maui.Views;
+
+namespace CAPP;
 
 public partial class HeightPage : ContentPage
 {
 
-    double heightValue = 0;
-
     public HeightPage()
     {
 		InitializeComponent();
-	}
+        var gestureRecognizer = new TapGestureRecognizer();
+        gestureRecognizer.Tapped += (s, e) => DisplayPopup(s, e);
+        ((Frame)HeightEntry.FindByName("ClickableFrame")).GestureRecognizers.Add(gestureRecognizer);
+    }
 
-    private void heightChanged(object sender, EventArgs e)
+    private async Task DisplayPopup(object sender, TappedEventArgs e)
     {
-        if (!String.IsNullOrEmpty(height.Text) && height.Text != ".")
+        var popup = new WeightPopup();
+        object? result = await this.ShowPopupAsync(popup);
+        if (result != null && Convert.ToInt32(result) <= HeightEntry.MaximalValue)
         {
-            if (Convert.ToDouble(height.Text.Replace(".", ",")) < 30)
+            if (Convert.ToInt32(result) >= HeightEntry.MinimalValue)
             {
-                border.StrokeThickness = 1;
-                GoNextButton.Background = new SolidColorBrush(Color.FromRgb(116, 116, 116));
-                GoNextButton.IsEnabled = false;
-                GoNextButton.TextColor = SolidColorBrush.White.Color;
-                FirstLabel.Text = "Слишком маленький рост";
-            }
-            else if (Convert.ToDouble(height.Text.Replace(".", ",")) > 270){
-                border.StrokeThickness = 1;
-                GoNextButton.Background = new SolidColorBrush(Color.FromRgb(116, 116, 116));
-                GoNextButton.IsEnabled = false;
-                GoNextButton.TextColor = SolidColorBrush.White.Color;
-                FirstLabel.Text = "Слишком большой рост";
+                HeightEntry.Value = Convert.ToInt32(result);
             }
             else
             {
-                GoNextButton.IsEnabled = true;
-                border.StrokeThickness = 0;
-                GoNextButton.TextColor = new SolidColorBrush(Color.FromRgb(248, 61, 127)).Color;
-                GoNextButton.Background = SolidColorBrush.White;
-                FirstLabel.Text = "";
-                heightValue = Convert.ToDouble(height.Text.Replace(".", ","));
+                HeightEntry.Value = HeightEntry.MinimalValue;
             }
         }
-        else
+        else if (result != null)
         {
-            if (height.Text == ".")
-            {
-                height.Text = "";
-                border.StrokeThickness = 1;
-            }
-            FirstLabel.Text = "Поле не может быть пустым";
+            HeightEntry.Value = HeightEntry.MaximalValue;
         }
     }
 
     private async void OnAccountCreating(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new GoalPage(heightValue), false);
+        await Navigation.PushAsync(new GoalPage(HeightEntry.Value), false);
     }
 
     

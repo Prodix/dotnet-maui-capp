@@ -30,7 +30,6 @@
 	  <EnableLLVM>False</EnableLLVM>
 	  <RunAOTCompilation>False</RunAOTCompilation>
 	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
@@ -39,7 +38,6 @@
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <PublishTrimmed>True</PublishTrimmed>
 	  <RunAOTCompilation>True</RunAOTCompilation>
-	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -68,6 +66,9 @@
 	  <Compile Update="BirthPage.xaml.cs">
 	    <DependentUpon>BirthPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Controls\SpinnerCalendar.xaml.cs">
+	    <DependentUpon>SpinnerCalendar.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="HeightPage.xaml.cs">
 	    <DependentUpon>HeightPage.xaml</DependentUpon>
 	  </Compile>
@@ -90,6 +91,15 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="BirthPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\IncrementalEntry.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\SpinnerCalendar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\WeightPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="HeightPage.xaml">
