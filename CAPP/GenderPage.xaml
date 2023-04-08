@@ -11,7 +11,7 @@
             <LinearGradientBrush EndPoint="0,1">
                 <GradientStop Color="#F54B87"
                               Offset="0.3"/>
-                <GradientStop Color="#F83D7F"
+                <GradientStop Color="#F81464"
                               Offset="1.0"/>
             </LinearGradientBrush>
         </VerticalStackLayout.Background>
@@ -22,14 +22,14 @@
                HorizontalOptions="Center"
                Margin="0,60,0,0"/>
         <Label Text="Выберите ваш пол"
-               FontSize="36"
+               FontSize="28"
                FontFamily="OpenSans"
                TextColor="White"
                FontAttributes="Bold"
                HorizontalOptions="Center"
                Margin="0,25,0,0"/>
         <Label Text="Пол очень важен при расчёте калорий, например женщинам требуется меньше калорий"
-               FontSize="20"
+               FontSize="18"
                FontFamily="OpenSans"
                TextColor="White"
                HorizontalTextAlignment="Center"/>

@@ -2,15 +2,31 @@
 
 public partial class GenderPage : ContentPage
 {
-
-	public GenderPage()
+    int mode;
+    int heightValue;
+    double weightValue;
+    string username;
+    string email;
+    string password;
+    double wishWeightValue;
+	public GenderPage(int mode, int heightValue, double weightValue, string username, string email, string password, double wishWeightValue = 0.0)
 	{
 		InitializeComponent();
+        this.mode = mode;
+        this.heightValue = heightValue;
+        this.weightValue = weightValue;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.wishWeightValue = wishWeightValue;
 	}
 
     private async void OnAccountCreating(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new BirthPage(), false);
+        if (CheckOne.IsChecked)
+            await Navigation.PushAsync(new BirthPage(mode, heightValue, weightValue, username, email, password, "m", wishWeightValue));
+        else 
+            await Navigation.PushAsync(new BirthPage(mode, heightValue, weightValue, username, email, password, "f", wishWeightValue));
     }
 
     private void ButtonOn()

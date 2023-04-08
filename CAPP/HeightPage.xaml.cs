@@ -5,10 +5,16 @@ namespace CAPP;
 
 public partial class HeightPage : ContentPage
 {
+    string username;
+    string email;
+    string password;
 
-    public HeightPage()
+    public HeightPage(string username, string email, string password)
     {
 		InitializeComponent();
+        this.username = username;
+        this.email = email;
+        this.password = password;
         var gestureRecognizer = new TapGestureRecognizer();
         gestureRecognizer.Tapped += (s, e) => DisplayPopup(s, e);
         ((Frame)HeightEntry.FindByName("ClickableFrame")).GestureRecognizers.Add(gestureRecognizer);
@@ -17,6 +23,7 @@ public partial class HeightPage : ContentPage
     private async Task DisplayPopup(object sender, TappedEventArgs e)
     {
         var popup = new WeightPopup();
+        popup.EntryPlaceholder = "Введите рост";
         object? result = await this.ShowPopupAsync(popup);
         if (result != null && Convert.ToInt32(result) <= HeightEntry.MaximalValue)
         {
@@ -37,7 +44,7 @@ public partial class HeightPage : ContentPage
 
     private async void OnAccountCreating(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new GoalPage(HeightEntry.Value), false);
+        await Navigation.PushAsync(new GoalPage(HeightEntry.Value, username, email, password));
     }
 
     

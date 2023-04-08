@@ -2,9 +2,11 @@ using CommunityToolkit.Maui.Views;
 
 namespace CAPP.Controls;
 
-public partial class WeightPopup : Popup
+public partial class WeightAwarePopup : Popup
 {
     public readonly BindableProperty EntryPlaceholderProperty = BindableProperty.Create(nameof(EntryPlaceholder), typeof(string), typeof(WeightPopup), "¬ведите вес");
+    
+    bool IsOk { get; set; } = false;
 
     public string EntryPlaceholder
     {
@@ -12,7 +14,8 @@ public partial class WeightPopup : Popup
         set => SetValue(EntryPlaceholderProperty, value);
     }
 
-    public WeightPopup()
+
+    public WeightAwarePopup()
     {
         InitializeComponent();
         BindingContext = this;
@@ -20,6 +23,18 @@ public partial class WeightPopup : Popup
 
     private void ClosePopup(object sender, EventArgs e)
     {
-        Close(PopupWeight.Text);
+        Close(IsOk);
+    }
+
+    private void ButtonNoClicked(object sender, EventArgs e)
+    {
+        IsOk = false;
+        ClosePopup(sender, e);
+    }
+
+    private void ButtonOkClicked(object sender, EventArgs e)
+    {
+        IsOk = true;
+        ClosePopup(sender, e);
     }
 }

@@ -8,7 +8,7 @@ public partial class IncrementalEntry : ContentView
     public readonly BindableProperty MaximalValueProperty = BindableProperty.Create(nameof(MaximalValue), typeof(int), typeof(IncrementalEntry), 600);
     public readonly BindableProperty MeasureProperty = BindableProperty.Create(nameof(Measure), typeof(string), typeof(IncrementalEntry), "");
     public readonly BindableProperty ColumnSpacingProperty = BindableProperty.Create(nameof(ColumnSpacing), typeof(int), typeof(IncrementalEntry), 25);
-    public new readonly BindableProperty WidthProperty = BindableProperty.Create(nameof(Width), typeof(int), typeof(IncrementalEntry), 300);
+    public readonly BindableProperty GridWidthProperty = BindableProperty.Create(nameof(GridWidth), typeof(int), typeof(IncrementalEntry), 350);
     public readonly BindableProperty EntryWidthProperty = BindableProperty.Create(nameof(EntryWidth), typeof(int), typeof(IncrementalEntry), 220);
 
     public int MinimalValue
@@ -35,10 +35,10 @@ public partial class IncrementalEntry : ContentView
         set { SetValue(ColumnSpacingProperty, value); }
     }
 
-    public new int Width
+    public int GridWidth
     {
-        get { return (int)GetValue(WidthProperty); }
-        set { SetValue(WidthProperty, value); }
+        get { return (int)GetValue(GridWidthProperty); }
+        set { SetValue(GridWidthProperty, value); }
     }
 
     public int EntryWidth

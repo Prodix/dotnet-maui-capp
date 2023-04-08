@@ -18,6 +18,7 @@
             <Entry Placeholder="Имя пользователя"
                    x:Name="UsernameEntry"
                    TextChanged="UsernameChanged"
+                   MaxLength="16"
                    Style="{StaticResource entryStyle}"/>
             <Border.Shadow>
                 <Shadow Brush="Black"
@@ -29,8 +30,10 @@
                Style="{StaticResource labelWarning}"/>
         <Border Style="{StaticResource borderStyle}">
             <Entry Placeholder="Электронная почта"
+                   MaxLength="256"
                    Keyboard="Email"
                    TextChanged="EmailChanged"
+                   x:Name="EmailEntry"
                    Style="{StaticResource entryStyle}"/>
             <Border.Shadow>
                 <Shadow Brush="Black"
@@ -40,9 +43,11 @@
         </Border>
         <Label x:Name="LabelOne"
                Style="{StaticResource labelWarning}"/>
-        <Border Style="{StaticResource borderStyle}">
+        <Border Style="{StaticResource borderStyle}"
+                x:Name="PasswordOneBorder">
             <Entry Placeholder="Пароль"
                    x:Name="PasswordEntryOne"
+                   MaxLength="30"
                    IsPassword="True"
                    TextChanged="PasswordChangedOne"
                    Style="{StaticResource entryStyle}"/>
@@ -55,10 +60,12 @@
         <Label x:Name="LabelTwo"
                Style="{StaticResource labelWarning}"/>
         <Border Style="{StaticResource borderStyle}"
-                Margin="0">
+                Margin="0"
+                x:Name="PasswordTwoBorder">
             <Entry Placeholder="Подтвердите пароль"
                    x:Name="PasswordEntryTwo"
                    TextChanged="PasswordChangedTwo"
+                   MaxLength="30"
                    IsPassword="True"
                    Style="{StaticResource entryStyle}"/>
             <Border.Shadow>
@@ -99,16 +106,30 @@
                 x:Name="GoNextButton"
                 FontAttributes="Bold"
                 FontFamily="OpenSans"
+                Clicked="OnAccountCreating"
                 FontSize="24"
                 WidthRequest="349"
                 HeightRequest="66"
                 CornerRadius="50"
-                BackgroundColor="#747474">
+                IsEnabled="False"
+                TextColor="White">
             <Button.Shadow>
                 <Shadow Brush="Black"
                         Offset="0,4"
                         Opacity="0.15"/>
             </Button.Shadow>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled" Value="False" TargetType="Button">
+                            <Setter Property="Background" Value="#747474"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="True" TargetType="Button">
+                            <Setter Property="Background" Value="#F83D7F"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
         </Button>
     </VerticalStackLayout>
 

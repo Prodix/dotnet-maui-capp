@@ -2,15 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
-             x:Class="CAPP.WeightPage">
+             x:Class="CAPP.WeightPage"
+             xmlns:controls="clr-namespace:CAPP.Controls">
 
 
-    <VerticalStackLayout x:Name="vertLayout">
+    <VerticalStackLayout>
         <VerticalStackLayout.Background>
             <LinearGradientBrush EndPoint="0,1">
                 <GradientStop Color="#F54B87"
                               Offset="0.3"/>
-                <GradientStop Color="#F83D7F"
+                <GradientStop Color="#F81464"
                               Offset="1.0"/>
             </LinearGradientBrush>
         </VerticalStackLayout.Background>
@@ -22,55 +23,34 @@
                HorizontalOptions="Center"
                Margin="0,60,0,0"/>
         <Label Text="Выберите ваш вес"
-               FontSize="36"
+               FontSize="28"
                FontFamily="OpenSans"
                TextColor="White"
                FontAttributes="Bold"
                HorizontalOptions="Center"
                Margin="0,25,0,0"/>
         <Label Text="Ваш текущий вес влияет на ежедневный обмен калорий"
-               FontSize="20"
+               FontSize="18"
                FontFamily="OpenSans"
                TextColor="White"
                HorizontalTextAlignment="Center"/>
         <Image Source="scales"
                Margin="0,40,0,30"/>
-        <Label x:Name="FirstLabel"
-               Style="{StaticResource labelWarning}"
-               TextColor="#9CF93D"/>
-        <Border StrokeShape="RoundRectangle 50,50,50,50"
-                WidthRequest="349"
-                HeightRequest="66"
-                StrokeThickness="0"
-                Stroke="#9CF93D"
-                Margin="0,0,0,10"
-                x:Name="DefaultBorder">
-            <Entry Placeholder="Введите ваш текущий вес"
-                   WidthRequest="320"
-                   HeightRequest="66"
-                   Keyboard="Numeric"
-                   FontFamily="OpenSans"
-                   TextChanged="entryChangedOne"
-                   FontSize="20"
-                   x:Name="FirstEntry"/>
-            <Border.Shadow>
-                <Shadow Brush="Black"
-                        Offset="0,4"
-                        Opacity="0.15"/>
-            </Border.Shadow>
-        </Border>
-        <Label x:Name="SecondLabel"
-               Style="{StaticResource labelWarning}"
-               TextColor="#9CF93D"/>
+        <controls:IncrementalWeightEntry MinimalValue="10"
+                                         MaximalValue="600"
+                                         ColumnSpacing="14"
+                                         GridWidth="350"
+                                         x:Name="WeightEntry"
+                                         Measure="кг"
+                                         Margin="0,0,0,20"/>
 
         <Button Text="Далее"
                 WidthRequest="349"
                 HeightRequest="66"
                 CornerRadius="50"
-                BackgroundColor="#747474"
-                TextColor="White"
+                BackgroundColor="White"
+                TextColor="#F83D7F"
                 x:Name="GoNextButton"
-                IsEnabled="False"
                 FontAttributes="Bold"
                 FontFamily="OpenSans"
                 FontSize="24"

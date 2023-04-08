@@ -30,6 +30,7 @@
 	  <EnableLLVM>False</EnableLLVM>
 	  <RunAOTCompilation>False</RunAOTCompilation>
 	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
@@ -38,6 +39,7 @@
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <PublishTrimmed>True</PublishTrimmed>
 	  <RunAOTCompilation>True</RunAOTCompilation>
+	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -60,6 +62,8 @@
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
 	  <PackageReference Include="InputKit.Maui" Version="4.2.7" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	  <PackageReference Include="RestSharp" Version="109.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -69,11 +73,17 @@
 	  <Compile Update="Controls\SpinnerCalendar.xaml.cs">
 	    <DependentUpon>SpinnerCalendar.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Controls\WeightAwarePopup.xaml.cs">
+	    <DependentUpon>WeightAwarePopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="HeightPage.xaml.cs">
 	    <DependentUpon>HeightPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="GenderPage.xaml.cs">
 	    <DependentUpon>GenderPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="WeightPageTwo.xaml.cs">
+	    <DependentUpon>WeightPageTwo.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="WeightPage.xaml.cs">
 	    <DependentUpon>WeightPage.xaml</DependentUpon>
@@ -96,7 +106,13 @@
 	  <MauiXaml Update="Controls\IncrementalEntry.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Controls\IncrementalWeightEntry.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\SpinnerCalendar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\WeightAwarePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\WeightPopup.xaml">
@@ -106,6 +122,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="GenderPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="WeightPageTwo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="WeightPage.xaml">

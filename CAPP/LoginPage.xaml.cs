@@ -8,7 +8,7 @@ public partial class LoginPage : ContentPage
     }
 	private async void OnRegisterButtonClicked(object sender, EventArgs e)
 	{
-        await Navigation.PushAsync(new HeightPage(), false);
+        await Navigation.PushAsync(new RegisterPage());
     }
 
 }

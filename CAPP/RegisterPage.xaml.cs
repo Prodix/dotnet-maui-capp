@@ -1,4 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿using CommunityToolkit.Maui.Alerts;
+using Newtonsoft.Json;
+using System.Net.Http.Json;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CAPP;
 
@@ -11,6 +15,10 @@ public partial class RegisterPage : ContentPage
     private bool IsUsernameValid = false;
     private bool IsEmailValid = false;
 
+    AccountData account = new AccountData() { isCheckOnly = true };
+    HttpClient httpClient = new HttpClient();
+
+
     public RegisterPage()
 	{
         InitializeComponent();
@@ -18,7 +26,24 @@ public partial class RegisterPage : ContentPage
 
     private async void OnAccountCreating(object sender, EventArgs e)
 	{
-		await Navigation.PushAsync(new HeightPage(), false);
+        if (checkInternet())
+        {
+            account.username = UsernameEntry.Text;
+            account.email = EmailEntry.Text;
+            account.password = PasswordEntryOne.Text;
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            var request = await httpClient.PostAsJsonAsync("https://2ahcf.localtonet.com/capp/api/register/", account);
+            var respone = JsonConvert.DeserializeObject<ResponseJsonMessage>(await request.Content.ReadAsStringAsync());
+
+            if (!request.IsSuccessStatusCode)
+            {
+                await Toast.Make(respone.message, CommunityToolkit.Maui.Core.ToastDuration.Short).Show(cancellationTokenSource.Token);
+            }
+            else
+            {
+		        await Navigation.PushAsync(new HeightPage(account.username, account.email, account.password));
+            }
+        }
 	}
 
     private void UsernameChanged(object sender, EventArgs e)
@@ -38,10 +63,29 @@ public partial class RegisterPage : ContentPage
         CheckChanged(InputCheckBox, new EventArgs());
     }
 
+    bool IsValidEmail(string email)
+    {
+        var trimmedEmail = email.Trim();
+
+        if (trimmedEmail.EndsWith("."))
+        {
+            return false;
+        }
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == trimmedEmail;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
     private void EmailChanged(object sender, EventArgs e)
     {
         Entry emailElement = (Entry)sender;
-        if (Regex.IsMatch(emailElement.Text, @"[a-z]{1,}@[a-z]{1,}\.[a-z]{1,}"))
+        if (IsValidEmail(emailElement.Text))
         {
             EmailLabel.Text = "";
             ((Border)emailElement.Parent).StrokeThickness = 0;
@@ -60,85 +104,59 @@ public partial class RegisterPage : ContentPage
     {
         if (((InputKit.Shared.Controls.CheckBox)sender).IsChecked && IsPasswordsValid && IsEmailValid && IsUsernameValid)
         {
-            //
-            // TODO: Изменить метод перехода на IsEnabled
-            //
-            GoNextButton.Background = new SolidColorBrush(Color.FromRgb(248, 61, 127));
-            GoNextButton.Clicked += OnAccountCreating;
+            GoNextButton.IsEnabled = true;
         }
         else
         {
-            GoNextButton.Background = new SolidColorBrush(Color.FromRgb(116, 116, 116));
-            try
-            {
-                GoNextButton.Clicked -= OnAccountCreating;
-            }
-            catch { }
+            GoNextButton.IsEnabled = false;
         }
     }
 
-	private void PasswordChangedOne(object sender, EventArgs e)
-	{
-		Border parentElement = (Border)((Entry)sender).Parent;
-		Entry senderElement = (Entry)sender;
+    private void PasswordChangedOne(object sender, EventArgs e)
+    {
+        Border parentElement = (Border)((Entry)sender).Parent;
+        Entry senderElement = (Entry)sender;
         IsPasswordsValid = false;
 
         if (senderElement.Text.Length < 8)
-		{
-            if (IsNotEqualWarningShown)
-            {
-                LabelOne.Text = "";
-                LabelTwo.Text = "";
-                ((Border)PasswordEntryTwo.Parent).StrokeThickness = 0;
-                IsNotEqualWarningShown = false;
-            }
-            if (!IsWarningShownOne)
-			{
-                LabelOne.Text = "Пароль менее 8 символов";
-                IsWarningShownOne = true;
-			    parentElement.StrokeThickness = 1;
-			}
-		}
+        {
+            parentElement.StrokeThickness = 1;
+            LabelOne.Text = "Пароль слишком короткий";
+        }
         else
         {
-            if (IsWarningShownOne)
+            if (!Regex.Match(senderElement.Text, @"[0-9]").Success)
             {
-                parentElement.StrokeThickness = 0;
-                LabelOne.Text = "";
-                IsWarningShownOne = false;
-                if (!String.IsNullOrEmpty(PasswordEntryTwo.Text) && PasswordEntryTwo.Text.Length >= 8 && !IsNotEqualWarningShown && PasswordEntryOne.Text != PasswordEntryTwo.Text)
-                {
-                    LabelOne.Text = "Пароли не совпадают";
-                    LabelTwo.Text = "Пароли не совпадают";
-                    parentElement.StrokeThickness = 1;
-                    ((Border)PasswordEntryTwo.Parent).StrokeThickness = 1;
-                    IsNotEqualWarningShown = true;
-                }
-                else if (PasswordEntryOne.Text == PasswordEntryTwo.Text)
-                {
-                    IsPasswordsValid = true;
-                }
+                parentElement.StrokeThickness = 1;
+                LabelOne.Text = "Пароль не содержит цифры";
+            }
+            else if (!Regex.Match(senderElement.Text, @"[%$&^#@*!.,/;:]").Success)
+            {
+                parentElement.StrokeThickness = 1;
+                LabelOne.Text = "Пароль не содержит символы: %$&^#@*!.,/;:";
+            }
+            else if (!Regex.Match(senderElement.Text, @"[A-Z]").Success)
+            {
+                parentElement.StrokeThickness = 1;
+                LabelOne.Text = "Пароль не содержит заглавных букв";
+            }
+            else if (Regex.Match(senderElement.Text, @"[а-яА-Я]").Success)
+            {
+                parentElement.StrokeThickness = 1;
+                LabelOne.Text = "Пароль содержит кириллицу";
+            }
+            else if (senderElement.Text != PasswordEntryTwo.Text)
+            {
+                parentElement.StrokeThickness = 1;
+                LabelOne.Text = "Пароли не совпадают";
             }
             else
             {
-                if (!String.IsNullOrEmpty(PasswordEntryTwo.Text) && PasswordEntryTwo.Text.Length >= 8 && !IsNotEqualWarningShown && PasswordEntryOne.Text != PasswordEntryTwo.Text)
-                {
-                    LabelOne.Text = "Пароли не совпадают";
-                    LabelTwo.Text = "Пароли не совпадают";
-                    parentElement.StrokeThickness = 1;
-                    ((Border)PasswordEntryTwo.Parent).StrokeThickness = 1;
-                    IsNotEqualWarningShown = true;
-                }
-                else if (PasswordEntryOne.Text == PasswordEntryTwo.Text)
-                {
-                    LabelOne.Text = "";
-                    LabelTwo.Text = "";
-                    ((Border)PasswordEntryTwo.Parent).StrokeThickness = 0;
-                    parentElement.StrokeThickness = 0;
-                    IsNotEqualWarningShown = false;
-                    IsPasswordsValid = true;
-                    CheckChanged(InputCheckBox, new EventArgs());
-                }
+                parentElement.StrokeThickness = 0;
+                PasswordTwoBorder.StrokeThickness = 0;
+                LabelOne.Text = "";
+                LabelTwo.Text = "";
+                IsPasswordsValid = true;
             }
         }
         CheckChanged(InputCheckBox, new EventArgs());
@@ -152,65 +170,61 @@ public partial class RegisterPage : ContentPage
 
         if (senderElement.Text.Length < 8)
         {
-            if (IsNotEqualWarningShown)
-            {
-                LabelOne.Text = "";
-                LabelTwo.Text = "";
-                ((Border)PasswordEntryOne.Parent).StrokeThickness = 0;
-                parentElement.StrokeThickness = 0;
-                IsNotEqualWarningShown = false;
-            }
-            if (!IsWarningShownTwo)
-            {
-                LabelTwo.Text = "Пароль менее 8 символов";
-                IsWarningShownTwo = true;
-                parentElement.StrokeThickness = 1;
-            }
+            parentElement.StrokeThickness = 1;
+            LabelTwo.Text = "Пароль слишком короткий";
         }
         else
         {
-            if (IsWarningShownTwo)
+            if (!Regex.Match(senderElement.Text, @"[0-9]").Success)
             {
-                parentElement.StrokeThickness = 0;
-                LabelTwo.Text = "";
-                IsWarningShownTwo = false;
-                if (!String.IsNullOrEmpty(PasswordEntryOne.Text) && PasswordEntryOne.Text.Length >= 8 && !IsNotEqualWarningShown && PasswordEntryOne.Text != PasswordEntryTwo.Text)
-                {
-                    LabelOne.Text = "Пароли не совпадают";
-                    LabelTwo.Text = "Пароли не совпадают";
-                    parentElement.StrokeThickness = 1;
-                    ((Border)PasswordEntryOne.Parent).StrokeThickness = 1;
-                    IsNotEqualWarningShown = true;
-                }
-                else if (PasswordEntryOne.Text == PasswordEntryTwo.Text)
-                {
-                    IsPasswordsValid = true;
-                    CheckChanged(InputCheckBox, new EventArgs());
-                }
+                parentElement.StrokeThickness = 1;
+                LabelTwo.Text = "Пароль не содержит цифры";
+            }
+            else if (!Regex.Match(senderElement.Text, @"[%$&^#@*!.,/;:]").Success)
+            {
+                parentElement.StrokeThickness = 1;
+                LabelTwo.Text = "Пароль не содержит символы: %$&^#@*!.,/;:";
+            }
+            else if (!Regex.Match(senderElement.Text, @"[A-Z]").Success)
+            {
+                parentElement.StrokeThickness = 1;
+                LabelTwo.Text = "Пароль не содержит заглавных букв";
+            }
+            else if (Regex.Match(senderElement.Text, @"[а-яА-Я]").Success)
+            {
+                parentElement.StrokeThickness = 1;
+                LabelTwo.Text = "Пароль содержит кириллицу";
+            }
+            else if (senderElement.Text != PasswordEntryOne.Text)
+            {
+                parentElement.StrokeThickness = 1;
+                LabelTwo.Text = "Пароли не совпадают";
             }
             else
             {
-                if (!String.IsNullOrEmpty(PasswordEntryOne.Text) && PasswordEntryOne.Text.Length >= 8 && !IsNotEqualWarningShown && PasswordEntryOne.Text != PasswordEntryTwo.Text)
-                {
-                    LabelOne.Text = "Пароли не совпадают";
-                    LabelTwo.Text = "Пароли не совпадают";
-                    parentElement.StrokeThickness = 1;
-                    ((Border)PasswordEntryOne.Parent).StrokeThickness = 1;
-                    IsNotEqualWarningShown = true;
-                }
-                else if (PasswordEntryOne.Text == PasswordEntryTwo.Text)
-                {
-                    LabelOne.Text = "";
-                    LabelTwo.Text = "";
-                    ((Border)PasswordEntryOne.Parent).StrokeThickness = 0;
-                    parentElement.StrokeThickness = 0;
-                    IsNotEqualWarningShown = false;
-                    IsPasswordsValid = true;
-                    CheckChanged(InputCheckBox, new EventArgs());
-                }
+                parentElement.StrokeThickness = 0;
+                PasswordOneBorder.StrokeThickness = 0;
+                LabelOne.Text = "";
+                LabelTwo.Text = "";
+                IsPasswordsValid = true;
             }
         }
         CheckChanged(InputCheckBox, new EventArgs());
+    }
+
+    private bool checkInternet()
+    {
+        NetworkAccess accessType = Connectivity.Current.NetworkAccess;
+
+        if (accessType == NetworkAccess.Internet)
+        {
+            return true;
+        }
+        else
+        {
+            Toast.Make("Пожалуйста включите интернет", CommunityToolkit.Maui.Core.ToastDuration.Short).Show(); 
+            return false;
+        }
     }
 }
 

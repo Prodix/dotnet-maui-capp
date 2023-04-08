@@ -1,88 +1,85 @@
-﻿using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Alerts;
+using Newtonsoft.Json;
+using System.Net.Http.Json;
 
 namespace CAPP;
 
 public partial class BirthPage : ContentPage
 {
+    int mode;
+    int heightValue;
+    double weightValue;
+    string username;
+    string email;
+    string password;
+    double wishWeightValue;
+    string gender;
 
-	public BirthPage()
+	public BirthPage(int mode, int heightValue, double weightValue, string username, string email, string password, string gender, double wishWeightValue = 0.0)
 	{
 		InitializeComponent();
+        this.mode = mode;
+        this.heightValue = heightValue;
+        this.weightValue = weightValue;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.wishWeightValue = wishWeightValue;
+        this.gender = gender;
 	}
 
-    private void GoNextButton_Clicked(object sender, EventArgs e)
+    private bool checkInternet()
     {
-        //Console.WriteLine($"{Calendar.CurrentDay}.{Calendar.CurrentMonth}.{Calendar.CurrentYear}");
-    }
+        NetworkAccess accessType = Connectivity.Current.NetworkAccess;
 
-    /*private void CheckValid()
-    {
-        if (Days.Text.Length == 2 && Months.Text.Length == 2 && Years.Text.Length == 4)
+        if (accessType == NetworkAccess.Internet)
         {
-            if (Convert.ToInt32(Days.Text) > 0 && Convert.ToInt32(Months.Text) > 0 && Convert.ToInt32(Years.Text) > DateTime.Now.Year-100 && Convert.ToInt32(Months.Text) <= 12 && Convert.ToInt32(Days.Text) <= DateTime.DaysInMonth(Convert.ToInt32(Years.Text), Convert.ToInt32(Months.Text)) )
-            {
-                DateTime birthDate = DateTime.Parse($"{Days.Text}/{Months.Text}/{Years.Text}");
-                DateTime currentDate = DateTime.Now;
-
-                
-                if ((currentDate - birthDate).Days / 365 >= 18)
-                {
-                    GoNextButton.IsEnabled = true;
-                    GoNextButton.Background = new SolidColorBrush(Colors.White);
-                    GoNextButton.TextColor = new SolidColorBrush(Color.FromArgb("#F83D7F")).Color;
-                }
-                else
-                {
-                    GoNextButton.IsEnabled = false;
-                    GoNextButton.Background = new SolidColorBrush(Color.FromArgb("#747474"));
-                    GoNextButton.TextColor = new SolidColorBrush(Colors.White).Color;
-                }
-            }
-            else
-            {
-                GoNextButton.IsEnabled = false;
-                GoNextButton.Background = new SolidColorBrush(Color.FromArgb("#747474"));
-                GoNextButton.TextColor = new SolidColorBrush(Colors.White).Color;
-            }
+            return true;
         }
         else
         {
-            GoNextButton.IsEnabled = false;
-            GoNextButton.Background = new SolidColorBrush(Color.FromArgb("#747474"));
-            GoNextButton.TextColor = new SolidColorBrush(Colors.White).Color;
+            Toast.Make("Пожалуйста включите интернет", CommunityToolkit.Maui.Core.ToastDuration.Short).Show();
+            return false;
         }
     }
 
-    private void Days_TextChanged(object sender, TextChangedEventArgs e)
+    private async void GoNextButton_Clicked(object sender, EventArgs e)
     {
-        if (!Days.Text.Contains('.'))
+        
+        DateTime dateTime = DateTime.ParseExact($"{Calendar.CurrentDay}/{Calendar.CurrentMonth}/{Calendar.CurrentYear}", "dd/M/yyyy", null);
+        Console.WriteLine(dateTime.ToString("yyyy/MM/dd"));
+        if ((DateTime.Now - dateTime).Days / 365.0 < 18.01)
         {
-            if (Days.Text.Length == 2)
-                Months.Focus();
-            if (!String.IsNullOrEmpty(Months.Text) && !String.IsNullOrEmpty(Years.Text))
-                CheckValid();
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+            string text = "Вам должно быть больше 18 лет";
+            ToastDuration duration = ToastDuration.Short;
+            double fontSize = 14;
+
+            var toast = Toast.Make(text, duration, fontSize);
+
+            await toast.Show(cancellationTokenSource.Token);
+        }
+        else
+        {
+            if (checkInternet())
+            {
+                AccountData account = new AccountData() { goal = mode, username = username, birthdate = dateTime.ToString("yyyy/MM/dd"), currentweight = weightValue, email = email, gender = gender, height = heightValue, password = password, wishweight = wishWeightValue, isCheckOnly = false };
+                HttpClient httpClient = new HttpClient();
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                var request = await httpClient.PostAsJsonAsync("https://2ahcf.localtonet.com/capp/api/register/", account);
+                var respone = JsonConvert.DeserializeObject<ResponseJsonMessage>(await request.Content.ReadAsStringAsync());
+                if (!request.IsSuccessStatusCode)
+                {
+                    await Toast.Make(respone.message, CommunityToolkit.Maui.Core.ToastDuration.Short).Show(cancellationTokenSource.Token);
+                }
+                else
+                {
+                    await Toast.Make(respone.message, CommunityToolkit.Maui.Core.ToastDuration.Short).Show(cancellationTokenSource.Token);
+                }
+            }
         }
     }
-
-    private void Months_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        if (!Months.Text.Contains('.'))
-        {
-            if (Months.Text.Length == 2)
-                Years.Focus();
-            if (!String.IsNullOrEmpty(Days.Text) && !String.IsNullOrEmpty(Years.Text))
-                CheckValid();
-        }
-    }
-
-    private void Years_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        if (!Years.Text.Contains('.'))
-        {
-            if (!String.IsNullOrEmpty(Days.Text) && !String.IsNullOrEmpty(Months.Text))
-                CheckValid();
-        }
-    }*/
-
 }
 

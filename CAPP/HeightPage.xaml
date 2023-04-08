@@ -11,7 +11,7 @@
             <LinearGradientBrush EndPoint="0,1">
                 <GradientStop Color="#F54B87"
                               Offset="0.3"/>
-                <GradientStop Color="#F83D7F"
+                <GradientStop Color="#F81464"
                               Offset="1.0"/>
             </LinearGradientBrush>
         </VerticalStackLayout.Background>
@@ -22,14 +22,14 @@
                HorizontalOptions="Center"
                Margin="0,60,0,0"/>
         <Label Text="Введите ваш рост"
-               FontSize="36"
+               FontSize="28"
                FontFamily="OpenSans"
                TextColor="White"
                FontAttributes="Bold"
                HorizontalOptions="Center"
                Margin="0,25,0,0"/>
         <Label Text="Рост влияет на количество калорий,чем вы выше, тем больше"
-               FontSize="20"
+               FontSize="18"
                FontFamily="OpenSans"
                TextColor="White"
                HorizontalTextAlignment="Center"/>
@@ -38,8 +38,8 @@
                Margin="0,40,0,40"/>
         <controls:IncrementalEntry MinimalValue="100"
                                    MaximalValue="300"
-                                   ColumnSpacing="50"
-                                   Width="350"
+                                   ColumnSpacing="14"
+                                   GridWidth="350"
                                    x:Name="HeightEntry"
                                    Measure="см"
                                    Margin="0,0,0,20"/>
@@ -50,7 +50,6 @@
                 BackgroundColor="White"
                 TextColor="#F83D7F"
                 x:Name="GoNextButton"
-                IsEnabled="True"
                 FontAttributes="Bold"
                 Clicked="OnAccountCreating"
                 FontFamily="OpenSans"

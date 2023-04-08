@@ -2,11 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
+             x:Class="CAPP.WeightPageTwo"
              xmlns:controls="clr-namespace:CAPP.Controls"
-             x:Class="CAPP.BirthPage">
+             Loaded="ContentPage_Loaded">
 
 
-    <VerticalStackLayout >
+    <VerticalStackLayout>
         <VerticalStackLayout.Background>
             <LinearGradientBrush EndPoint="0,1">
                 <GradientStop Color="#F54B87"
@@ -15,43 +16,47 @@
                               Offset="1.0"/>
             </LinearGradientBrush>
         </VerticalStackLayout.Background>
-        <Label Text="5 / 5"
+        
+        <Label Text="3 / 5"
                FontSize="24"
                FontFamily="OpenSans"
                TextColor="White"
                HorizontalOptions="Center"
                Margin="0,60,0,0"/>
-        <Label Text="Когда вы родились?"
+        <Label Text="Выберите желаемый вес"
+               LineBreakMode="WordWrap"
                FontSize="28"
                FontFamily="OpenSans"
                TextColor="White"
                FontAttributes="Bold"
                HorizontalOptions="Center"
                Margin="0,25,0,0"/>
-        <Label Text="Количество калорий меняется с каждым годом"
+        <Label Text="Ваш желаемый вес также влияет на ежедневный обмен калорий"
                FontSize="18"
                FontFamily="OpenSans"
                TextColor="White"
                HorizontalTextAlignment="Center"/>
-        <Image Source="birthday_cake"
-               Margin="0,30,0,35"
-               HeightRequest="280"/>
-        <controls:SpinnerCalendar Width="180" 
-                                  AgeLimit="18" 
-                                  CalendarBackground="Transparent" 
-                                  Margin="0,0,0,20"
-                                  x:Name="Calendar"/>
+        <Image Source="scales"
+               Margin="0,40,0,30"/>
+        <controls:IncrementalWeightEntry MinimalValue="10"
+                                         MaximalValue="600"
+                                         ColumnSpacing="14"
+                                         GridWidth="350"
+                                         x:Name="WeightEntry"
+                                         Measure="кг"
+                                         Margin="0,0,0,20"/>
+
         <Button Text="Далее"
                 WidthRequest="349"
                 HeightRequest="66"
                 CornerRadius="50"
-                x:Name="GoNextButton"
                 BackgroundColor="White"
-                Clicked="GoNextButton_Clicked"
                 TextColor="#F83D7F"
+                x:Name="GoNextButton"
                 FontAttributes="Bold"
                 FontFamily="OpenSans"
-                FontSize="24"/>
+                FontSize="24"
+                Clicked="OnAccountCreating"/>
     </VerticalStackLayout>
     
 
