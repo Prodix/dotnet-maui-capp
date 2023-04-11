@@ -12,15 +12,17 @@ public partial class WeightPage : ContentPage
     string username;
     string password;
     string email;
+    bool IsWithoutRegister;
     bool popupShown = false;
 
-	public WeightPage(int mode, int heightValue, string username, string email, string password)
+	public WeightPage(int mode, int heightValue, string username, string email, string password, bool IsWithoutRegister = false)
 	{
         this.mode = mode;
         this.heightValue = heightValue;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.IsWithoutRegister = IsWithoutRegister;
         InitializeComponent();
         
         WeightEntry.IsToastEnabled = false;
@@ -63,12 +65,12 @@ public partial class WeightPage : ContentPage
                 object? result = await this.ShowPopupAsync(awarePopup);
                 if (result != null && Convert.ToBoolean(result))
                 {
-                    await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value, username, email, password), false);
+                    await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value, username, email, password, IsWithoutRegister), false);
                 }
             }
             else
             {
-                await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value, username, email, password), false);
+                await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value, username, email, password, IsWithoutRegister), false);
             }
         }
         else if (mode == 2)
@@ -81,16 +83,16 @@ public partial class WeightPage : ContentPage
                 object? result = await this.ShowPopupAsync(awarePopup);
                 if (result != null && Convert.ToBoolean(result))
                 {
-                    await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value, username, email, password), false);
+                    await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value, username, email, password, IsWithoutRegister), false);
                 }
             }
             else
             {
-                await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value, username, email, password), false);
+                await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value, username, email, password, IsWithoutRegister), false);
             }
         }
         else
-            await Navigation.PushAsync(new GenderPage(mode, heightValue, WeightEntry.Value, username, email, password));
+            await Navigation.PushAsync(new GenderPage(mode, heightValue, WeightEntry.Value, username, email, password, IsWithoutRegister: IsWithoutRegister));
 
     }
 

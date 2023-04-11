@@ -139,7 +139,11 @@
                    TextColor="#F83D7F"
                    FontFamily="OpenSans"
                    FontAttributes="Bold"
-                   x:Name="LoginLabelTwo"/>
+                   x:Name="LoginLabelTwo">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnLoginTap" NumberOfTapsRequired="1"/>
+                </Label.GestureRecognizers>
+            </Label>
         </HorizontalStackLayout>
     </VerticalStackLayout>
     

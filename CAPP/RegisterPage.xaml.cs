@@ -3,14 +3,12 @@ using Newtonsoft.Json;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace CAPP;
 
 public partial class RegisterPage : ContentPage
 {
-    private bool IsWarningShownOne = false;
-    private bool IsWarningShownTwo = false;
-    private bool IsNotEqualWarningShown = false;
     private bool IsPasswordsValid = false;
     private bool IsUsernameValid = false;
     private bool IsEmailValid = false;
@@ -23,6 +21,19 @@ public partial class RegisterPage : ContentPage
 	{
         InitializeComponent();
 	}
+
+    private async void OnClickOnLoginWithoutRegister(object sender, TappedEventArgs e)
+    {
+        if (!InputCheckBox.IsChecked)
+        {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            await Toast.Make("Вы должны принять политику конфединциальности", CommunityToolkit.Maui.Core.ToastDuration.Short).Show(cancellationTokenSource.Token);
+        }
+        else
+        {
+            await Navigation.PushAsync(new HeightPage(IsWithoutRegister: true));
+        }
+    }
 
     private async void OnAccountCreating(object sender, EventArgs e)
 	{

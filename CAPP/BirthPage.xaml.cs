@@ -14,11 +14,13 @@ public partial class BirthPage : ContentPage
     string email;
     string password;
     double wishWeightValue;
+    bool IsWithoutRegister;
     string gender;
 
-	public BirthPage(int mode, int heightValue, double weightValue, string username, string email, string password, string gender, double wishWeightValue = 0.0)
+	public BirthPage(int mode, int heightValue, double weightValue, string username, string email, string password, string gender, double wishWeightValue = 0.0, bool IsWithoutRegister = false)
 	{
 		InitializeComponent();
+        this.IsWithoutRegister = IsWithoutRegister;
         this.mode = mode;
         this.heightValue = heightValue;
         this.weightValue = weightValue;
@@ -63,7 +65,11 @@ public partial class BirthPage : ContentPage
         }
         else
         {
-            if (checkInternet())
+            if (IsWithoutRegister)
+            {
+
+            }
+            else if (checkInternet())
             {
                 AccountData account = new AccountData() { goal = mode, username = username, birthdate = dateTime.ToString("yyyy/MM/dd"), currentweight = weightValue, email = email, gender = gender, height = heightValue, password = password, wishweight = wishWeightValue, isCheckOnly = false };
                 HttpClient httpClient = new HttpClient();
