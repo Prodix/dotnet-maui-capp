@@ -16,10 +16,13 @@ public partial class BirthPage : ContentPage
     double wishWeightValue;
     bool IsWithoutRegister;
     string gender;
+    SqliteDatabase database;
+
 
 	public BirthPage(int mode, int heightValue, double weightValue, string username, string email, string password, string gender, double wishWeightValue = 0.0, bool IsWithoutRegister = false)
 	{
 		InitializeComponent();
+        database = new SqliteDatabase();
         this.IsWithoutRegister = IsWithoutRegister;
         this.mode = mode;
         this.heightValue = heightValue;
@@ -67,7 +70,18 @@ public partial class BirthPage : ContentPage
         {
             if (IsWithoutRegister)
             {
-
+                UserData data = new UserData();
+                data.Username = username;
+                data.Password = password;
+                data.Email = email;
+                data.WeightValue = weightValue;
+                data.WishWeightValue = wishWeightValue;
+                data.HeightValue = heightValue;
+                data.Gender = gender;
+                data.IsWithoutRegister = IsWithoutRegister;
+                data.Mode = mode;
+                data.BirthDate = dateTime.ToString("yyyy/MM/dd");
+                await database.SaveItemAsync(data);
             }
             else if (checkInternet())
             {

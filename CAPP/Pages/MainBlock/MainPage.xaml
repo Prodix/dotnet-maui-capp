@@ -101,7 +101,7 @@
                                FontSize="14"/>
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="23">
+                <HorizontalStackLayout Spacing="30">
                     <VerticalStackLayout>
                         <Label Text="Активность"
                                FontFamily=""
@@ -111,7 +111,7 @@
                         <Image/>
                     </VerticalStackLayout>
                     <VerticalStackLayout>
-                        <Label Text="Планы питания"
+                        <Label Text="Калькулятор"
                                FontFamily=""
                                TextColor="White"
                                FontSize="16"

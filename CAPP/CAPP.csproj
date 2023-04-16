@@ -58,14 +58,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Raw\Products.db" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
 	  <PackageReference Include="InputKit.Maui" Version="4.2.7" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="RestSharp" Version="109.0.1" />
+	  <PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
+	  <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="BirthPage.xaml.cs">
+	  <Compile Update="Pages\AuthorizationBlock\BirthPage.xaml.cs">
 	    <DependentUpon>BirthPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Controls\SpinnerCalendar.xaml.cs">
@@ -74,31 +80,31 @@
 	  <Compile Update="Controls\WeightAwarePopup.xaml.cs">
 	    <DependentUpon>WeightAwarePopup.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="HeightPage.xaml.cs">
+	  <Compile Update="Pages\AuthorizationBlock\HeightPage.xaml.cs">
 	    <DependentUpon>HeightPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="GenderPage.xaml.cs">
+	  <Compile Update="Pages\AuthorizationBlock\GenderPage.xaml.cs">
 	    <DependentUpon>GenderPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="WeightPageTwo.xaml.cs">
+	  <Compile Update="Pages\AuthorizationBlock\WeightPageTwo.xaml.cs">
 	    <DependentUpon>WeightPageTwo.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="WeightPage.xaml.cs">
+	  <Compile Update="Pages\AuthorizationBlock\WeightPage.xaml.cs">
 	    <DependentUpon>WeightPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="GoalPage.xaml.cs">
+	  <Compile Update="Pages\AuthorizationBlock\GoalPage.xaml.cs">
 	    <DependentUpon>GoalPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="LoginPage.xaml.cs">
+	  <Compile Update="Pages\AuthorizationBlock\LoginPage.xaml.cs">
 	    <DependentUpon>LoginPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="RegisterPage.xaml.cs">
+	  <Compile Update="Pages\AuthorizationBlock\RegisterPage.xaml.cs">
 	    <DependentUpon>RegisterPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="BirthPage.xaml">
+	  <MauiXaml Update="Pages\AuthorizationBlock\BirthPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\IncrementalEntry.xaml">
@@ -116,28 +122,28 @@
 	  <MauiXaml Update="Controls\WeightPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="HeightPage.xaml">
+	  <MauiXaml Update="Pages\AuthorizationBlock\HeightPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="GenderPage.xaml">
+	  <MauiXaml Update="Pages\AuthorizationBlock\GenderPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MainPage.xaml">
+	  <MauiXaml Update="Pages\MainBlock\MainPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="SignInPage.xaml">
+	  <MauiXaml Update="Pages\AuthorizationBlock\SignInPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="WeightPageTwo.xaml">
+	  <MauiXaml Update="Pages\AuthorizationBlock\WeightPageTwo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="WeightPage.xaml">
+	  <MauiXaml Update="Pages\AuthorizationBlock\WeightPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="GoalPage.xaml">
+	  <MauiXaml Update="Pages\AuthorizationBlock\GoalPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="LoginPage.xaml">
+	  <MauiXaml Update="Pages\AuthorizationBlock\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
