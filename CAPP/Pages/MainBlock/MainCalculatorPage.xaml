@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CAPP.Pages.MainBlock.MainCalculatorPage"
+             NavigationPage.HasNavigationBar="False"
+             Title="MainCalculatorPage">
+    <VerticalStackLayout Background="#F4F2F2">
+        <Border HeightRequest="300"
+                StrokeShape="RoundRectangle 0,0,30,30"
+                StrokeThickness="-1"
+                Padding="26,33,26,0">
+            <VerticalStackLayout>
+                <Label Text="Результат"
+                       FontFamily=""
+                       TextColor="White"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       Margin="0,0,0,6"/>
+                <Label Text="Общая калорийность"
+                       FontFamily=""
+                       TextColor="White"
+                       FontSize="20"
+                       Margin="0,0,0,20"/>
+
+                <Label Text="0 ккал"
+                       FontFamily=""
+                       TextColor="White"
+                       FontSize="24"/>
+
+                <HorizontalStackLayout Margin="0,20,0,30"
+                                       Spacing="63">
+                    <VerticalStackLayout>
+                        <Label Text="Жиры"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="20"
+                               Margin="0,-5,0,-3"
+                               FontAttributes="Bold"/>
+                        <Label Text="0 г"
+                               HorizontalOptions="Center"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="20"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Белки"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="20"
+                               Margin="0,-5,0,-3"
+                               FontAttributes="Bold"/>
+                        <Label Text="0 г"
+                               HorizontalOptions="Center"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="20"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Углеводы"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="20"
+                               Margin="0,-1,0,-3"
+                               FontAttributes="Bold"/>
+                        <Label Text="0 г"
+                               HorizontalOptions="Center"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="20"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="30">
+                    <VerticalStackLayout>
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToActivityPage" NumberOfTapsRequired="1"/>
+                        </VerticalStackLayout.GestureRecognizers>
+                        <Label Text="Активность"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+                        <Image/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Калькулятор"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+                        <Image Source="line" Margin="0,5,0,0"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToStatsPage" NumberOfTapsRequired="1"/>
+                        </VerticalStackLayout.GestureRecognizers>
+                        <Label Text="Статистика"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+                        <Image/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#F54B87"
+                              Offset="0.3"/>
+                    <GradientStop Color="#F81464"
+                              Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Border WidthRequest="370"
+                HeightRequest="430"
+                Margin="0,10,0,0"
+                StrokeShape="RoundRectangle 30,30,30,30"
+                StrokeThickness="0"
+                Padding="20">
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                        Opacity="0.1"/>
+            </Border.Shadow>
+            <VerticalStackLayout>
+                <FlexLayout JustifyContent="SpaceBetween">
+                    <Label Text="Добавьте продукты"
+                       FontFamily=""
+                       FontAttributes="Bold"
+                       FontSize="20"/>
+                    <Border WidthRequest="70"
+                            HeightRequest="45"
+                            StrokeShape="RoundRectangle 10,10,10,10"
+                            StrokeThickness="0"
+                            Background="#F83D7F">
+                        <Image Source="plusik" 
+                               WidthRequest="23" 
+                               HeightRequest="23"/>
+                    </Border>
+                </FlexLayout>   
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Margin="0,10,0,0"
+                StrokeShape="RoundRectangle 30,30,0,0"
+                StrokeThickness="-1"
+                Padding="20"
+                HeightRequest="100">
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                        Opacity="0.1"/>
+            </Border.Shadow>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

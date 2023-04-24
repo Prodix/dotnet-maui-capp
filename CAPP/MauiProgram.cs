@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.LifecycleEvents;
 using CommunityToolkit.Maui;
+using CAPP.Pages.MainBlock;
 
 namespace CAPP;
 
@@ -18,6 +19,8 @@ public static class MauiProgram
 			});
 
         builder.Services.AddSingleton<SqliteDatabase>();
+
+		
 
         return builder.Build();
 	}

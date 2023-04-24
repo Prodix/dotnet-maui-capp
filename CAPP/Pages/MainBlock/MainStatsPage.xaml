@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CAPP.Pages.MainBlock.MainStatsPage"
+             NavigationPage.HasNavigationBar="False"
+             Title="MainStatsPage">
+    <VerticalStackLayout Background="#F4F2F2">
+        <Border HeightRequest="300"
+                StrokeShape="RoundRectangle 0,0,30,30"
+                StrokeThickness="-1"
+                Padding="26,33,26,0">
+            <VerticalStackLayout>
+                <Label Text="Привет Username"
+                       FontFamily=""
+                       TextColor="White"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       Margin="0,0,0,6"/>
+                <Label Text="Давай посмотрим твой план!"
+                       FontFamily=""
+                       TextColor="White"
+                       FontSize="20"
+                       Margin="0,0,0,20"/>
+
+                <Frame BackgroundColor="Transparent"
+                       BorderColor="Transparent"
+                       Padding="0"
+                       CornerRadius="50">
+                    <ProgressBar ProgressColor="White"
+                                 ScaleY="4"/>
+                </Frame>
+
+                <HorizontalStackLayout Margin="0,20,0,30"
+                                       Spacing="10">
+                    <VerticalStackLayout>
+                        <Label Text="2,000"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="32"
+                               Margin="0,-5,0,-3"
+                               FontAttributes="Bold"/>
+                        <Label Text="ккал осталось"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="20"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Белки"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+                        <Frame BackgroundColor="Transparent"
+                               BorderColor="Transparent"
+                               Padding="0"
+                               CornerRadius="50">
+                            <ProgressBar ProgressColor="White"
+                                         ScaleY="2"/>
+                        </Frame>
+                        <Label Text="35г"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="14"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Жиры"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+
+                        <Frame BackgroundColor="Transparent"
+                               BorderColor="Transparent"
+                               Padding="0"
+                               CornerRadius="50">
+                            <ProgressBar ProgressColor="White"
+                                         ScaleY="2"/>
+                        </Frame>
+
+                        <Label Text="35г"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="14"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Углеводы"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+                        <Frame BackgroundColor="Transparent"
+                               BorderColor="Transparent"
+                               Padding="0"
+                               CornerRadius="50">
+                            <ProgressBar ProgressColor="White"
+                                         ScaleY="2"/>
+                        </Frame>
+                        <Label Text="35г"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="14"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="30">
+                    <VerticalStackLayout>
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToActivityPage" NumberOfTapsRequired="1"/>
+                        </VerticalStackLayout.GestureRecognizers>
+                        <Label Text="Активность"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+                        <Image/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToCalculatorPage" NumberOfTapsRequired="1"/>
+                        </VerticalStackLayout.GestureRecognizers>
+                        <Label Text="Калькулятор"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+                        <Image/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Статистика"
+                               FontFamily=""
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+                        <Image Source="line"  Margin="0,5,0,0"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#F54B87"
+                              Offset="0.3"/>
+                    <GradientStop Color="#F81464"
+                              Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

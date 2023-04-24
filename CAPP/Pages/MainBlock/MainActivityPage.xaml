@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CAPP.MainPage"
-             NavigationPage.HasNavigationBar="False"
-             Title="MainPage">
-    <VerticalStackLayout>
+             x:Class="CAPP.Pages.MainBlock.MainActivityPage"
+             Title="MainActivityPage">
+    <VerticalStackLayout Background="#F4F2F2">
         <Border HeightRequest="300"
                 StrokeShape="RoundRectangle 0,0,30,30"
-                StrokeThickness="0"
+                StrokeThickness="-1"
                 Padding="26,33,26,0">
             <VerticalStackLayout>
                 <Label Text="Привет Username"
@@ -108,23 +107,27 @@
                                TextColor="White"
                                FontSize="16"
                                FontAttributes="Bold"/>
-                        <Image/>
+                        <Image Source="line" Margin="0,5,0,0"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout>
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToCalculatorPage" NumberOfTapsRequired="1"/>
+                        </VerticalStackLayout.GestureRecognizers>
                         <Label Text="Калькулятор"
                                FontFamily=""
                                TextColor="White"
                                FontSize="16"
                                FontAttributes="Bold"/>
-                        <Image/>
                     </VerticalStackLayout>
                     <VerticalStackLayout>
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToStatsPage" NumberOfTapsRequired="1"/>
+                        </VerticalStackLayout.GestureRecognizers>
                         <Label Text="Статистика"
                                FontFamily=""
                                TextColor="White"
                                FontSize="16"
                                FontAttributes="Bold"/>
-                        <Image/>
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
             </VerticalStackLayout>

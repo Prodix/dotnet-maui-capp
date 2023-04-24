@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using CAPP.Pages.MainBlock;
+using SQLite;
 
 namespace CAPP;
 
@@ -33,7 +34,7 @@ public partial class LoginPage : ContentPage
     private async void OnLoginTap(object sender, TappedEventArgs e)
     {
         await createProductDatabase();
-        await Navigation.PushAsync(new MainPage());
+        await Navigation.PushAsync(new MainActivityPage());
     }
 }
 

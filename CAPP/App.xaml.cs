@@ -14,8 +14,7 @@ public partial class App : Application
 		});
 
 
-
-		MainPage = new NavigationPage(new LoginPage());
+		MainPage = new AppShell();
 
     }
 
