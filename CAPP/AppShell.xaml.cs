@@ -1,7 +1,4 @@
-﻿using Android.Util;
-using CAPP.Pages.MainBlock;
-
-namespace CAPP;
+﻿namespace CAPP;
 
 public partial class AppShell : Shell
 {

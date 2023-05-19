@@ -144,7 +144,6 @@ public partial class SpinnerCalendar : ContentView
         }
     }
 
-
     private void YearsScrolled(object sender, ItemsViewScrolledEventArgs e)
     {
         CurrentYear = Convert.ToInt32(yearsList[e.CenterItemIndex]);

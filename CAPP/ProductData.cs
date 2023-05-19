@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAPP
 {
-    internal class ProductData
+    public class ProductData
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,5 +14,6 @@ namespace CAPP
         public double Carb { get; set; }
         public double Protein { get; set; }
         public double Kcal { get; set; }
+        public double Weight { get; set; } = 100;
     }
 }

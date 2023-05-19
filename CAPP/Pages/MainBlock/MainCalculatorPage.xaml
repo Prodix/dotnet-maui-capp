@@ -4,6 +4,22 @@
              x:Class="CAPP.Pages.MainBlock.MainCalculatorPage"
              NavigationPage.HasNavigationBar="False"
              Title="MainCalculatorPage">
+    <ContentPage.Resources>
+        <Style TargetType="Border">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup Name="CommonStates">
+                        <VisualState Name="Normal"/>
+                        <VisualState Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <VerticalStackLayout Background="#F4F2F2">
         <Border HeightRequest="300"
                 StrokeShape="RoundRectangle 0,0,30,30"
@@ -23,11 +39,65 @@
                        Margin="0,0,0,20"/>
 
                 <Label Text="0 ккал"
+                       x:Name="Kcal"
                        FontFamily=""
                        TextColor="White"
                        FontSize="24"/>
-
-                <HorizontalStackLayout Margin="0,20,0,30"
+                <Grid Margin="0,14,0,31.5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="110"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="Жиры"
+                           FontFamily=""
+                           TextColor="White"
+                           FontSize="20"
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center"/>
+                    <Label Text="0 г"
+                           HorizontalOptions="Center"
+                           FontFamily=""
+                           x:Name="Fat"
+                           TextColor="White"
+                           FontSize="20"
+                           Grid.Row="1"/>
+                    <Label Text="Белки"
+                           FontFamily=""
+                           TextColor="White"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           Grid.Column="1"/>
+                    <Label Text="0 г"
+                           HorizontalOptions="Center"
+                           FontFamily=""
+                           x:Name="Protein"
+                           TextColor="White"
+                           FontSize="20"
+                           Grid.Column="1"
+                           Grid.Row="1"/>
+                    <Label Text="Углеводы"
+                           FontFamily=""
+                           TextColor="White"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           Grid.Column="2"
+                           HorizontalOptions="Center"/>
+                    <Label Text="0 г"
+                           x:Name="Carb"
+                           HorizontalOptions="Center"
+                           FontFamily=""
+                           TextColor="White"
+                           FontSize="20"
+                           Grid.Column="2"
+                           Grid.Row="1"/>
+                </Grid>
+                <!--<HorizontalStackLayout Margin="0,20,0,30"
                                        Spacing="63">
                     <VerticalStackLayout>
                         <Label Text="Жиры"
@@ -39,6 +109,7 @@
                         <Label Text="0 г"
                                HorizontalOptions="Center"
                                FontFamily=""
+                               x:Name="Fat"
                                TextColor="White"
                                FontSize="20"/>
                     </VerticalStackLayout>
@@ -52,6 +123,7 @@
                         <Label Text="0 г"
                                HorizontalOptions="Center"
                                FontFamily=""
+                               x:Name="Protein"
                                TextColor="White"
                                FontSize="20"/>
                     </VerticalStackLayout>
@@ -60,15 +132,16 @@
                                FontFamily=""
                                TextColor="White"
                                FontSize="20"
-                               Margin="0,-1,0,-3"
+                               Margin="0,-5,0,-3"
                                FontAttributes="Bold"/>
                         <Label Text="0 г"
+                               x:Name="Carb"
                                HorizontalOptions="Center"
                                FontFamily=""
                                TextColor="White"
                                FontSize="20"/>
                     </VerticalStackLayout>
-                </HorizontalStackLayout>
+                </HorizontalStackLayout>-->
                 <HorizontalStackLayout Spacing="30">
                     <VerticalStackLayout>
                         <VerticalStackLayout.GestureRecognizers>
@@ -79,7 +152,7 @@
                                TextColor="White"
                                FontSize="16"
                                FontAttributes="Bold"/>
-                        <Image/>
+                        <Image />
                     </VerticalStackLayout>
                     <VerticalStackLayout>
                         <Label Text="Калькулятор"
@@ -98,7 +171,7 @@
                                TextColor="White"
                                FontSize="16"
                                FontAttributes="Bold"/>
-                        <Image/>
+                        <Image />
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
@@ -122,7 +195,9 @@
                         Opacity="0.1"/>
             </Border.Shadow>
             <VerticalStackLayout>
-                <FlexLayout JustifyContent="SpaceBetween">
+                <FlexLayout x:Name="Flexlayout" 
+                            JustifyContent="SpaceBetween"
+                            Margin="0,0,0,5">
                     <Label Text="Добавьте продукты"
                        FontFamily=""
                        FontAttributes="Bold"
@@ -135,8 +210,34 @@
                         <Image Source="plusik" 
                                WidthRequest="23" 
                                HeightRequest="23"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+                        </Border.GestureRecognizers>
                     </Border>
-                </FlexLayout>   
+                </FlexLayout>
+                <CollectionView x:Name="SearchCollection"
+                                SelectionChanged="SearchCollection_SelectionChanged"
+                                SelectionMode="Single"
+                                HeightRequest="300">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border WidthRequest="330"
+                                    Background="#F4F2F2"
+                                    Padding="5"
+                                    StrokeShape="RoundRectangle 10,10,10,10">
+                                <Label Text="{Binding Name}"
+                                       FontAttributes="Bold"
+                                       FontFamily=""/>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button Text="Очистить"
+                        FontAttributes="Bold"
+                        FontFamily=""
+                        Background="#F83D7F"
+                        Clicked="Button_Clicked"
+                        x:Name="ClearButton"/>
             </VerticalStackLayout>
         </Border>
 
@@ -149,6 +250,12 @@
                 <Shadow Brush="Black"
                         Opacity="0.1"/>
             </Border.Shadow>
+            <FlexLayout JustifyContent="SpaceAround">
+                <Image Source="home"/>
+                <Image Source="recipe"/>
+                <Image Source="dumbbell"/>
+                <Image Source="profile"/>
+            </FlexLayout>
         </Border>
     </VerticalStackLayout>
 </ContentPage>

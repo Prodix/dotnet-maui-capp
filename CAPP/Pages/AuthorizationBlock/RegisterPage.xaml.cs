@@ -43,7 +43,7 @@ public partial class RegisterPage : ContentPage
             account.email = EmailEntry.Text;
             account.password = PasswordEntryOne.Text;
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            var request = await httpClient.PostAsJsonAsync("https://2ahcf.localtonet.com/capp/api/register/", account);
+            var request = await httpClient.PostAsJsonAsync(Constants.serverLink, account);
             var respone = JsonConvert.DeserializeObject<ResponseJsonMessage>(await request.Content.ReadAsStringAsync());
 
             if (!request.IsSuccessStatusCode)

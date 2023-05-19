@@ -88,7 +88,7 @@ public partial class BirthPage : ContentPage
                 AccountData account = new AccountData() { goal = mode, username = username, birthdate = dateTime.ToString("yyyy/MM/dd"), currentweight = weightValue, email = email, gender = gender, height = heightValue, password = password, wishweight = wishWeightValue, isCheckOnly = false };
                 HttpClient httpClient = new HttpClient();
                 CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-                var request = await httpClient.PostAsJsonAsync("https://2ahcf.localtonet.com/capp/api/register/", account);
+                var request = await httpClient.PostAsJsonAsync(Constants.serverLink, account);
                 var respone = JsonConvert.DeserializeObject<ResponseJsonMessage>(await request.Content.ReadAsStringAsync());
                 if (!request.IsSuccessStatusCode)
                 {

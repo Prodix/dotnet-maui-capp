@@ -1,4 +1,3 @@
-using Android.Accounts;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using Newtonsoft.Json;
@@ -84,7 +83,7 @@ public partial class SignInPage : ContentPage
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         if (checkInternet())
         {
-            var request = await httpClient.PostAsJsonAsync("https://2ahcf.localtonet.com/capp/api/authorize/", new AccountDataForAuthorization { email = email, password = password });
+            var request = await httpClient.PostAsJsonAsync(Constants.serverLink, new AccountDataForAuthorization { email = email, password = password });
             var respone = JsonConvert.DeserializeObject<ResponseJsonMessage>(await request.Content.ReadAsStringAsync());
 
             if (!request.IsSuccessStatusCode)

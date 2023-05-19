@@ -24,5 +24,7 @@ namespace CAPP
 
         public static string ProductDatabasePath =>
             Path.Combine(FileSystem.AppDataDirectory, ProductDatabaseFilename);
+
+        public const string serverLink = "https://2ahcf.localtonet.com/capp/api/register/";
     }
 }
