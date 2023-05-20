@@ -3,20 +3,11 @@
 public partial class GoalPage : ContentPage
 {
     int heightValue = 0;
-    string username;
-    string password;
-    string email;
-    bool IsWithoutRegister;
 
-
-    public GoalPage(int height, string username, string email, string password, bool IsWithoutRegister = false)
+    public GoalPage(int height)
 	{
 		InitializeComponent();
         heightValue = height;
-        this.password = password;
-        this.username = username;
-        this.email = email;
-        this.IsWithoutRegister = IsWithoutRegister;
 	}
 
     private void OnTapOne(object sender, TappedEventArgs e)
@@ -83,18 +74,18 @@ public partial class GoalPage : ContentPage
     {
         if (CheckOne.IsChecked)
         {
-            await Navigation.PushAsync(new WeightPage(1, heightValue, username, email, password, IsWithoutRegister));
+            await Navigation.PushAsync(new WeightPage(1, heightValue));
         }
         else if (CheckTwo.IsChecked)
         {
-            await Navigation.PushAsync(new WeightPage(2, heightValue, username, email, password, IsWithoutRegister));
+            await Navigation.PushAsync(new WeightPage(2, heightValue));
         }
         else if (CheckThree.IsChecked)
         {
-            await Navigation.PushAsync(new WeightPage(3, heightValue, username, email, password, IsWithoutRegister));
+            await Navigation.PushAsync(new WeightPage(3, heightValue));
         }
         else
-            await Navigation.PushAsync(new WeightPage(4, heightValue, username, email, password, IsWithoutRegister));
+            await Navigation.PushAsync(new WeightPage(4, heightValue));
 
     }
 }

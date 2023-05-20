@@ -211,7 +211,8 @@
                                WidthRequest="23" 
                                HeightRequest="23"/>
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" 
+                                                  NumberOfTapsRequired="1"/>
                         </Border.GestureRecognizers>
                     </Border>
                 </FlexLayout>
@@ -232,12 +233,24 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Button Text="Очистить"
-                        FontAttributes="Bold"
-                        FontFamily=""
-                        Background="#F83D7F"
-                        Clicked="Button_Clicked"
-                        x:Name="ClearButton"/>
+                <HorizontalStackLayout Spacing="10" 
+                                       x:Name="ButtonStack">
+                    <Button Text="Создать рецепт"
+                            WidthRequest="160"
+                            FontAttributes="Bold"
+                            FontFamily=""
+                            Background="#F83D7F"
+                            Clicked="Button_Clicked_1"
+                            x:Name="AddButton"/>
+                    <Button Text="Очистить"
+                            FontAttributes="Bold"
+                            WidthRequest="160"
+                            FontFamily=""
+                            Background="#F83D7F"
+                            Clicked="Button_Clicked"
+                            x:Name="ClearButton"/>
+                </HorizontalStackLayout>
+                
             </VerticalStackLayout>
         </Border>
 

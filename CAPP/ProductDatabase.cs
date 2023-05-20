@@ -16,35 +16,44 @@ namespace CAPP
             Database = new SQLiteAsyncConnection(Constants.ProductDatabasePath, Constants.Flags);
         }
 
-        async Task Init()
+        public async Task<int> InsertProductAsync(ProductData item)
         {
-            await Database.CreateTableAsync<ProductData>();
-        }
-
-        public async Task<int> SaveItemAsync(ProductData item)
-        {
-            await Init();
             return await Database.InsertAsync(item);
         }
 
-        public async Task<List<ProductData>> ListItemAsync()
+        public async Task<List<ProductData>> ListProductsAsync()
         {
-            await Init();
             return await Database.Table<ProductData>().ToListAsync();
         }
 
         public async Task<ProductData> GetFirstItemAsync()
         {
-            await Init();
             return await Database.Table<ProductData>().FirstAsync();
         }
 
-        public async Task<List<ProductData>> FindItem(string name)
+        public async Task<List<ProductData>> FindProducts(string name)
         {
-            await Init();
-            //return await Database.Table<ProductData>().Where(x => x.Name.StartsWith(name)).ToListAsync();
             return await Database.QueryAsync<ProductData>($"SELECT * FROM (SELECT *, length(Name) FROM ProductData WHERE Name LIKE '%{name}%' UNION SELECT *, length(Name) FROM ProductData WHERE Name LIKE '{name[0].ToString().ToUpper() + name.Substring(1)}%') ORDER BY length(Name) ASC;");
+        }
 
+        public async Task<int> InsertRecipeAsync(RecipeData item)
+        {
+            return await Database.InsertAsync(item);
+        }
+
+        public async Task<List<RecipeData>> ListRecipeAsync()
+        {
+            return await Database.Table<RecipeData>().ToListAsync();
+        }
+
+        public async Task<int> GetRecipeCountAsync()
+        {
+            return await Database.Table<RecipeData>().CountAsync();
+        }
+
+        public async Task<int> InsertRecipeItemAsync(RecipeItem item)
+        {
+            return await Database.InsertAsync(item);
         }
     }
 }

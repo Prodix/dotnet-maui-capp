@@ -1,5 +1,8 @@
+using CAPP.Controls;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using Microsoft.Maui.Controls.Shapes;
-using System.Net.Http.Json;
 
 namespace CAPP.Pages.MainBlock;
 
@@ -24,7 +27,7 @@ public partial class MainCalculatorPage : ContentPage
     {
         if (((Entry)sender).Text.Length != 0)
         {
-            SearchCollection.ItemsSource = await productDatabase.FindItem(((Entry)sender).Text);
+            SearchCollection.ItemsSource = await productDatabase.FindProducts(((Entry)sender).Text);
         }
         else
         {
@@ -94,9 +97,6 @@ public partial class MainCalculatorPage : ContentPage
 
     }
 
-
-
-
     private string truncateValue(double value)
     {
         if (value > 10000)
@@ -113,18 +113,20 @@ public partial class MainCalculatorPage : ContentPage
         }
     }
 
-
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
         isSearching = true;
         ClearButton.Text = "Закрыть";
+        ButtonStack.Children.RemoveAt(0);
+        ClearButton.WidthRequest = 330;
         SearchCollection.ItemsSource = null;
         Flexlayout.Clear();
 
         Entry entry = new Entry()
         {
             HeightRequest = 45,
-            FontFamily = ""
+            FontFamily = "",
+            Placeholder = "Введите название продукта"
         };
 
         entry.TextChanged += Entry_TextChanged;
@@ -173,13 +175,12 @@ public partial class MainCalculatorPage : ContentPage
 
     }
 
-
-
-
     private void SearchCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         isSearching = false;
         ClearButton.Text = "Очистить";
+        ClearButton.WidthRequest = 160;
+        ButtonStack.Children.Insert(0, AddButton);
         SearchCollection.SelectionChanged -= SearchCollection_SelectionChanged;
         calcList.Add((ProductData)e.CurrentSelection[0]);
 
@@ -442,6 +443,8 @@ public partial class MainCalculatorPage : ContentPage
         {
             isSearching = false;
             ClearButton.Text = "Очистить";
+            ClearButton.WidthRequest = 160;
+            ButtonStack.Children.Insert(0, AddButton);
             SearchCollection.SelectionChanged -= SearchCollection_SelectionChanged;
 
             Flexlayout.Clear();
@@ -615,6 +618,76 @@ public partial class MainCalculatorPage : ContentPage
             ((Border)Flexlayout[1]).GestureRecognizers.Add(gestureRecognizer);
 
             SearchCollection.ItemsSource = calcList;
+        }
+    }
+
+    private async void Button_Clicked_1(object sender, EventArgs e)
+    {
+        if (calcList.Count <= 1)
+        {
+            string text = "Слишком мало продуктов";
+            await Toast.Make(text, ToastDuration.Short).Show();
+            return;
+        }
+
+        var popup = new RecipePopup();
+
+        var name = await this.ShowPopupAsync(popup);
+
+        if ( name is not null )
+        {
+            List<RecipeItem> recipeItems = new List<RecipeItem>();
+
+            double weight = 0;
+            double carb = 0;
+            double protein = 0;
+            double fat = 0;
+            double kcal = 0;
+
+            int recipeCount = await productDatabase.GetRecipeCountAsync();
+
+            foreach ( var item in calcList )
+            {
+                RecipeItem recipeItem = new RecipeItem
+                {
+                    Weight = item.Weight,
+                    Recipe_id = recipeCount == 0 ? recipeCount : recipeCount - 1,
+                    Product_id = item.Id
+                };
+
+                weight += item.Weight;
+                carb += item.Carb;
+                fat += item.Fat;
+                kcal += item.Kcal;
+                protein += item.Protein;
+
+                recipeItems.Add(recipeItem);
+            }
+
+            double value = 100 / weight;
+
+            RecipeData recipe = new RecipeData
+            {
+                Carb = Math.Round(carb * value, 2),
+                Fat = Math.Round(fat * value, 2),
+                Protein = Math.Round(protein * value, 2),
+                Kcal = Math.Round(kcal * value, 2),
+                Name = name.ToString(),
+                User_defined = true
+            };
+
+            try
+            {
+                await productDatabase.InsertRecipeAsync(recipe);
+            }
+            catch (SQLite.SQLiteException)
+            {
+                string text = "Рецепт с таким названием существует";
+                await Toast.Make(text, ToastDuration.Short).Show();
+                return;
+            }
+
+            recipeItems.ForEach(async x => await productDatabase.InsertRecipeItemAsync(x));
         }
     }
 }

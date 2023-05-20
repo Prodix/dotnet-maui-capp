@@ -15,7 +15,7 @@ namespace capp_tests
             var Database = new ProductDatabase();
             int count = 0;
 
-            count = (await Database.ListItemAsync()).Count;
+            count = (await Database.ListProductsAsync()).Count;
 
             Assert.NotEqual(0, count);
             Assert.True(count > 0);

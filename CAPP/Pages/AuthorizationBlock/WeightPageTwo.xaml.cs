@@ -7,26 +7,16 @@ namespace CAPP;
 
 public partial class WeightPageTwo : ContentPage
 {
-    int heightValue = 0;
-    double weightValue = 0;
-    double curWeightValue = 0;
-    int mode = 0;
-    string username;
-    string email;
-    string password;
-    bool IsWithoutRegister;
+    int heightValue = 0, mode = 0;
+    double weightValue = 0, curWeightValue = 0;
 
 
-    public WeightPageTwo(int mode, int heightValue, double weightValue, string username, string email, string password, bool IsWithoutRegister)
+    public WeightPageTwo(int mode, int heightValue, double weightValue)
 	{
         curWeightValue = weightValue;
         this.mode = mode;
         this.heightValue = heightValue;
         this.weightValue = weightValue;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.IsWithoutRegister = IsWithoutRegister;
 
         InitializeComponent();
 
@@ -96,12 +86,12 @@ public partial class WeightPageTwo : ContentPage
                 object? result = await this.ShowPopupAsync(awarePopup);
                 if (result != null && Convert.ToBoolean(result))
                 {
-                    await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, username, email, password, WeightEntry.Value, IsWithoutRegister), false);
+                    await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, WeightEntry.Value), false);
                 }
             }
             else
             {
-                await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, username, email, password, WeightEntry.Value, IsWithoutRegister), false);
+                await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, WeightEntry.Value), false);
             }
         }
         else if (mode == 2)
@@ -125,12 +115,12 @@ public partial class WeightPageTwo : ContentPage
                 object? result = await this.ShowPopupAsync(awarePopup);
                 if (result != null && Convert.ToBoolean(result))
                 {
-                    await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, username, email, password, WeightEntry.Value, IsWithoutRegister), false);
+                    await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, WeightEntry.Value), false);
                 }
             }
             else
             {
-                await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, username, email, password, WeightEntry.Value, IsWithoutRegister), false);
+                await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, WeightEntry.Value), false);
             }
         }
     }

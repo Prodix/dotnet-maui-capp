@@ -8,23 +8,18 @@ namespace CAPP
 {
     public static class Constants
     {
-        public const string DatabaseFilename = "UserDB.db3";
+        public const string UserDataFilename = "userdata.json";
         public const string ProductDatabaseFilename = "Products.db";
 
         public const SQLite.SQLiteOpenFlags Flags =
-            // open the database in read/write mode
             SQLite.SQLiteOpenFlags.ReadWrite |
-            // create the database if it doesn't exist
             SQLite.SQLiteOpenFlags.Create |
-            // enable multi-threaded database access
             SQLite.SQLiteOpenFlags.SharedCache;
 
-        public static string DatabasePath =>
-            Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename);
+        public static string UserDataPath =>
+            Path.Combine(FileSystem.AppDataDirectory, UserDataFilename);
 
         public static string ProductDatabasePath =>
             Path.Combine(FileSystem.AppDataDirectory, ProductDatabaseFilename);
-
-        public const string serverLink = "https://2ahcf.localtonet.com/capp/api/register/";
     }
 }

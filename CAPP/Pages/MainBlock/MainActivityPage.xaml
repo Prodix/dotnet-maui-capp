@@ -9,10 +9,11 @@
                 StrokeThickness="-1"
                 Padding="26,33,26,0">
             <VerticalStackLayout>
-                <Label Text="Привет Username"
+                <Label Text="Добрый день!"
                        FontFamily=""
                        TextColor="White"
                        FontSize="24"
+                       x:Name="Greeting"
                        FontAttributes="Bold"
                        Margin="0,0,0,6"/>
                 <Label Text="Давай посмотрим твой план!"
@@ -36,6 +37,7 @@
                                FontFamily=""
                                TextColor="White"
                                FontSize="32"
+                               x:Name="KcalRemain"
                                Margin="0,-5,0,-3"
                                FontAttributes="Bold"/>
                         <Label Text="ккал осталось"
@@ -57,6 +59,7 @@
                                          ScaleY="2"/>
                         </Frame>
                         <Label Text="35г"
+                               x:Name="ProteinRemain"
                                FontFamily=""
                                TextColor="White"
                                FontSize="14"/>
@@ -78,6 +81,7 @@
                         
                         <Label Text="35г"
                                FontFamily=""
+                               x:Name="FatRemain"
                                TextColor="White"
                                FontSize="14"/>
                     </VerticalStackLayout>
@@ -96,6 +100,7 @@
                         </Frame>
                         <Label Text="35г"
                                FontFamily=""
+                               x:Name="CarbRemain"
                                TextColor="White"
                                FontSize="14"/>
                     </VerticalStackLayout>

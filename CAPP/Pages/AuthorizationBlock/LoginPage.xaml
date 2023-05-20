@@ -19,8 +19,6 @@
                     <Setter TargetName="img" Property="Image.WidthRequest" Value="320"/>
                     <Setter TargetName="img" Property="Image.Margin" Value="0,38,0,38"/>
                     <Setter TargetName="ButtonTest" Property="Button.FontSize" Value="24"/>
-                    <Setter TargetName="LoginLabel" Property="Label.FontSize" Value="20"/>
-                    <Setter TargetName="LoginLabelTwo" Property="Label.FontSize" Value="20"/>
                     <Setter TargetName="ButtonTest" Property="Button.WidthRequest" Value="320"/>
                     <Setter TargetName="ButtonTest" Property="Button.HeightRequest" Value="60"/>
                     <Setter TargetName="ButtonTest" Property="Button.Margin" Value="0,27,0,23"/>
@@ -37,8 +35,6 @@
                     <Setter TargetName="textLabel" Property="Label.FontSize" Value="16"/>
                     <Setter TargetName="img" Property="Image.WidthRequest" Value="275"/>
                     <Setter TargetName="ButtonTest" Property="Button.FontSize" Value="24"/>
-                    <Setter TargetName="LoginLabel" Property="Label.FontSize" Value="20"/>
-                    <Setter TargetName="LoginLabelTwo" Property="Label.FontSize" Value="20"/>
                     <Setter TargetName="ButtonTest" Property="Button.WidthRequest" Value="320"/>
                     <Setter TargetName="ButtonTest" Property="Button.HeightRequest" Value="60"/>
                     <Setter TargetName="ButtonTest" Property="Button.Margin" Value="0,23,0,10"/>
@@ -55,8 +51,6 @@
                     <Setter TargetName="textLabel" Property="Label.FontSize" Value="12"/>
                     <Setter TargetName="img" Property="Image.WidthRequest" Value="250"/>
                     <Setter TargetName="ButtonTest" Property="Button.FontSize" Value="19"/>
-                    <Setter TargetName="LoginLabel" Property="Label.FontSize" Value="16"/>
-                    <Setter TargetName="LoginLabelTwo" Property="Label.FontSize" Value="16"/>
                     <Setter TargetName="ButtonTest" Property="Button.WidthRequest" Value="296"/>
                     <Setter TargetName="ButtonTest" Property="Button.HeightRequest" Value="57"/>
                     <Setter TargetName="ButtonTest" Property="Button.Margin" Value="0,8,0,10"/>
@@ -125,26 +119,6 @@
                         Opacity="0.15"/>
             </Button.Shadow>
         </Button>
-
-        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
-
-            <Label Text="Уже есть аккаунт?"
-                   FontSize="20"
-                   TextColor="#9AA0A6"
-                   FontFamily="OpenSans"
-                   x:Name="LoginLabel"/>
-
-            <Label Text="Войти"
-                   FontSize="20"
-                   TextColor="#F83D7F"
-                   FontFamily="OpenSans"
-                   FontAttributes="Bold"
-                   x:Name="LoginLabelTwo">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnLoginTap" NumberOfTapsRequired="1"/>
-                </Label.GestureRecognizers>
-            </Label>
-        </HorizontalStackLayout>
     </VerticalStackLayout>
     
 
