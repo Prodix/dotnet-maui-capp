@@ -3,6 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CAPP.Pages.MainBlock.MainActivityPage"
              Title="MainActivityPage">
+    <ContentPage.Resources>
+        <Style TargetType="Border">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup Name="CommonStates">
+                        <VisualState Name="Normal"/>
+                        <VisualState Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <VerticalStackLayout Background="#F4F2F2">
         <Border HeightRequest="300"
                 StrokeShape="RoundRectangle 0,0,30,30"
@@ -144,6 +160,169 @@
                               Offset="1.0"/>
                 </LinearGradientBrush>
             </Border.Background>
+        </Border>
+
+
+        <CollectionView x:Name="Calendar"
+                        SelectionMode="Single"
+                        SelectionChanged="Calendar_SelectionChanged"
+                        Loaded="Calendar_Loaded">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.Footer>
+                <Label WidthRequest="16"/>
+            </CollectionView.Footer>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border WidthRequest="80"
+                            HeightRequest="110"
+                            Margin="16,16,0,16"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 14"
+                            Background="{Binding Color}">
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center">
+                            <Label Text="{Binding Day}"
+                                   FontSize="24"
+                                   TextColor="{Binding TextBrush}"
+                                   FontFamily=""
+                                   FontAttributes="Bold"/>
+                            <Label Text="{Binding DayOfWeek}"
+                                   FontSize="24"
+                                   FontFamily=""
+                                   TextColor="{Binding TextBrush}"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                        <Border.Shadow>
+                            <Shadow Opacity="{Binding Opacity}"
+                                    Brush="Black"
+                                    Radius="7"/>
+                        </Border.Shadow>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+        <CollectionView x:Name="Meals"
+                        SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.Footer>
+                <Label WidthRequest="16"/>
+            </CollectionView.Footer>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border WidthRequest="300"
+                            HeightRequest="300"
+                            StrokeThickness="0"
+                            Padding="20,25,20,35"
+                            Margin="16,0,0,0"
+                            StrokeShape="RoundRectangle 30"
+                            BackgroundColor="White">
+                        <VerticalStackLayout>
+                            <FlexLayout x:Name="Flexlayout" 
+                                        JustifyContent="SpaceBetween"
+                                        Margin="0,0,0,5">
+                                <Label Text="{Binding Type}"
+                                       FontFamily=""
+                                       FontAttributes="Bold"
+                                       FontSize="20"/>
+                                <Border WidthRequest="53"
+                                        HeightRequest="33"
+                                        StrokeShape="RoundRectangle 10,10,10,10"
+                                        StrokeThickness="0"
+                                        Background="#F83D7F">
+                                    <Image Source="plusik" 
+                                           WidthRequest="17" 
+                                           HeightRequest="17"/>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" 
+                                                  NumberOfTapsRequired="1"/>
+                                    </Border.GestureRecognizers>
+                                </Border>
+                            </FlexLayout>
+                            <Label Text="{Binding Kcal}"
+                                   FontSize="32"
+                                   FontAttributes="Bold"
+                                   FontFamily="OpenSans"/>
+                            <Label Text="ккал"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   FontFamily="OpenSans"
+                                   TextColor="#C4C4C4"/>
+                            <CollectionView ItemsSource="{Binding Items}"
+                                                Margin="0,15,0,0"
+                                                SelectionMode="Single"
+                                            ZIndex="10"
+                                            HeightRequest="130">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Vertical"
+                                                           ItemSpacing="10"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.Footer>
+                                    <Label HeightRequest="10"/>
+                                </CollectionView.Footer>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        
+                                        <Border WidthRequest="260"
+                                                    HeightRequest="115"
+                                                    StrokeThickness="0"
+                                                    BackgroundColor="#F4F2F2"
+                                                    StrokeShape="RoundRectangle 16">
+                                            <VerticalStackLayout VerticalOptions="Center"
+                                                                     Padding="0,30,0,0">
+                                                <Label Text="{Binding Name}"
+                                                           FontSize="24"
+                                                           HorizontalOptions="Center"
+                                                           FontFamily=""/>
+                                                <Border WidthRequest="260"
+                                                            HeightRequest="24"
+                                                            Margin="0,30,0,0"
+                                                            StrokeThickness="0"
+                                                            BackgroundColor="#F83D7F">
+                                                    <HorizontalStackLayout HorizontalOptions="Center">
+                                                        <Label Text="{Binding Calorie}"
+                                                                   TextColor="White"
+                                                                   FontAttributes="Bold"
+                                                                   FontFamily=""/>
+                                                        <Label Text=" Ккал"
+                                                                   TextColor="White"
+                                                                   FontFamily=""/>
+                                                    </HorizontalStackLayout>
+                                                </Border>
+                                            </VerticalStackLayout>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                        <Border.Shadow>
+                            <Shadow Opacity="0.25"
+                                    Brush="Black"
+                                    Radius="5"/>
+                        </Border.Shadow>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Border Margin="0,10,0,0"
+                StrokeShape="RoundRectangle 30,30,0,0"
+                StrokeThickness="-1"
+                Padding="20"
+                HeightRequest="100">
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                        Opacity="0.1"/>
+            </Border.Shadow>
+            <FlexLayout JustifyContent="SpaceAround">
+                <Image Source="home"/>
+                <Image Source="recipe"/>
+                <Image Source="dumbbell"/>
+                <Image Source="profile"/>
+            </FlexLayout>
         </Border>
     </VerticalStackLayout>
 </ContentPage>

@@ -1,6 +1,8 @@
-﻿using SQLite;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +56,55 @@ namespace CAPP
         public async Task<int> InsertRecipeItemAsync(RecipeItem item)
         {
             return await Database.InsertAsync(item);
+        }
+
+        public async Task<int> CreateMealAsync(MealData item)
+        {
+            return await Database.InsertAsync(item);
+        }
+
+        public async Task<int> InsertMealItemAsync(MealItem item)
+        {
+            return await Database.InsertAsync(item);
+        }
+
+        public async Task<List<MealData>> GetMealsByDateAsync(string date)
+        {
+            return await Database.Table<MealData>().Where(x => x.Date == date).ToListAsync();
+        }
+
+        public async Task<ObservableCollection<MealItem>> GetMealItemsAsync(int mealId)
+        {
+            return (await Database.Table<MealItem>().Where(x => x.Meal_id == mealId).ToListAsync()).ToObservableCollection();
+        }
+
+        public async Task<string> GetMealItemNameAsync(int? recipeId = null, int? productId = null)
+        {
+            if (recipeId is null)
+            {
+                return (await Database.Table<ProductData>().Where(x => x.Id == productId).FirstAsync()).Name;
+            }
+            else
+            {
+                return (await Database.Table<RecipeData>().Where(x => x.Id == recipeId).FirstAsync()).Name;
+            }
+        }
+
+        public async Task<double> GetMealItemCalorieAsync(int weight, int? recipeId = null, int? productId = null)
+        {
+            if (recipeId is null)
+            {
+                return (await Database.Table<ProductData>().Where(x => x.Id == productId).FirstAsync()).Kcal * (weight / 100.0);
+            }
+            else
+            {
+                return (await Database.Table<RecipeData>().Where(x => x.Id == recipeId).FirstAsync()).Kcal * (weight / 100.0);
+            }
+        }
+
+        public async Task<int> GetMealsCountAsync()
+        {
+            return await Database.Table<MealData>().CountAsync();
         }
     }
 }

@@ -40,7 +40,7 @@ public partial class BirthPage : ContentPage
                 HeightValue = heightValue,
                 Gender = gender,
                 Mode = mode,
-                BirthDate = dateTime.ToString("yyyy.MM.dd"),
+                BirthDate = dateTime.ToShortDateString(),
                 Bmi = weightValue / (heightValue / 100 * (heightValue / 100))
             };
 
