@@ -31,7 +31,6 @@
 	  <EnableLLVM>False</EnableLLVM>
 	  <RunAOTCompilation>False</RunAOTCompilation>
 	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
@@ -40,7 +39,6 @@
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <PublishTrimmed>True</PublishTrimmed>
 	  <RunAOTCompilation>True</RunAOTCompilation>
-	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<ItemGroup>

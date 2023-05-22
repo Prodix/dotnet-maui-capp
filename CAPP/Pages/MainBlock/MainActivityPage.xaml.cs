@@ -179,14 +179,7 @@ public partial class MainActivityPage : ContentPage
             }
         }
 
-        await productDatabase.InsertMealItemAsync(new MealItem
-        {
-            Meal_id = 2,
-            Product_id = 1,
-            Weight = 50,
-            Recipe_id = null,
-            Id = (await productDatabase.GetMealItemsAsync(2)).Count + 1
-        });
+        
 
         meals = (await productDatabase.GetMealsByDateAsync(((CalendarDay)e.CurrentSelection[0]).Date.ToString("yyyy-MM-dd"))).ToObservableCollection();
         Meals.ItemsSource = meals;
@@ -197,13 +190,21 @@ public partial class MainActivityPage : ContentPage
             {
                 i.Name = await productDatabase.GetMealItemNameAsync(i.Recipe_id, i.Product_id);
                 i.Calorie = await productDatabase.GetMealItemCalorieAsync(i.Weight, i.Recipe_id, i.Product_id);
+                item.Kcal += i.Calorie;
             }
         }
     }
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-
+        await productDatabase.InsertMealItemAsync(new MealItem
+        {
+            Meal_id = 22,
+            Product_id = 564,
+            Weight = 100,
+            Recipe_id = null,
+            Id = (await productDatabase.GetMealItemsAsync(22)).Count + 1
+        });
     }
 
     private void Calendar_Loaded(object sender, EventArgs e)

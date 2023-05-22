@@ -255,31 +255,27 @@
                             <CollectionView ItemsSource="{Binding Items}"
                                                 Margin="0,15,0,0"
                                                 SelectionMode="Single"
-                                            ZIndex="10"
-                                            HeightRequest="130">
+                                            HeightRequest="115">
                                 <CollectionView.ItemsLayout>
                                     <LinearItemsLayout Orientation="Vertical"
                                                            ItemSpacing="10"/>
                                 </CollectionView.ItemsLayout>
-                                <CollectionView.Footer>
-                                    <Label HeightRequest="10"/>
-                                </CollectionView.Footer>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        
-                                        <Border WidthRequest="260"
-                                                    HeightRequest="115"
-                                                    StrokeThickness="0"
-                                                    BackgroundColor="#F4F2F2"
-                                                    StrokeShape="RoundRectangle 16">
+                                        <Frame WidthRequest="250"
+                                               BackgroundColor="#F4F2F2"
+                                               Padding="0"
+                                               BorderColor="Transparent"
+                                               CornerRadius="16">
                                             <VerticalStackLayout VerticalOptions="Center"
                                                                      Padding="0,30,0,0">
                                                 <Label Text="{Binding Name}"
                                                            FontSize="24"
+                                                       LineBreakMode="TailTruncation"
+                                                       MaximumWidthRequest="230"
                                                            HorizontalOptions="Center"
                                                            FontFamily=""/>
-                                                <Border WidthRequest="260"
-                                                            HeightRequest="24"
+                                                <Border HeightRequest="24"
                                                             Margin="0,30,0,0"
                                                             StrokeThickness="0"
                                                             BackgroundColor="#F83D7F">
@@ -294,7 +290,7 @@
                                                     </HorizontalStackLayout>
                                                 </Border>
                                             </VerticalStackLayout>
-                                        </Border>
+                                        </Frame>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
