@@ -15,8 +15,10 @@ namespace CAPP
         private int _mealId;
         private int? _recipeId;
         private int? _productId;
+        private int? _mealPlanId;
+        private string _type;
         private int _weight;
-        private string _name = "Empty";
+        private string _name = "";
         private double _calorie = 0;
 
         public int Id
@@ -62,6 +64,24 @@ namespace CAPP
             {
                 _weight = value;
                 OnPropertyChanged("Weight");
+            }
+        }
+        public int? MealPlan_Id
+        {
+            get { return _mealPlanId; }
+            set
+            {
+                _mealPlanId = value;
+                OnPropertyChanged("MealPlan_Id");
+            }
+        }
+        public string Type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                OnPropertyChanged("Type");
             }
         }
         [Ignore]

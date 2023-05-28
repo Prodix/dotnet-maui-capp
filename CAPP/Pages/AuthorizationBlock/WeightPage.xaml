@@ -16,7 +16,7 @@
             </LinearGradientBrush>
         </VerticalStackLayout.Background>
         
-        <Label Text="3 / 5"
+        <Label Text="3 / 6"
                FontSize="24"
                FontFamily="OpenSans"
                TextColor="White"

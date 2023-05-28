@@ -11,7 +11,7 @@ namespace CAPP
         public int Mode { get; set; }
         public int HeightValue { get; set; }
         public double WeightValue { get; set; }
-        public double WishWeightValue { get; set; }
+        public double IntakeCoefficient { get; set; }
         public string Gender { get; set; }
         public string BirthDate { get; set; }
         public double Bmi { get; set; }

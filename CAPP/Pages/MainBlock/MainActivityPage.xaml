@@ -37,20 +37,20 @@
                        TextColor="White"
                        FontSize="20"
                        Margin="0,0,0,20"/>
-                
+
                 <Frame BackgroundColor="Transparent"
                        BorderColor="Transparent"
                        Padding="0"
                        CornerRadius="50">
                     <ProgressBar ProgressColor="White"
-                                 ScaleY="4"/>
+                                 ScaleY="4"
+                                 x:Name="MainBar"/>
                 </Frame>
-                
+
                 <HorizontalStackLayout Margin="0,20,0,30"
                                        Spacing="10">
                     <VerticalStackLayout>
-                        <Label Text="2,000"
-                               FontFamily=""
+                        <Label FontFamily=""
                                TextColor="White"
                                FontSize="32"
                                x:Name="KcalRemain"
@@ -72,10 +72,10 @@
                                Padding="0"
                                CornerRadius="50">
                             <ProgressBar ProgressColor="White"
-                                         ScaleY="2"/>
+                                         ScaleY="2"
+                                         x:Name="ProteinBar"/>
                         </Frame>
-                        <Label Text="35г"
-                               x:Name="ProteinRemain"
+                        <Label x:Name="ProteinRemain"
                                FontFamily=""
                                TextColor="White"
                                FontSize="14"/>
@@ -86,17 +86,17 @@
                                TextColor="White"
                                FontSize="16"
                                FontAttributes="Bold"/>
-                        
+
                         <Frame BackgroundColor="Transparent"
                                BorderColor="Transparent"
                                Padding="0"
                                CornerRadius="50">
                             <ProgressBar ProgressColor="White"
-                                         ScaleY="2"/>
+                                         ScaleY="2"
+                                         x:Name="FatBar"/>
                         </Frame>
-                        
-                        <Label Text="35г"
-                               FontFamily=""
+
+                        <Label FontFamily=""
                                x:Name="FatRemain"
                                TextColor="White"
                                FontSize="14"/>
@@ -112,16 +112,17 @@
                                Padding="0"
                                CornerRadius="50">
                             <ProgressBar ProgressColor="White"
-                                         ScaleY="2"/>
+                                         ScaleY="2"
+                                         x:Name="CarbBar"/>
                         </Frame>
-                        <Label Text="35г"
-                               FontFamily=""
+                        <Label FontFamily=""
                                x:Name="CarbRemain"
                                TextColor="White"
                                FontSize="14"/>
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="30">
+                <HorizontalStackLayout Spacing="50"
+                                       HorizontalOptions="Center">
                     <VerticalStackLayout>
                         <Label Text="Активность"
                                FontFamily=""
@@ -140,16 +141,6 @@
                                FontSize="16"
                                FontAttributes="Bold"/>
                     </VerticalStackLayout>
-                    <VerticalStackLayout>
-                        <VerticalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="GoToStatsPage" NumberOfTapsRequired="1"/>
-                        </VerticalStackLayout.GestureRecognizers>
-                        <Label Text="Статистика"
-                               FontFamily=""
-                               TextColor="White"
-                               FontSize="16"
-                               FontAttributes="Bold"/>
-                    </VerticalStackLayout>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
             <Border.Background>
@@ -161,8 +152,6 @@
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
-
-
         <CollectionView x:Name="Calendar"
                         SelectionMode="Single"
                         SelectionChanged="Calendar_SelectionChanged"
@@ -203,7 +192,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        
+
         <CollectionView x:Name="Meals"
                         SelectionMode="None">
             <CollectionView.ItemsLayout>
@@ -253,12 +242,13 @@
                                    FontFamily="OpenSans"
                                    TextColor="#C4C4C4"/>
                             <CollectionView ItemsSource="{Binding Items}"
-                                                Margin="0,15,0,0"
-                                                SelectionMode="Single"
-                                            HeightRequest="115">
+                                            Margin="0,15,0,0"
+                                            SelectionMode="Single"
+                                            HeightRequest="115"
+                                            HorizontalOptions="CenterAndExpand">
                                 <CollectionView.ItemsLayout>
                                     <LinearItemsLayout Orientation="Vertical"
-                                                           ItemSpacing="10"/>
+                                                       ItemSpacing="10"/>
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
@@ -266,27 +256,28 @@
                                                BackgroundColor="#F4F2F2"
                                                Padding="0"
                                                BorderColor="Transparent"
+                                               HorizontalOptions="Center"
                                                CornerRadius="16">
                                             <VerticalStackLayout VerticalOptions="Center"
-                                                                     Padding="0,30,0,0">
+                                                                 Padding="0,30,0,0">
                                                 <Label Text="{Binding Name}"
-                                                           FontSize="24"
+                                                       FontSize="24"
                                                        LineBreakMode="TailTruncation"
                                                        MaximumWidthRequest="230"
-                                                           HorizontalOptions="Center"
-                                                           FontFamily=""/>
+                                                       HorizontalOptions="Center"
+                                                       FontFamily=""/>
                                                 <Border HeightRequest="24"
-                                                            Margin="0,30,0,0"
-                                                            StrokeThickness="0"
-                                                            BackgroundColor="#F83D7F">
+                                                        Margin="0,30,0,0"
+                                                        StrokeThickness="0"
+                                                        BackgroundColor="#F83D7F">
                                                     <HorizontalStackLayout HorizontalOptions="Center">
                                                         <Label Text="{Binding Calorie}"
-                                                                   TextColor="White"
-                                                                   FontAttributes="Bold"
-                                                                   FontFamily=""/>
+                                                               TextColor="White"
+                                                               FontAttributes="Bold"
+                                                               FontFamily=""/>
                                                         <Label Text=" Ккал"
-                                                                   TextColor="White"
-                                                                   FontFamily=""/>
+                                                               TextColor="White"
+                                                               FontFamily=""/>
                                                     </HorizontalStackLayout>
                                                 </Border>
                                             </VerticalStackLayout>
@@ -315,8 +306,11 @@
             </Border.Shadow>
             <FlexLayout JustifyContent="SpaceAround">
                 <Image Source="home"/>
-                <Image Source="recipe"/>
-                <Image Source="dumbbell"/>
+                <Image Source="recipe_gray">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
                 <Image Source="profile"/>
             </FlexLayout>
         </Border>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CAPP.Pages.MainBlock.RecipeInfo"
+             Title="RecipeInfo">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Border StrokeThickness="-1"
+                    HeightRequest="85">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#F54B87"
+                                      Offset="0.3"/>
+                        <GradientStop Color="#F81464"
+                                      Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Label x:Name="Header"
+                       VerticalOptions="Center"
+                       FontSize="24"
+                       Margin="25,0,0,0"
+                       FontAttributes="Bold"
+                       FontFamily=""
+                       TextColor="White"
+                       LineBreakMode="TailTruncation"/>
+            </Border>
+            <Image x:Name="img"
+                   HeightRequest="230"
+                   Margin="0,0,0,20"
+                   Aspect="AspectFill"/>
+            <Grid HorizontalOptions="Center"
+                  Margin="0,0,0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="90"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="К" 
+                       HorizontalOptions="Center"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       FontFamily=""/>
+                <Label Text="Б"
+                       Grid.Column="1"
+                       HorizontalOptions="Center"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       FontFamily=""/>
+                <Label Text="Ж"
+                       Grid.Column="2"
+                       HorizontalOptions="Center"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       FontFamily=""/>
+                <Label Text="У"
+                       Grid.Column="3"
+                       HorizontalOptions="Center"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       FontFamily=""/>
+                <Label x:Name="Kcal"
+                       Grid.Row="1"
+                       HorizontalOptions="Center"
+                       FontSize="24"
+                       FontFamily=""/>
+                <Label x:Name="Protein"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       HorizontalOptions="Center"
+                       FontSize="24"
+                       FontFamily=""/>
+                <Label x:Name="Fat"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       HorizontalOptions="Center"
+                       FontSize="24"
+                       FontFamily=""/>
+                <Label x:Name="Carb"
+                       Grid.Row="1"
+                       Grid.Column="3"
+                       HorizontalOptions="Center"
+                       FontSize="24"
+                       FontFamily=""/>
+            </Grid>
+            <Label Text="Ингредиенты"
+                   FontSize="24"
+                   FontFamily=""
+                   FontAttributes="Bold"
+                   Margin="10,0,0,0"/>
+            
+            <StackLayout x:Name="IngredientsView"
+                         Margin="10,0,0,20">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Label FontSize="24"
+                               FontFamily="">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{} - {0}: {1}г">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="Weight"/>
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <Label Text="Шаги приготовления"
+                   FontSize="24"
+                   FontFamily=""
+                   FontAttributes="Bold"
+                   Margin="10,0,0,0"/>
+            <StackLayout x:Name="CookingView"
+                         Margin="15,0,0,80"
+                         Spacing="4">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Label FontSize="24"
+                               FontFamily="">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0}. {1}">
+                                    <Binding Path="Step_id"/>
+                                    <Binding Path="Description"/>
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

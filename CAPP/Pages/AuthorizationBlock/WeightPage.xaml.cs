@@ -46,45 +46,7 @@ public partial class WeightPage : ContentPage
 
     private async void OnAccountCreating(object sender, EventArgs e)
     {
-        if (mode == 1)
-        {
-            if (WeightEntry.Value < 18.5 * (heightValue / 100.0 * (heightValue / 100.0)))
-            {
-                string text = "Вы ввели слишком маленький вес, советуем вам проконсультироваться с врачом. Продолжить?";
-                var awarePopup = new WeightAwarePopup();
-                awarePopup.EntryPlaceholder = text;
-                object? result = await this.ShowPopupAsync(awarePopup);
-                if (result != null && Convert.ToBoolean(result))
-                {
-                    await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value), false);
-                }
-            }
-            else
-            {
-                await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value), false);
-            }
-        }
-        else if (mode == 2)
-        {
-            if (WeightEntry.Value > 30 * (heightValue / 100.0 * (heightValue / 100.0)))
-            {
-                string text = "Вы ввели слишком большой вес, советуем вам проконсультироваться с врачом. Продолжить?";
-                var awarePopup = new WeightAwarePopup();
-                awarePopup.EntryPlaceholder = text;
-                object? result = await this.ShowPopupAsync(awarePopup);
-                if (result != null && Convert.ToBoolean(result))
-                {
-                    await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value), false);
-                }
-            }
-            else
-            {
-                await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value), false);
-            }
-        }
-        else
-            await Navigation.PushAsync(new GenderPage(mode, heightValue, WeightEntry.Value));
-
+        await Navigation.PushAsync(new WeightPageTwo(mode, heightValue, WeightEntry.Value), false);
     }
 
 }

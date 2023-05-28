@@ -28,6 +28,11 @@ namespace CAPP
             return await Database.Table<ProductData>().ToListAsync();
         }
 
+        public async Task<string> GetProductNameAsync(int id)
+        {
+            return (await Database.Table<ProductData>().Where(x => x.Id == id).FirstAsync()).Name;
+        }
+
         public async Task<ProductData> GetFirstItemAsync()
         {
             return await Database.Table<ProductData>().FirstAsync();
@@ -36,6 +41,11 @@ namespace CAPP
         public async Task<List<ProductData>> FindProducts(string name)
         {
             return await Database.QueryAsync<ProductData>($"SELECT * FROM (SELECT *, length(Name) FROM ProductData WHERE Name LIKE '%{name}%' UNION SELECT *, length(Name) FROM ProductData WHERE Name LIKE '{name[0].ToString().ToUpper() + name.Substring(1)}%') ORDER BY length(Name) ASC;");
+        }
+
+        public async Task<List<RecipeData>> FindRecipes(string name)
+        {
+            return await Database.QueryAsync<RecipeData>($"SELECT * FROM (SELECT *, length(Name) FROM RecipeData WHERE Name LIKE '%{name}%' UNION SELECT *, length(Name) FROM RecipeData WHERE Name LIKE '{name[0].ToString().ToUpper() + name.Substring(1)}%') ORDER BY length(Name) ASC;");
         }
 
         public async Task<int> InsertRecipeAsync(RecipeData item)
@@ -102,9 +112,75 @@ namespace CAPP
             }
         }
 
+        public async Task<double> GetMealItemCarbAsync(int weight, int? recipeId = null, int? productId = null)
+        {
+            if (recipeId is null)
+            {
+                return (await Database.Table<ProductData>().Where(x => x.Id == productId).FirstAsync()).Carb * (weight / 100.0);
+            }
+            else
+            {
+                return (await Database.Table<RecipeData>().Where(x => x.Id == recipeId).FirstAsync()).Carb * (weight / 100.0);
+            }
+        }
+
+        public async Task<double> GetMealItemProteinAsync(int weight, int? recipeId = null, int? productId = null)
+        {
+            if (recipeId is null)
+            {
+                return (await Database.Table<ProductData>().Where(x => x.Id == productId).FirstAsync()).Protein * (weight / 100.0);
+            }
+            else
+            {
+                return (await Database.Table<RecipeData>().Where(x => x.Id == recipeId).FirstAsync()).Protein * (weight / 100.0);
+            }
+        }
+
+        public async Task<double> GetMealItemFatAsync(int weight, int? recipeId = null, int? productId = null)
+        {
+            if (recipeId is null)
+            {
+                return (await Database.Table<ProductData>().Where(x => x.Id == productId).FirstAsync()).Fat * (weight / 100.0);
+            }
+            else
+            {
+                return (await Database.Table<RecipeData>().Where(x => x.Id == recipeId).FirstAsync()).Fat * (weight / 100.0);
+            }
+        }
+
+        public async Task<int> UpdateMealCarbs(MealData item)
+        {
+            return await Database.UpdateAsync(item);
+        }
+
         public async Task<int> GetMealsCountAsync()
         {
             return await Database.Table<MealData>().CountAsync();
+        }
+
+        public async Task<List<RecipeData>> GetBreakfastRecipesAsync()
+        {
+            return await Database.Table<RecipeData>().Where(x => x.Type == "Завтрак").ToListAsync();
+        }
+
+        public async Task<List<RecipeData>> GetLunchRecipesAsync()
+        {
+            return await Database.Table<RecipeData>().Where(x => x.Type == "Обед").ToListAsync();
+        }
+
+        public async Task<List<RecipeData>> GetDinnerRecipesAsync()
+        {
+            return await Database.Table<RecipeData>().Where(x => x.Type == "Ужин").ToListAsync();
+        }
+
+        public async Task<List<RecipeItem>> GetIngredientsAsync(RecipeData data)
+        {
+            return await Database.Table<RecipeItem>().Where(x => x.Recipe_id == data.Id).ToListAsync();
+        }
+
+        public async Task<List<RecipeStep>> GetStepsAsync(RecipeData data)
+        {
+            return await Database.Table<RecipeStep>().Where(x => x.Recipe_id == data.Id).ToListAsync();
         }
     }
 }

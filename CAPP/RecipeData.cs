@@ -15,6 +15,7 @@ namespace CAPP
         public double Carb { get; set; }
         public double Kcal { get; set; }
         public bool User_defined { get; set; }
-        public string Description { get; set; }
+        public string Type { get; set; }
+        public string ImageName { get; set; }
     }
 }

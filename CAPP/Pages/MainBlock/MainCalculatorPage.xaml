@@ -142,7 +142,8 @@
                                FontSize="20"/>
                     </VerticalStackLayout>
                 </HorizontalStackLayout>-->
-                <HorizontalStackLayout Spacing="30">
+                <HorizontalStackLayout Spacing="50"
+                                       HorizontalOptions="Center">
                     <VerticalStackLayout>
                         <VerticalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer Tapped="GoToActivityPage" NumberOfTapsRequired="1"/>
@@ -161,17 +162,6 @@
                                FontSize="16"
                                FontAttributes="Bold"/>
                         <Image Source="line" Margin="0,5,0,0"/>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout>
-                        <VerticalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="GoToStatsPage" NumberOfTapsRequired="1"/>
-                        </VerticalStackLayout.GestureRecognizers>
-                        <Label Text="Статистика"
-                               FontFamily=""
-                               TextColor="White"
-                               FontSize="16"
-                               FontAttributes="Bold"/>
-                        <Image />
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
@@ -265,8 +255,11 @@
             </Border.Shadow>
             <FlexLayout JustifyContent="SpaceAround">
                 <Image Source="home"/>
-                <Image Source="recipe"/>
-                <Image Source="dumbbell"/>
+                <Image Source="recipe_gray">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
                 <Image Source="profile"/>
             </FlexLayout>
         </Border>

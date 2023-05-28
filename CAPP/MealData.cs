@@ -15,9 +15,13 @@ namespace CAPP
         private int _id;
         private string _date;
         private string _type;
-        private double _kcal;
+        private double _kcal = 0;
+        private double _carb = 0;
+        private double _protein = 0;
+        private double _fat = 0;
         private ObservableCollection<MealItem> _items = new ObservableCollection<MealItem>();
 
+        [PrimaryKey]
         public int Id
         {
             get { return _id; }
@@ -54,6 +58,33 @@ namespace CAPP
                 OnPropertyChanged("Kcal");
             }
         }
+        public double Carb
+        {
+            get { return _carb; }
+            set
+            {
+                _carb = value;
+                OnPropertyChanged("Carb");
+            }
+        }
+        public double Protein
+        {
+            get { return _protein; }
+            set
+            {
+                _protein = value;
+                OnPropertyChanged("Protein");
+            }
+        }
+        public double Fat
+        {
+            get { return _fat; }
+            set
+            {
+                _fat = value;
+                OnPropertyChanged("Fat");
+            }
+        }
         [Ignore]
         public ObservableCollection<MealItem> Items
         {
@@ -64,6 +95,7 @@ namespace CAPP
                 OnPropertyChanged("Items");
             }
         }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

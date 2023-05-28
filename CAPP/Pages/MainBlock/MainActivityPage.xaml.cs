@@ -1,7 +1,11 @@
+using CAPP.Controls;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Core.Extensions;
-using Microsoft.Maui;
+using CommunityToolkit.Maui.Views;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CAPP.Pages.MainBlock;
 
@@ -10,7 +14,13 @@ public partial class MainActivityPage : ContentPage
     UserData userData;
     ProductDatabase productDatabase;
     ObservableCollection<CalendarDay> days = new ObservableCollection<CalendarDay>();
-    ObservableCollection<MealData> meals = new ObservableCollection<MealData>();
+    ObservableCollection<MealData> meals = new ObservableCollection<MealData>
+    {
+        new MealData { Type = "Завтрак" },
+        new MealData { Type = "Обед" },
+        new MealData { Type = "Ужин" }
+    };
+    bool isProgrammaticlyChanged = false;
 
     public MainActivityPage()
 	{
@@ -89,12 +99,15 @@ public partial class MainActivityPage : ContentPage
                 Month = start.AddDays(i).Month,
                 DayOfWeek = dayOfWeek
             });
-
         }
 
         userData = JsonConvert.DeserializeObject<UserData>(File.ReadAllText(Constants.UserDataPath));
+
 		BindingContext = this;
+
 		InitializeComponent();
+
+        Meals.ItemsSource = meals;
 
         Calendar.ItemsSource = days;
 
@@ -123,7 +136,6 @@ public partial class MainActivityPage : ContentPage
 
         Calendar.SelectedItem = days.Where(x => x.Date.Day == DateTime.Now.Day).First();
 
-        Meals.ItemsSource = meals;
     }
 
     private void GoToCalculatorPage(object sender, TappedEventArgs e)
@@ -133,12 +145,25 @@ public partial class MainActivityPage : ContentPage
 
     private void GoToStatsPage(object sender, TappedEventArgs e)
     {
-        Shell.Current.GoToAsync("///Stats");
+        //Shell.Current.GoToAsync("///Stats");
     }
 
 
     private async void Calendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        if (isProgrammaticlyChanged)
+        {
+            isProgrammaticlyChanged = false;
+            return;
+        }
+
+        if (((CalendarDay)e.CurrentSelection[0]).Date.Date > DateTime.Now.Date && e.PreviousSelection.Count != 0)
+        {
+            Calendar.SelectedItem = (CalendarDay)e.PreviousSelection[0];
+            isProgrammaticlyChanged = true;
+            return;
+        }
+
         ((CalendarDay)e.CurrentSelection[0]).Color = new SolidColorBrush(Color.FromArgb("F83D7F"));
         ((CalendarDay)e.CurrentSelection[0]).Opacity = 0.25;
         ((CalendarDay)e.CurrentSelection[0]).TextBrush = Colors.White;
@@ -179,36 +204,218 @@ public partial class MainActivityPage : ContentPage
             }
         }
 
-        
-
         meals = (await productDatabase.GetMealsByDateAsync(((CalendarDay)e.CurrentSelection[0]).Date.ToString("yyyy-MM-dd"))).ToObservableCollection();
         Meals.ItemsSource = meals;
-        foreach (var item in meals)
+        await Task.WhenAll(test(meals[0]), test(meals[1]), test(meals[2]));
+
+        double kcalRemain = userData.CalorieIntake - (meals[0].Kcal + meals[1].Kcal + meals[2].Kcal);
+        double fatRemain = userData.Fat - (meals.Sum(x => x.Fat));
+        double proteinRemain = userData.Protein - (meals.Sum(x => x.Protein));
+        double carbRemain = userData.Carb - (meals.Sum(x => x.Carb));
+
+        if ( kcalRemain < 0 )
         {
-            item.Items = await productDatabase.GetMealItemsAsync(item.Id);
-            foreach (var i in item.Items)
-            {
-                i.Name = await productDatabase.GetMealItemNameAsync(i.Recipe_id, i.Product_id);
-                i.Calorie = await productDatabase.GetMealItemCalorieAsync(i.Weight, i.Recipe_id, i.Product_id);
-                item.Kcal += i.Calorie;
-            }
+            KcalRemain.Text = "0";
         }
+        else
+        {
+            KcalRemain.Text = ((int)kcalRemain).ToString();
+        }
+
+        if (carbRemain < 0)
+        {
+            CarbRemain.Text = "0г";
+        }
+        else
+        {
+            CarbRemain.Text = ((int)carbRemain).ToString() + "г";
+        }
+
+        if (fatRemain < 0)
+        {
+            FatRemain.Text = "0г";
+        }
+        else
+        {
+            FatRemain.Text = ((int)fatRemain).ToString() + "г";
+        }
+
+        if (proteinRemain < 0)
+        {
+            ProteinRemain.Text = "0г";
+        }
+        else
+        {
+            ProteinRemain.Text = ((int)proteinRemain).ToString() + "г";
+        }
+
+        MainBar.Progress = 1 - ((Convert.ToInt32(KcalRemain.Text) / (userData.CalorieIntake * 0.01)) / 100);
+        FatBar.Progress = 1 - ((Convert.ToDouble(FatRemain.Text.Replace("г", "")) / (userData.Fat * 0.01)) / 100);
+        ProteinBar.Progress = 1 - ((Convert.ToDouble(ProteinRemain.Text.Replace("г", "")) / (userData.Protein * 0.01)) / 100);
+        CarbBar.Progress = 1 - ((Convert.ToDouble(CarbRemain.Text.Replace("г", "")) / (userData.Carb * 0.01)) / 100);
+        //foreach (var item in meals)
+        //{
+        //    item.Items = await productDatabase.GetMealItemsAsync(item.Id);
+        //    foreach (var i in item.Items)
+        //    {
+        //        i.Name = await productDatabase.GetMealItemNameAsync(i.Recipe_id, i.Product_id);
+        //        i.Calorie = await productDatabase.GetMealItemCalorieAsync(i.Weight, i.Recipe_id, i.Product_id);
+        //        item.Kcal += i.Calorie;
+        //    }
+        //}
+    }
+
+    //rename function
+    private async Task test(MealData item)
+    {
+        double kcal = 0;
+        item.Items = await productDatabase.GetMealItemsAsync(item.Id);
+
+        foreach (var i in item.Items)
+        {
+            i.Name = await productDatabase.GetMealItemNameAsync(i.Recipe_id, i.Product_id);
+            i.Calorie = await productDatabase.GetMealItemCalorieAsync(i.Weight, i.Recipe_id, i.Product_id);
+            kcal += i.Calorie;
+        }
+
+        item.Kcal = Math.Round(kcal);
     }
 
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        await productDatabase.InsertMealItemAsync(new MealItem
+        if (((CalendarDay)Calendar.SelectedItem).Date.Date < DateTime.Now.Date)
         {
-            Meal_id = 22,
-            Product_id = 564,
-            Weight = 100,
-            Recipe_id = null,
-            Id = (await productDatabase.GetMealItemsAsync(22)).Count + 1
-        });
+            return;
+        }
+
+        int tapId = ((MealData)((CollectionView)((VerticalStackLayout)((Border)sender).Parent.Parent).Children[3]).BindingContext).Id;
+        // доступ к колекции еды ((ObservableCollection<MealItem>)((CollectionView)((VerticalStackLayout)((Border)sender).Parent.Parent).Children[3]).ItemsSource)[0].Calorie;
+
+        var popup = new ProductPopup();
+        var weightPopup = new WeightPopup();
+        ProductData product = (ProductData)await this.ShowPopupAsync(popup);
+        
+        if (product is null) return;
+        
+        int weight = Convert.ToInt32(await this.ShowPopupAsync(weightPopup));
+
+
+        foreach (var meal in meals)
+        {
+            if (meal.Id == tapId)
+            {
+                MealItem item = new MealItem
+                {
+                    Meal_id = meal.Id,
+                    Weight = weight, // нужно сделать ввод веса
+                    Id = (await productDatabase.GetMealItemsAsync(meal.Id)).Count + 1
+                };
+
+
+                if (product.Type == "Recipe")
+                {
+                    item.Recipe_id = product.Id;
+                    item.Name = product.Name;
+                    item.Calorie = Math.Round(await productDatabase.GetMealItemCalorieAsync(item.Weight, product.Id, null));
+                    meal.Carb += await productDatabase.GetMealItemCarbAsync(item.Weight, product.Id);
+                    meal.Protein += await productDatabase.GetMealItemProteinAsync(item.Weight, product.Id);
+                    meal.Fat += await productDatabase.GetMealItemFatAsync(item.Weight, product.Id);
+                }
+                else
+                {
+                    item.Product_id = product.Id;
+                    item.Name = product.Name;
+                    item.Calorie = Math.Round(await productDatabase.GetMealItemCalorieAsync(item.Weight, null, product.Id));
+                    meal.Carb += await productDatabase.GetMealItemCarbAsync(item.Weight, null, product.Id);
+                    meal.Protein += await productDatabase.GetMealItemProteinAsync(item.Weight, null, product.Id);
+                    meal.Fat += await productDatabase.GetMealItemFatAsync(item.Weight, null, product.Id);
+                }
+
+                meal.Items.Add(item);
+                
+                meal.Kcal += Math.Round(item.Calorie);
+
+                await productDatabase.InsertMealItemAsync(item);
+                await productDatabase.UpdateMealCarbs(meal);
+
+            }
+        }
+
+        double kcalRemain = userData.CalorieIntake - (meals[0].Kcal + meals[1].Kcal + meals[2].Kcal);
+        double fatRemain = userData.Fat - (meals.Sum(x => x.Fat));
+        double proteinRemain = userData.Protein - (meals.Sum(x => x.Protein));
+        double carbRemain = userData.Carb - (meals.Sum(x => x.Carb));
+
+        if (kcalRemain < 0)
+        {
+            if (kcalRemain <= -100)
+            {
+                await Toast.Make("Вы превышаете дневной лимит калорий!", ToastDuration.Long).Show();
+            }
+
+            KcalRemain.Text = "0";
+        }
+        else
+        {
+            KcalRemain.Text = ((int)kcalRemain).ToString();
+        }
+
+        if (carbRemain < 0)
+        {
+            if (carbRemain <= -2)
+            {
+                await Toast.Make("Вы превышаете дневной лимит углеводов!", ToastDuration.Short).Show();
+            }
+
+            CarbRemain.Text = "0г";
+        }
+        else
+        {
+            CarbRemain.Text = ((int)carbRemain).ToString() + "г";
+        }
+
+        if (fatRemain < 0)
+        {
+            if (fatRemain <= -2)
+            {
+                await Toast.Make("Вы превышаете дневной лимит жиров!", ToastDuration.Short).Show();
+            }
+
+            FatRemain.Text = "0г";
+        }
+        else
+        {
+            FatRemain.Text = ((int)fatRemain).ToString() + "г";
+        }
+
+        if (proteinRemain < 0)
+        {
+            if (proteinRemain <= -2)
+            {
+                await Toast.Make("Вы превышаете дневной лимит белков!", ToastDuration.Short).Show();
+            }
+
+            ProteinRemain.Text = "0г";
+        }
+        else
+        {
+            ProteinRemain.Text = ((int)proteinRemain).ToString() + "г";
+        }
+
+        MainBar.Progress = 1 - ((Convert.ToInt32(KcalRemain.Text) / (userData.CalorieIntake * 0.01)) / 100);
+        FatBar.Progress = 1 - ((Convert.ToDouble(FatRemain.Text.Replace("г", "")) / (userData.Fat * 0.01)) / 100);
+        ProteinBar.Progress = 1 - ((Convert.ToDouble(ProteinRemain.Text.Replace("г", "")) / (userData.Protein * 0.01)) / 100);
+        CarbBar.Progress = 1 - ((Convert.ToDouble(CarbRemain.Text.Replace("г", "")) / (userData.Carb * 0.01)) / 100);
+
     }
 
     private void Calendar_Loaded(object sender, EventArgs e)
     {
         Calendar.ScrollTo(Calendar.SelectedItem, animate: false);
+    }
+
+    private async void TapGestureRecognizer_Tapped_1(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync("///Recipes", new Dictionary<string, object> { { "UserData", userData } });
     }
 }

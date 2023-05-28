@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,7 @@ namespace CAPP
         public int Recipe_id { get; set; }
         public int Product_id { get; set; }
         public double Weight { get; set; }
+        [Ignore]
+        public string Name { get; set; }
     }
 }

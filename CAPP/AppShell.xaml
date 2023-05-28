@@ -22,6 +22,9 @@
         <ShellContent Route="Activity"
                       ContentTemplate="{DataTemplate localTwo:MainActivityPage}"/>
 
+        <ShellContent Route="Recipes"
+                      ContentTemplate="{DataTemplate localTwo:RecipesPage}"/>
+
     </TabBar>
 
 </Shell>

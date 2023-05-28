@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,7 @@ namespace CAPP
         public double Protein { get; set; }
         public double Kcal { get; set; }
         public double Weight { get; set; } = 100;
+        [Ignore]
+        public string Type { get; set; } = "Product";
     }
 }

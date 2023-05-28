@@ -9,16 +9,16 @@ public partial class BirthPage : ContentPage
     int mode;
     int heightValue;
     double weightValue;
-    double wishWeightValue;
+    double intakeCoefficient;
     string gender;
 
-	public BirthPage(int mode, int heightValue, double weightValue, string gender, double wishWeightValue = 0.0)
+	public BirthPage(int mode, int heightValue, double weightValue, string gender, double intakeCoefficient)
 	{
 		InitializeComponent();
         this.mode = mode;
         this.heightValue = heightValue;
         this.weightValue = weightValue;
-        this.wishWeightValue = wishWeightValue;
+        this.intakeCoefficient = intakeCoefficient;
         this.gender = gender;
 	}
 
@@ -36,7 +36,7 @@ public partial class BirthPage : ContentPage
             UserData userData = new UserData
             {
                 WeightValue = weightValue,
-                WishWeightValue = wishWeightValue,
+                IntakeCoefficient = intakeCoefficient,
                 HeightValue = heightValue,
                 Gender = gender,
                 Mode = mode,
@@ -44,35 +44,33 @@ public partial class BirthPage : ContentPage
                 Bmi = weightValue / (heightValue / 100 * (heightValue / 100))
             };
 
+            double calorieIntake = (gender == "f") ? 447.6 + (9.3 * weightValue) + (3.1 * heightValue) - (4.3 * ((DateTime.Now - dateTime).Days / 365)) * intakeCoefficient : 88.4 + (13.4 * weightValue) + (4.8 * heightValue) - (5.7 * ((DateTime.Now - dateTime).Days / 365)) * intakeCoefficient;
+
             switch (userData.Mode)
             {
                 case 1:
-                    double calorieIntake0 = (gender == "f") ? (10 * weightValue) + (6.25 * heightValue) - (5 * ((DateTime.Now - dateTime).Days / 365)) - 161 : (10 * weightValue) + (6.25 * heightValue) - (5 * ((DateTime.Now - dateTime).Days / 365)) + 5;
-                    calorieIntake0 -= (weightValue - weightValue * 0.01) * 1540 / 3;
-                    userData.CalorieIntake = (int)Math.Round(calorieIntake0, 2);
+                    calorieIntake -= weightValue * 0.02 * 1540 / 3;
+                    userData.CalorieIntake = (int)Math.Round(calorieIntake, 2);
                     userData.Carb = (int)(userData.CalorieIntake * 0.5 / 9);
                     userData.Fat = (int)(userData.CalorieIntake * 0.3 / 4);
                     userData.Protein = (int)(userData.CalorieIntake * 0.2 / 4);
                     break;
                 case 2:
-                    double calorieIntake1 = (gender == "f") ? (10 * weightValue) + (6.25 * heightValue) - (5 * ((DateTime.Now - dateTime).Days / 365)) - 161 : (10 * weightValue) + (6.25 * heightValue) - (5 * ((DateTime.Now - dateTime).Days / 365)) + 5;
-                    calorieIntake1 += (weightValue - weightValue * 0.01) * 1540 / 3;
-                    userData.CalorieIntake = (int)Math.Round(calorieIntake1, 2);
+                    calorieIntake += weightValue * 0.02 * 1540 / 3;
+                    userData.CalorieIntake = (int)Math.Round(calorieIntake, 2);
                     userData.Carb = (int)(userData.CalorieIntake * 0.6 / 9);
                     userData.Fat = (int)(userData.CalorieIntake * 0.15 / 4);
                     userData.Protein = (int)(userData.CalorieIntake * 0.25 / 4);
                     break;
                 case 3:
-                    double calorieIntake2 = (gender == "f") ? (10 * weightValue) + (6.25 * heightValue) - (5 * ((DateTime.Now - dateTime).Days / 365)) - 161 : (10 * weightValue) + (6.25 * heightValue) - (5 * ((DateTime.Now - dateTime).Days / 365)) + 5;
-                    calorieIntake2 += (weightValue - weightValue * 0.01) * 1540 / 3;
-                    userData.CalorieIntake = (int)Math.Round(calorieIntake2, 2);
+                    calorieIntake += weightValue * 0.02 * 1540 / 3;
+                    userData.CalorieIntake = (int)Math.Round(calorieIntake, 2);
                     userData.Carb = (int)(userData.CalorieIntake * 0.5 / 9);
                     userData.Fat = (int)(userData.CalorieIntake * 0.2 / 4);
                     userData.Protein = (int)(userData.CalorieIntake * 0.3 / 4);
                     break;
                 case 4:
-                    double calorieIntake3 = (gender == "f") ? (10 * weightValue) + (6.25 * heightValue) - (5 * ((DateTime.Now - dateTime).Days / 365)) - 161 : (10 * weightValue) + (6.25 * heightValue) - (5 * ((DateTime.Now - dateTime).Days / 365)) + 5;
-                    userData.CalorieIntake = (int)Math.Round(calorieIntake3, 2);
+                    userData.CalorieIntake = (int)Math.Round(calorieIntake, 2);
                     userData.Carb = (int)(userData.CalorieIntake * 0.4 / 9);
                     userData.Fat = (int)(userData.CalorieIntake * 0.3 / 4);
                     userData.Protein = (int)(userData.CalorieIntake * 0.3 / 4);

@@ -27,7 +27,24 @@ public partial class MainCalculatorPage : ContentPage
     {
         if (((Entry)sender).Text.Length != 0)
         {
-            SearchCollection.ItemsSource = await productDatabase.FindProducts(((Entry)sender).Text);
+            List<ProductData> products = await productDatabase.FindProducts(((Entry)sender).Text);
+            List<RecipeData> recipes = await productDatabase.FindRecipes(((Entry)sender).Text);
+
+            foreach (RecipeData recipe in recipes)
+            {
+                products.Add(new ProductData
+                {
+                    Id = recipe.Id,
+                    Name = recipe.Name,
+                    Fat = recipe.Fat,
+                    Carb = recipe.Carb,
+                    Kcal = recipe.Kcal,
+                    Protein = recipe.Protein,
+                    Type = "Recipe"
+                });
+            }
+
+            SearchCollection.ItemsSource = products;
         }
         else
         {
@@ -517,16 +534,16 @@ public partial class MainCalculatorPage : ContentPage
                 VerticalStackLayout vst1 = new VerticalStackLayout
                 {
                     Children =
-                {
-                    new Label
                     {
-                        Text = "К",
-                        FontFamily = "",
-                        FontAttributes = FontAttributes.Bold,
-                        HorizontalOptions = LayoutOptions.Center
+                        new Label
+                        {
+                            Text = "К",
+                            FontFamily = "",
+                            FontAttributes = FontAttributes.Bold,
+                            HorizontalOptions = LayoutOptions.Center
+                        },
+                        kcal
                     },
-                    kcal
-                },
                     HorizontalOptions = LayoutOptions.Center
                 };
                 VerticalStackLayout vst2 = new VerticalStackLayout()
@@ -547,16 +564,16 @@ public partial class MainCalculatorPage : ContentPage
                 VerticalStackLayout vst3 = new VerticalStackLayout()
                 {
                     Children =
-                {
-                    new Label
                     {
-                        Text = "Ж",
-                        FontFamily = "",
-                        FontAttributes = FontAttributes.Bold,
-                        HorizontalOptions = LayoutOptions.Center
+                        new Label
+                        {
+                            Text = "Ж",
+                            FontFamily = "",
+                            FontAttributes = FontAttributes.Bold,
+                            HorizontalOptions = LayoutOptions.Center
+                        },
+                        fat
                     },
-                    fat
-                },
                     HorizontalOptions = LayoutOptions.Center
                 };
                 VerticalStackLayout vst4 = new VerticalStackLayout()
@@ -623,9 +640,15 @@ public partial class MainCalculatorPage : ContentPage
 
     private async void Button_Clicked_1(object sender, EventArgs e)
     {
-        if (calcList.Count <= 1)
+        if (calcList.Exists(x => x.Type == "Recipe"))
         {
-            string text = "Слишком мало продуктов";
+            string text = "Нельзя использовать рецепты!";
+            await Toast.Make(text, ToastDuration.Short).Show();
+            return;
+        }
+        else if (calcList.Count <= 1)
+        {
+            string text = "Слишком мало продуктов!";
             await Toast.Make(text, ToastDuration.Short).Show();
             return;
         }
@@ -651,15 +674,15 @@ public partial class MainCalculatorPage : ContentPage
                 RecipeItem recipeItem = new RecipeItem
                 {
                     Weight = item.Weight,
-                    Recipe_id = recipeCount == 0 ? recipeCount : recipeCount - 1,
+                    Recipe_id = recipeCount + 1,
                     Product_id = item.Id
                 };
 
                 weight += item.Weight;
-                carb += item.Carb;
-                fat += item.Fat;
-                kcal += item.Kcal;
-                protein += item.Protein;
+                carb += item.Carb * (item.Weight / 100);
+                fat += item.Fat * (item.Weight / 100);
+                kcal += item.Kcal * (item.Weight / 100);
+                protein += item.Protein * (item.Weight / 100);
 
                 recipeItems.Add(recipeItem);
             }
@@ -673,12 +696,15 @@ public partial class MainCalculatorPage : ContentPage
                 Protein = Math.Round(protein * value, 2),
                 Kcal = Math.Round(kcal * value, 2),
                 Name = name.ToString(),
-                User_defined = true
+                User_defined = true,
+                Id = recipeCount + 1
             };
 
             try
             {
                 await productDatabase.InsertRecipeAsync(recipe);
+                string text = "Рецепт успешно добавлен";
+                await Toast.Make(text, ToastDuration.Short).Show();
             }
             catch (SQLite.SQLiteException)
             {
@@ -689,5 +715,11 @@ public partial class MainCalculatorPage : ContentPage
 
             recipeItems.ForEach(async x => await productDatabase.InsertRecipeItemAsync(x));
         }
+
+    }
+
+    private async void TapGestureRecognizer_Tapped_1(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync("///Recipes");
     }
 }

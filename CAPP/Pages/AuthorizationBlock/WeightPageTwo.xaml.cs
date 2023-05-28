@@ -8,7 +8,7 @@ namespace CAPP;
 public partial class WeightPageTwo : ContentPage
 {
     int heightValue = 0, mode = 0;
-    double weightValue = 0, curWeightValue = 0;
+    double intakeCoefficient = 0, curWeightValue = 0;
 
 
     public WeightPageTwo(int mode, int heightValue, double weightValue)
@@ -16,118 +16,132 @@ public partial class WeightPageTwo : ContentPage
         curWeightValue = weightValue;
         this.mode = mode;
         this.heightValue = heightValue;
-        this.weightValue = weightValue;
 
         InitializeComponent();
 
-        WeightEntry.IsLoadEvent = false;
+        //WeightEntry.IsLoadEvent = false;
         
-        var gestureRecognizer = new TapGestureRecognizer();
+        //var gestureRecognizer = new TapGestureRecognizer();
 
-        if (mode == 1)
-        {
-            WeightEntry.MaximalValue = weightValue;
-            WeightEntry.MaximumText = "При похудении вес должен быть меньше текущего";
-            WeightEntry.IsMinimumToastEnabled = false;
-        }
-        else if (mode == 2)
-        {
-            WeightEntry.MinimalValue = weightValue;
-            WeightEntry.MinimumText = "При наборе массы вес должен быть больше текущего";
-            WeightEntry.IsMaximumToastEnabled = false;
-        }
+        //if (mode == 1)
+        //{
+        //    WeightEntry.MaximalValue = weightValue;
+        //    WeightEntry.MaximumText = "При похудении вес должен быть меньше текущего";
+        //    WeightEntry.IsMinimumToastEnabled = false;
+        //}
+        //else if (mode == 2)
+        //{
+        //    WeightEntry.MinimalValue = weightValue;
+        //    WeightEntry.MinimumText = "При наборе массы вес должен быть больше текущего";
+        //    WeightEntry.IsMaximumToastEnabled = false;
+        //}
 
-        gestureRecognizer.Tapped += (s, e) => DisplayPopup(s, e);
-        ((Frame)WeightEntry.FindByName("ClickableFrame")).GestureRecognizers.Add(gestureRecognizer);
+        //gestureRecognizer.Tapped += (s, e) => DisplayPopup(s, e);
+        //((Frame)WeightEntry.FindByName("ClickableFrame")).GestureRecognizers.Add(gestureRecognizer);
     }
 
-    private async Task DisplayPopup(object sender, TappedEventArgs e)
+    private void OnTapOne(object sender, TappedEventArgs e)
     {
-        var popup = new WeightPopup();
-        object? result = await this.ShowPopupAsync(popup);
-        
-        if (result != null && Convert.ToDouble(result) <= WeightEntry.MaximalValue)
+        CheckTwo.IsChecked = false;
+        CheckThree.IsChecked = false;
+        CheckFour.IsChecked = false;
+        if (!CheckOne.IsChecked)
+            CheckOne.IsChecked = true;
+        else
+            CheckOne.IsChecked = false;
+    }
+
+    private void OnTapTwo(object sender, TappedEventArgs e)
+    {
+        CheckOne.IsChecked = false;
+        CheckThree.IsChecked = false;
+        CheckFour.IsChecked = false;
+        if (!CheckTwo.IsChecked)
+            CheckTwo.IsChecked = true;
+        else
+            CheckTwo.IsChecked = false;
+    }
+
+    private void OnTapThree(object sender, TappedEventArgs e)
+    {
+        CheckOne.IsChecked = false;
+        CheckTwo.IsChecked = false;
+        CheckFour.IsChecked = false;
+        if (!CheckThree.IsChecked)
+            CheckThree.IsChecked = true;
+        else
+            CheckThree.IsChecked = false;
+    }
+
+    private void OnTapFour(object sender, TappedEventArgs e)
+    {
+        CheckOne.IsChecked = false;
+        CheckTwo.IsChecked = false;
+        CheckThree.IsChecked = false;
+        if (!CheckFour.IsChecked)
+            CheckFour.IsChecked = true;
+        else
+            CheckFour.IsChecked = false;
+    }
+
+    private void CheckChanged(object sender, EventArgs e)
+    {
+        if (((InputKit.Shared.Controls.CheckBox)sender).IsChecked)
         {
-            if (Convert.ToDouble(result) >= WeightEntry.MinimalValue)
-            {
-                WeightEntry.Value = Convert.ToDouble(result);
-            }
-            else
-            {
-                WeightEntry.Value = WeightEntry.MinimalValue;
-            }
+            GoNextButton.IsEnabled = true;
+            GoNextButton.TextColor = Color.FromArgb("#F83D7F");
+            GoNextButton.Background = SolidColorBrush.White;
         }
-        else if (result != null)
+        else
         {
-            WeightEntry.Value = WeightEntry.MaximalValue;
+            GoNextButton.IsEnabled = false;
+            GoNextButton.TextColor = SolidColorBrush.White.Color;
+            GoNextButton.Background = new SolidColorBrush(Color.FromArgb("#747474"));
         }
     }
+
+    //private async Task DisplayPopup(object sender, TappedEventArgs e)
+    //{
+    //    var popup = new WeightPopup();
+    //    object? result = await this.ShowPopupAsync(popup);
+
+    //    if (result != null && Convert.ToDouble(result) <= WeightEntry.MaximalValue)
+    //    {
+    //        if (Convert.ToDouble(result) >= WeightEntry.MinimalValue)
+    //        {
+    //            WeightEntry.Value = Convert.ToDouble(result);
+    //        }
+    //        else
+    //        {
+    //            WeightEntry.Value = WeightEntry.MinimalValue;
+    //        }
+    //    }
+    //    else if (result != null)
+    //    {
+    //        WeightEntry.Value = WeightEntry.MaximalValue;
+    //    }
+    //}
 
     private async void OnAccountCreating(object sender, EventArgs e)
     {
-        if (mode == 1)
+        if (CheckOne.IsChecked)
         {
-            if (WeightEntry.Value == weightValue)
-            {
-                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-
-                ToastDuration duration = ToastDuration.Short;
-                double fontSize = 14;
-                var toast = Toast.Make(WeightEntry.MaximumText, duration, fontSize);
-                await toast.Show(cancellationTokenSource.Token);
-
-                return;
-            }
-            if (WeightEntry.Value < 18.5 * (heightValue / 100.0 * (heightValue / 100.0)))
-            {
-                string text = "Вы ввели слишком маленький вес, советуем вам проконсультироваться с врачом. Продолжить?";
-                var awarePopup = new WeightAwarePopup();
-                awarePopup.EntryPlaceholder = text;
-                object? result = await this.ShowPopupAsync(awarePopup);
-                if (result != null && Convert.ToBoolean(result))
-                {
-                    await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, WeightEntry.Value), false);
-                }
-            }
-            else
-            {
-                await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, WeightEntry.Value), false);
-            }
+            intakeCoefficient = 1.2;
         }
-        else if (mode == 2)
+        else if (CheckTwo.IsChecked)
         {
-            if (WeightEntry.Value == weightValue)
-            {
-                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-
-                ToastDuration duration = ToastDuration.Short;
-                double fontSize = 14;
-                var toast = Toast.Make(WeightEntry.MinimumText, duration, fontSize);
-                await toast.Show(cancellationTokenSource.Token);
-
-                return;
-            }
-            if (WeightEntry.Value > 30 * (heightValue / 100.0 * (heightValue / 100.0)))
-            {
-                string text = "Вы ввели слишком большой вес, советуем вам проконсультироваться с врачом. Продолжить?";
-                var awarePopup = new WeightAwarePopup();
-                awarePopup.EntryPlaceholder = text;
-                object? result = await this.ShowPopupAsync(awarePopup);
-                if (result != null && Convert.ToBoolean(result))
-                {
-                    await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, WeightEntry.Value), false);
-                }
-            }
-            else
-            {
-                await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, WeightEntry.Value), false);
-            }
+            intakeCoefficient = 1.375;
         }
-    }
+        else if (CheckThree.IsChecked)
+        {
+            intakeCoefficient = 1.55;
+        }
+        else
+        {
+            intakeCoefficient = 1.725;
+        }
 
-    private void ContentPage_Loaded(object sender, EventArgs e)
-    {
-        WeightEntry.Value = weightValue;
+        await Navigation.PushAsync(new GenderPage(mode, heightValue, curWeightValue, intakeCoefficient), false);
     }
 }
 
