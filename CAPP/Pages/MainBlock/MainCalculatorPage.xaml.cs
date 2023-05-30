@@ -25,30 +25,37 @@ public partial class MainCalculatorPage : ContentPage
     
     private async void Entry_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (((Entry)sender).Text.Length != 0)
+        try
         {
-            List<ProductData> products = await productDatabase.FindProducts(((Entry)sender).Text);
-            List<RecipeData> recipes = await productDatabase.FindRecipes(((Entry)sender).Text);
-
-            foreach (RecipeData recipe in recipes)
+            if (((Entry)sender).Text.Length != 0)
             {
-                products.Add(new ProductData
-                {
-                    Id = recipe.Id,
-                    Name = recipe.Name,
-                    Fat = recipe.Fat,
-                    Carb = recipe.Carb,
-                    Kcal = recipe.Kcal,
-                    Protein = recipe.Protein,
-                    Type = "Recipe"
-                });
-            }
+                List<ProductData> products = await productDatabase.FindProducts(((Entry)sender).Text);
+                List<RecipeData> recipes = await productDatabase.FindRecipes(((Entry)sender).Text);
 
-            SearchCollection.ItemsSource = products;
+                foreach (RecipeData recipe in recipes)
+                {
+                    products.Add(new ProductData
+                    {
+                        Id = recipe.Id,
+                        Name = recipe.Name,
+                        Fat = recipe.Fat,
+                        Carb = recipe.Carb,
+                        Kcal = recipe.Kcal,
+                        Protein = recipe.Protein,
+                        Type = "Recipe"
+                    });
+                }
+
+                SearchCollection.ItemsSource = products;
+            }
+            else
+            {
+                SearchCollection.ItemsSource = new List<ProductData>();
+            }
         }
-        else
+        catch (Exception)
         {
-            SearchCollection.ItemsSource = new List<ProductData>();
+
         }
     }
 
@@ -721,5 +728,18 @@ public partial class MainCalculatorPage : ContentPage
     private async void TapGestureRecognizer_Tapped_1(object sender, TappedEventArgs e)
     {
         await Shell.Current.GoToAsync("///Recipes");
+    }
+
+    private async void TapGestureRecognizer_Tapped_2(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync("///Settings");
+    }
+
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+        HomeButton.Behaviors.Add(new CommunityToolkit.Maui.Behaviors.IconTintColorBehavior()
+        {
+            TintColor = (Color)Application.Current.Resources.MergedDictionaries.First()["Primary"]
+        });
     }
 }

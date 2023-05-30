@@ -55,6 +55,19 @@ public partial class RecipesPage : ContentPage
         await Navigation.PushAsync(new RecipeInfo(data, items, steps));
     }
 
+    private async void TapGestureRecognizer_Tapped_2(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync("///Settings");
+    }
+
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+        RecipeButton.Behaviors.Add(new CommunityToolkit.Maui.Behaviors.IconTintColorBehavior()
+        {
+            TintColor = (Color)Application.Current.Resources.MergedDictionaries.First()["Primary"]
+        });
+    }
+
     //private async void TapGestureRecognizer_Tapped_2(object sender, TappedEventArgs e)
     //{
     //    await Navigation.PushAsync(new MealPlanPage());

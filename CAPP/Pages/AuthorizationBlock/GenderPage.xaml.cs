@@ -27,15 +27,11 @@ public partial class GenderPage : ContentPage
     private void ButtonOn()
     {
         GoNextButton.IsEnabled = true;
-        GoNextButton.Background = SolidColorBrush.White;
-        GoNextButton.TextColor = new SolidColorBrush(Color.FromArgb("#F83D7F")).Color;
     }
 
     private void ButtonOff()
     {
         GoNextButton.IsEnabled = false;
-        GoNextButton.Background = new SolidColorBrush(Color.FromArgb("#747474")).Color;
-        GoNextButton.TextColor = SolidColorBrush.White.Color;
     }
 
     private void OnTapOne(object sender, TappedEventArgs e)

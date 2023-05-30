@@ -2,7 +2,8 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CAPP.Resources.Styles.Styles">
 
     <FontImage x:Key="TabOne"
                FontFamily="OpenSans"
@@ -153,7 +154,7 @@
     </Style>
 
     <Style TargetType="Label">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
+        <Setter Property="TextColor" Value="Black" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -162,7 +163,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Black}, Dark={DynamicResource Black}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -392,22 +393,7 @@
         <Setter Property="FontFamily" Value=""/>
     </Style>
     
-    <Style x:Key="labelWarning" TargetType="Label">
-        <Setter Property="FontFamily" Value=""/>
-        <Setter Property="VerticalOptions" Value="Center"/>
-        <Setter Property="Text" Value=""/>
-        <Setter Property="WidthRequest" Value="295"/>
-        <Setter Property="TextColor" Value="Red"/>
-    </Style>
-
-    <Style x:Key="borderStyle" TargetType="Border">
-        <Setter Property="StrokeShape" Value="RoundRectangle 50,50,50,50"/>
-        <Setter Property="WidthRequest" Value="349"/>
-        <Setter Property="HeightRequest" Value="66"/>
-        <Setter Property="Stroke" Value="Red"/>
-        <Setter Property="StrokeThickness" Value="0"/>
-        <Setter Property="Margin" Value="0,0,0,10"/>
-    </Style>
+    
 
     <Style x:Key="entryStyle" TargetType="Entry">
         <Setter Property="WidthRequest" Value="320"/>

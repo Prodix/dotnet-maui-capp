@@ -5,7 +5,6 @@ using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Maui.Views;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CAPP.Pages.MainBlock;
 
@@ -157,14 +156,14 @@ public partial class MainActivityPage : ContentPage
             return;
         }
 
-        if (((CalendarDay)e.CurrentSelection[0]).Date.Date > DateTime.Now.Date && e.PreviousSelection.Count != 0)
-        {
-            Calendar.SelectedItem = (CalendarDay)e.PreviousSelection[0];
-            isProgrammaticlyChanged = true;
-            return;
-        }
+        //if (((CalendarDay)e.CurrentSelection[0]).Date.Date > DateTime.Now.Date && e.PreviousSelection.Count != 0)
+        //{
+        //    Calendar.SelectedItem = (CalendarDay)e.PreviousSelection[0];
+        //    isProgrammaticlyChanged = true;
+        //    return;
+        //}
 
-        ((CalendarDay)e.CurrentSelection[0]).Color = new SolidColorBrush(Color.FromArgb("F83D7F"));
+        ((CalendarDay)e.CurrentSelection[0]).Color = new SolidColorBrush((Color)Application.Current.Resources.MergedDictionaries.First()["Primary"]);
         ((CalendarDay)e.CurrentSelection[0]).Opacity = 0.25;
         ((CalendarDay)e.CurrentSelection[0]).TextBrush = Colors.White;
         if (e.PreviousSelection.Count != 0)
@@ -283,8 +282,9 @@ public partial class MainActivityPage : ContentPage
 
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        if (((CalendarDay)Calendar.SelectedItem).Date.Date < DateTime.Now.Date)
+        if (((CalendarDay)Calendar.SelectedItem).Date.Date < DateTime.Now.Date || ((CalendarDay)Calendar.SelectedItem).Date.Date > DateTime.Now.Date)
         {
+            await Toast.Make("Вы выбрали не текущий день!").Show();
             return;
         }
 
@@ -297,8 +297,9 @@ public partial class MainActivityPage : ContentPage
         
         if (product is null) return;
         
-        int weight = Convert.ToInt32(await this.ShowPopupAsync(weightPopup));
+        object weight = await this.ShowPopupAsync(weightPopup);
 
+        if (weight is null) return;
 
         foreach (var meal in meals)
         {
@@ -307,7 +308,7 @@ public partial class MainActivityPage : ContentPage
                 MealItem item = new MealItem
                 {
                     Meal_id = meal.Id,
-                    Weight = weight, // нужно сделать ввод веса
+                    Weight = Convert.ToInt32(weight), // нужно сделать ввод веса
                     Id = (await productDatabase.GetMealItemsAsync(meal.Id)).Count + 1
                 };
 
@@ -417,5 +418,71 @@ public partial class MainActivityPage : ContentPage
     private async void TapGestureRecognizer_Tapped_1(object sender, TappedEventArgs e)
     {
         await Shell.Current.GoToAsync("///Recipes", new Dictionary<string, object> { { "UserData", userData } });
+    }
+
+    private async void TapGestureRecognizer_Tapped_2(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync("///Settings");
+    }
+
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+        ((CalendarDay)Calendar.SelectedItem).Color = new SolidColorBrush((Color)Application.Current.Resources.MergedDictionaries.First()["Primary"]);
+
+
+        userData = JsonConvert.DeserializeObject<UserData>(File.ReadAllText(Constants.UserDataPath));
+
+        double kcalRemain = userData.CalorieIntake - (meals[0].Kcal + meals[1].Kcal + meals[2].Kcal);
+        double fatRemain = userData.Fat - (meals.Sum(x => x.Fat));
+        double proteinRemain = userData.Protein - (meals.Sum(x => x.Protein));
+        double carbRemain = userData.Carb - (meals.Sum(x => x.Carb));
+
+        if (kcalRemain < 0)
+        {
+            KcalRemain.Text = "0";
+        }
+        else
+        {
+            KcalRemain.Text = ((int)kcalRemain).ToString();
+        }
+
+        if (carbRemain < 0)
+        {
+            CarbRemain.Text = "0г";
+        }
+        else
+        {
+            CarbRemain.Text = ((int)carbRemain).ToString() + "г";
+        }
+
+        if (fatRemain < 0)
+        {
+            FatRemain.Text = "0г";
+        }
+        else
+        {
+            FatRemain.Text = ((int)fatRemain).ToString() + "г";
+        }
+
+        if (proteinRemain < 0)
+        {
+            ProteinRemain.Text = "0г";
+        }
+        else
+        {
+            ProteinRemain.Text = ((int)proteinRemain).ToString() + "г";
+        }
+
+        MainBar.Progress = 1 - ((Convert.ToInt32(KcalRemain.Text) / (userData.CalorieIntake * 0.01)) / 100);
+        FatBar.Progress = 1 - ((Convert.ToDouble(FatRemain.Text.Replace("г", "")) / (userData.Fat * 0.01)) / 100);
+        ProteinBar.Progress = 1 - ((Convert.ToDouble(ProteinRemain.Text.Replace("г", "")) / (userData.Protein * 0.01)) / 100);
+        CarbBar.Progress = 1 - ((Convert.ToDouble(CarbRemain.Text.Replace("г", "")) / (userData.Carb * 0.01)) / 100);
+
+        HomeButton.Behaviors.Add(new CommunityToolkit.Maui.Behaviors.IconTintColorBehavior()
+        {
+            TintColor = (Color)Application.Current.Resources.MergedDictionaries.First()["Primary"]
+        });
+
+
     }
 }

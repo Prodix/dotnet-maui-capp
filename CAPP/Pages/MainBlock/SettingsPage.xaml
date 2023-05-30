@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="CAPP.Pages.MainBlock.SettingsPage"
+             NavigatedTo="ContentPage_NavigatedTo"
+             Title="SettingsPage">
+    <VerticalStackLayout Background="{DynamicResource DefaultBG}">
+        <Border StrokeThickness="-1"
+                HeightRequest="85">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="{DynamicResource GradientStart}"
+                                  Offset="0.3"/>
+                    <GradientStop Color="{DynamicResource GradientStop}"
+                                  Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Label Text="Настройки"
+                   VerticalOptions="Center"
+                   FontSize="24"
+                   Margin="25,0,0,0"
+                   FontAttributes="Bold"
+                   FontFamily=""
+                   TextColor="White"/>
+        </Border>
+        <VerticalStackLayout Spacing="20">
+            <Border StrokeThickness="0"
+                    WidthRequest="370"
+                    StrokeShape="RoundRectangle 16"
+                    Margin="0,20,0,0">
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Radius="5"
+                            Opacity="0.25"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="30"
+                                     Padding="25,20,25,20">
+                    <FlexLayout JustifyContent="SpaceBetween">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Вес"
+                                   TextColor="#B3B3B3"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   FontFamily=""
+                                   HorizontalOptions="Center"/>
+                            <Label Grid.Row="1"
+                                   x:Name="WeightLabel"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   FontFamily=""
+                                   HorizontalOptions="Center"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Рост"
+                                   TextColor="#B3B3B3"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   FontFamily=""
+                                   HorizontalOptions="Center"/>
+                            <Label Grid.Row="1"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   x:Name="HeightLabel"
+                                   FontFamily=""
+                                   HorizontalOptions="Center"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Возраст"
+                                   TextColor="#B3B3B3"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   FontFamily=""
+                                   HorizontalOptions="Center"/>
+                            <Label x:Name="AgeLabel"
+                                   Grid.Row="1"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   FontFamily=""
+                                   HorizontalOptions="Center"/>
+                        </Grid>
+                    </FlexLayout>
+                    <Label Text="Обновить информацию"
+                           TextColor="{DynamicResource Primary}"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           FontFamily="">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
+            <Border HeightRequest="50"
+                    StrokeThickness="0"
+                    WidthRequest="370"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="25,0,0,0">
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Radius="5"
+                            Opacity="0.25"/>
+                </Border.Shadow>
+                <HorizontalStackLayout Spacing="15"
+                                       VerticalOptions="Center">
+                    <Label Text="{Binding BMI, StringFormat='ИМТ (кг/м2): {0}'}"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           FontFamily=""
+                           x:Name="bmi"/>
+                    <Label x:Name="BMIState" 
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           FontFamily=""/>
+                </HorizontalStackLayout>
+            </Border>
+            <Button Text="Изменить тему"
+                    FontAttributes="Bold"
+                    FontFamily=""
+                    FontSize="16"
+                    WidthRequest="370"
+                    Background="White"
+                    Clicked="Button_Clicked"
+                    TextColor="{DynamicResource Primary}"
+                    CornerRadius="16">
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Radius="5"
+                            Opacity="0.25"/>
+                </Button.Shadow>
+            </Button>
+        </VerticalStackLayout>
+        <Border StrokeThickness="-1"
+                Padding="20"
+                HeightRequest="100"
+                Margin="0,380,0,0">
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                        Opacity="0.1"/>
+            </Border.Shadow>
+            <FlexLayout JustifyContent="SpaceAround">
+                <Image Source="home">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="recipe">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="profile" x:Name="ProfileButton"/>
+            </FlexLayout>
+        </Border>
+        
+    </VerticalStackLayout>
+</ContentPage>

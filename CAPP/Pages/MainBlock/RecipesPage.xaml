@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="CAPP.Pages.MainBlock.RecipesPage"
+             NavigatedTo="ContentPage_NavigatedTo"
              Title="RecipesPage">
-    <VerticalStackLayout Background="#F4F2F2">
+    <VerticalStackLayout Background="{DynamicResource DefaultBG}">
         <ScrollView HeightRequest="752">
             <VerticalStackLayout Spacing="7">
                 <Border StrokeThickness="-1"
                         HeightRequest="85">
                     <Border.Background>
                         <LinearGradientBrush EndPoint="0,1">
-                            <GradientStop Color="#F54B87"
+                            <GradientStop Color="{DynamicResource GradientStart}"
                                   Offset="0.3"/>
-                            <GradientStop Color="#F81464"
+                            <GradientStop Color="{DynamicResource GradientStop}"
                                   Offset="1.0"/>
                         </LinearGradientBrush>
                     </Border.Background>
@@ -213,8 +215,7 @@
             </VerticalStackLayout>
         </ScrollView>
 
-        <Border StrokeShape="RoundRectangle 30,30,0,0"
-                StrokeThickness="-1"
+        <Border StrokeThickness="-1"
                 Padding="20"
                 HeightRequest="100">
             <Border.Shadow>
@@ -222,13 +223,17 @@
                         Opacity="0.1"/>
             </Border.Shadow>
             <FlexLayout JustifyContent="SpaceAround">
-                <Image Source="home_gray">
+                <Image Source="home">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Source="recipe"/>
-                <Image Source="profile"/>
+                <Image Source="recipe" x:Name="RecipeButton"/>
+                <Image Source="profile">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
             </FlexLayout>
         </Border>
     </VerticalStackLayout>

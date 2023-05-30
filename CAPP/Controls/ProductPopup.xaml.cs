@@ -15,31 +15,38 @@ public partial class ProductPopup : Popup
 
     private async void Entry_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (!String.IsNullOrWhiteSpace(((Entry)sender).Text))
+        try
         {
-            List<ProductData> products = await productDatabase.FindProducts(((Entry)sender).Text);
-            List<RecipeData> recipes = await productDatabase.FindRecipes(((Entry)sender).Text);
-
-            foreach (RecipeData recipe in recipes)
+            if (!String.IsNullOrWhiteSpace(((Entry)sender).Text))
             {
-                products.Add(new ProductData
+                List<ProductData> products = await productDatabase.FindProducts(((Entry)sender).Text);
+                List<RecipeData> recipes = await productDatabase.FindRecipes(((Entry)sender).Text);
+
+                foreach (RecipeData recipe in recipes)
                 {
-                    Id = recipe.Id,
-                    Name = recipe.Name,
-                    Fat = recipe.Fat,
-                    Carb = recipe.Carb,
-                    Kcal = recipe.Kcal,
-                    Protein = recipe.Protein,
-                    Type = "Recipe"
-                });
+                    products.Add(new ProductData
+                    {
+                        Id = recipe.Id,
+                        Name = recipe.Name,
+                        Fat = recipe.Fat,
+                        Carb = recipe.Carb,
+                        Kcal = recipe.Kcal,
+                        Protein = recipe.Protein,
+                        Type = "Recipe"
+                    });
+                }
+
+                SearchCollection.ItemsSource = products;
+
             }
-
-            SearchCollection.ItemsSource = products;
-
+            else
+            {
+                SearchCollection.ItemsSource = new List<ProductData>();
+            }
         }
-        else
+        catch (Exception)
         {
-            SearchCollection.ItemsSource = new List<ProductData>();
+
         }
     }
 

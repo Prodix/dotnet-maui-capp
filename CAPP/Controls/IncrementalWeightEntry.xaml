@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="CAPP.Controls.IncrementalWeightEntry"
              Loaded="PageLoaded">
     <ContentView.Resources>
@@ -24,7 +25,8 @@
         <Button Style="{StaticResource ButtonStyle}"
                 Clicked="MinusTapped"/>
         <Image Source="minus"
-               WidthRequest="25"/>
+               WidthRequest="25"
+               x:Name="MinusButton"/>
         <Frame Grid.Column="1" 
                BorderColor="Transparent"
                CornerRadius="25"
@@ -49,6 +51,7 @@
                 Clicked="PlusTapped"/>
         <Image Grid.Column="2"
                Source="plus"
+               x:Name="PlusButton"
                WidthRequest="25"/>
     </Grid>
 

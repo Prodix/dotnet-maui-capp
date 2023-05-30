@@ -1,4 +1,6 @@
 ﻿using CAPP.Pages.MainBlock;
+using CAPP.Resources.Styles;
+using Newtonsoft.Json;
 
 namespace CAPP;
 
@@ -10,6 +12,24 @@ public partial class LoginPage : ContentPage
         if (File.Exists(Constants.UserDataPath))
         {
             Shell.Current.GoToAsync("///Activity");
+            UserData userData = JsonConvert.DeserializeObject<UserData>(File.ReadAllText(Constants.UserDataPath));
+            switch (userData.Theme)
+            {
+                case "Зелёная":
+                    Application.Current.Resources.MergedDictionaries.Clear();
+                    Application.Current.Resources.MergedDictionaries.Add(new GreenTheme());
+                    Application.Current.Resources.MergedDictionaries.Add(new Styles());
+                    break;
+                case "Синяя":
+                    break;
+                case "Розовая":
+                    Application.Current.Resources.MergedDictionaries.Clear();
+                    Application.Current.Resources.MergedDictionaries.Add(new PinkTheme());
+                    Application.Current.Resources.MergedDictionaries.Add(new Styles());
+                    break;
+                default:
+                    break;
+            }
         }
 		InitializeComponent();
     }

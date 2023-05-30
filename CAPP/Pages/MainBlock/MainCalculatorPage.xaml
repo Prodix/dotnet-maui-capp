@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="CAPP.Pages.MainBlock.MainCalculatorPage"
              NavigationPage.HasNavigationBar="False"
+             NavigatedTo="ContentPage_NavigatedTo"
              Title="MainCalculatorPage">
     <ContentPage.Resources>
         <Style TargetType="Border">
@@ -20,7 +22,7 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
-    <VerticalStackLayout Background="#F4F2F2">
+    <VerticalStackLayout Background="{DynamicResource DefaultBG}">
         <Border HeightRequest="300"
                 StrokeShape="RoundRectangle 0,0,30,30"
                 StrokeThickness="-1"
@@ -167,9 +169,9 @@
             </VerticalStackLayout>
             <Border.Background>
                 <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Color="#F54B87"
+                    <GradientStop Color="{DynamicResource GradientStart}"
                               Offset="0.3"/>
-                    <GradientStop Color="#F81464"
+                    <GradientStop Color="{DynamicResource GradientStop}"
                               Offset="1.0"/>
                 </LinearGradientBrush>
             </Border.Background>
@@ -196,7 +198,7 @@
                             HeightRequest="45"
                             StrokeShape="RoundRectangle 10,10,10,10"
                             StrokeThickness="0"
-                            Background="#F83D7F">
+                            Background="{DynamicResource Primary}">
                         <Image Source="plusik" 
                                WidthRequest="23" 
                                HeightRequest="23"/>
@@ -213,7 +215,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Border WidthRequest="330"
-                                    Background="#F4F2F2"
+                                    Background="{DynamicResource DefaultBG}"
                                     Padding="5"
                                     StrokeShape="RoundRectangle 10,10,10,10">
                                 <Label Text="{Binding Name}"
@@ -229,14 +231,14 @@
                             WidthRequest="160"
                             FontAttributes="Bold"
                             FontFamily=""
-                            Background="#F83D7F"
+                            Background="{DynamicResource Primary}"
                             Clicked="Button_Clicked_1"
                             x:Name="AddButton"/>
                     <Button Text="Очистить"
                             FontAttributes="Bold"
                             WidthRequest="160"
                             FontFamily=""
-                            Background="#F83D7F"
+                            Background="{DynamicResource Primary}"
                             Clicked="Button_Clicked"
                             x:Name="ClearButton"/>
                 </HorizontalStackLayout>
@@ -245,7 +247,6 @@
         </Border>
 
         <Border Margin="0,10,0,0"
-                StrokeShape="RoundRectangle 30,30,0,0"
                 StrokeThickness="-1"
                 Padding="20"
                 HeightRequest="100">
@@ -254,13 +255,18 @@
                         Opacity="0.1"/>
             </Border.Shadow>
             <FlexLayout JustifyContent="SpaceAround">
-                <Image Source="home"/>
-                <Image Source="recipe_gray">
+                <Image Source="home"
+                       x:Name="HomeButton"/>
+                <Image Source="recipe">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" NumberOfTapsRequired="1"/>
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Source="profile"/>
+                <Image Source="profile">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
             </FlexLayout>
         </Border>
     </VerticalStackLayout>

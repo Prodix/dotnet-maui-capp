@@ -5,13 +5,12 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="CAPP.GenderPage">
 
-
-    <VerticalStackLayout >
+    <VerticalStackLayout>
         <VerticalStackLayout.Background>
             <LinearGradientBrush EndPoint="0,1">
-                <GradientStop Color="#F54B87"
+                <GradientStop Color="{DynamicResource GradientStart}"
                               Offset="0.3"/>
-                <GradientStop Color="#F81464"
+                <GradientStop Color="{DynamicResource GradientStop}"
                               Offset="1.0"/>
             </LinearGradientBrush>
         </VerticalStackLayout.Background>
@@ -48,7 +47,7 @@
                     <input:CheckBox CornerRadius="50"
                            BoxSizeRequest="30"
                            AbsoluteLayout.LayoutBounds="10, 20"
-                           Color="#F83D7F"
+                           Color="{DynamicResource Primary}"
                            Type="Material"
                            HorizontalOptions="Center"
                            IsEnabled="False"
@@ -68,7 +67,7 @@
                     <input:CheckBox CornerRadius="50"
                            BoxSizeRequest="30"
                            AbsoluteLayout.LayoutBounds="10, 20"
-                           Color="#F83D7F"
+                           Color="{DynamicResource Primary}"
                            Type="Material"
                            HorizontalOptions="Center"
                            IsEnabled="False"
@@ -84,14 +83,32 @@
                 WidthRequest="349"
                 HeightRequest="66"
                 CornerRadius="50"
-                BackgroundColor="#747474"
                 TextColor="White"
                 IsEnabled="False"
                 FontAttributes="Bold"
                 FontFamily="OpenSans"
                 x:Name="GoNextButton"
                 Clicked="OnAccountCreating"
-                FontSize="24"/>
+                FontSize="24">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="Background" Value="{StaticResource DisabledColorBrush}"/>
+                                <Setter Property="TextColor" Value="White"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+        </Button>
     </VerticalStackLayout>
     
 

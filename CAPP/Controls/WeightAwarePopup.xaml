@@ -5,64 +5,64 @@
                x:Class="CAPP.Controls.WeightAwarePopup"
                Color="Transparent">
 
-    <Border BackgroundColor="#F6F6F6"
-           WidthRequest="350"
-           HeightRequest="192"
-           Padding="17,20,17,20"
-           StrokeShape="RoundRectangle 25"
-           StrokeThickness="0">
-        <Grid RowSpacing="20"
-              BackgroundColor="Transparent">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="66"/>
-                <RowDefinition Height="66"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="158"/>
-                <ColumnDefinition Width="158"/>
-            </Grid.ColumnDefinitions>
-            <Label Text="{Binding EntryPlaceholder}"
-                   Grid.ColumnSpan="2"
-                   FontFamily="OpenSans"/>
+  <Border BackgroundColor="#F6F6F6"
+         WidthRequest="350"
+         HeightRequest="192"
+         Padding="17,20,17,20"
+         StrokeShape="RoundRectangle 25"
+         StrokeThickness="0">
+    <Grid RowSpacing="20"
+          BackgroundColor="Transparent">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="66"/>
+        <RowDefinition Height="66"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="158"/>
+        <ColumnDefinition Width="158"/>
+      </Grid.ColumnDefinitions>
+      <Label Text="{Binding EntryPlaceholder}"
+             Grid.ColumnSpan="2"
+             FontFamily="OpenSans"/>
 
-            <Button Text="Да"
-                    Grid.Column="0"
-                    FontFamily="OpenSans"
-                    FontAttributes="Bold"
-                    FontSize="24"
-                    BorderWidth="0"
-                    WidthRequest="130"
-                    CornerRadius="50"
-                    Clicked="ButtonOkClicked"
-                    BackgroundColor="#F83D7F"
-                    TextColor="White"
-                    Grid.Row="1">
-                <Button.Shadow>
-                    <Shadow Brush="Black"
-                            Opacity="0.15"
-                            Offset="0,4"/>
-                </Button.Shadow>
-            </Button>
+      <Button Text="Да"
+              Grid.Column="0"
+              FontFamily="OpenSans"
+              FontAttributes="Bold"
+              FontSize="24"
+              BorderWidth="0"
+              WidthRequest="130"
+              CornerRadius="50"
+              Clicked="ButtonOkClicked"
+              BackgroundColor="{DynamicResource Primary}"
+              TextColor="White"
+              Grid.Row="1">
+        <Button.Shadow>
+          <Shadow Brush="Black"
+                  Opacity="0.15"
+                  Offset="0,4"/>
+        </Button.Shadow>
+      </Button>
 
-            <Button Text="Нет"
-                    Grid.Column="1"
-                    FontFamily="OpenSans"
-                    FontAttributes="Bold"
-                    FontSize="24"
-                    BorderWidth="0"
-                    WidthRequest="130"
-                    CornerRadius="50"
-                    Clicked="ButtonNoClicked"
-                    BackgroundColor="#F83D7F"
-                    TextColor="White"
-                    Grid.Row="1">
-                <Button.Shadow>
-                    <Shadow Brush="Black"
-                            Opacity="0.15"
-                            Offset="0,4"/>
-                </Button.Shadow>
-            </Button>
-        </Grid>
-    </Border>
+      <Button Text="Нет"
+              Grid.Column="1"
+              FontFamily="OpenSans"
+              FontAttributes="Bold"
+              FontSize="24"
+              BorderWidth="0"
+              WidthRequest="130"
+              CornerRadius="50"
+              Clicked="ButtonNoClicked"
+              BackgroundColor="{DynamicResource Primary}"
+              TextColor="White"
+              Grid.Row="1">
+        <Button.Shadow>
+          <Shadow Brush="Black"
+                  Opacity="0.15"
+                  Offset="0,4"/>
+        </Button.Shadow>
+      </Button>
+    </Grid>
+  </Border>
 
 </toolkit:Popup>

@@ -95,6 +95,16 @@ public partial class IncrementalWeightEntry : ContentView
     {
         InitializeComponent();
         BindingContext = this;
+
+        PlusButton.Behaviors.Add(new CommunityToolkit.Maui.Behaviors.IconTintColorBehavior()
+        {
+            TintColor = (Color)Application.Current.Resources.MergedDictionaries.First()["Primary"]
+        });
+
+        MinusButton.Behaviors.Add(new CommunityToolkit.Maui.Behaviors.IconTintColorBehavior()
+        {
+            TintColor = (Color)Application.Current.Resources.MergedDictionaries.First()["Primary"]
+        });
     }
 
     public async void PlusTapped(object sender, EventArgs e)

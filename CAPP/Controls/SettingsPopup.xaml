@@ -2,12 +2,11 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               x:Class="CAPP.Controls.WeightPopup"
+               x:Class="CAPP.Controls.SettingsPopup"
                Color="Transparent">
 
     <Border BackgroundColor="#F6F6F6"
            WidthRequest="350"
-           HeightRequest="192"
            Padding="17,20,17,20"
            StrokeShape="RoundRectangle 25"
            StrokeThickness="0">
@@ -16,16 +15,17 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="66"/>
                 <RowDefinition Height="66"/>
+                <RowDefinition Height="66"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="315"/>
             </Grid.ColumnDefinitions>
             <Border StrokeThickness="0"
                     StrokeShape="RoundRectangle 50">
-                <Entry Placeholder="{Binding EntryPlaceholder}"
+                <Entry Placeholder="Введите вес"
                        FontFamily="OpenSans"
                        FontSize="24"
-                       x:Name="PopupWeight"
+                       x:Name="Weight"
                        Keyboard="Numeric"
                        Margin="10,0,0,0"
                        VerticalOptions="Center"
@@ -37,7 +37,25 @@
                             Offset="0,4"/>
                 </Border.Shadow>
             </Border>
-            <Button Text="Окей"
+            <Border StrokeThickness="0"
+                    StrokeShape="RoundRectangle 50"
+                    Grid.Row="1">
+                <Entry Placeholder="Введите рост"
+                       FontFamily="OpenSans"
+                       FontSize="24"
+                       x:Name="Height"
+                       Keyboard="Numeric"
+                       Margin="10,0,0,0"
+                       VerticalOptions="Center"
+                       HeightRequest="50"
+                       WidthRequest="260"/>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Opacity="0.15"
+                            Offset="0,4"/>
+                </Border.Shadow>
+            </Border>
+            <Button Text="Сохранить"
                     FontFamily="OpenSans"
                     FontAttributes="Bold"
                     FontSize="24"
@@ -45,8 +63,8 @@
                     CornerRadius="50"
                     BackgroundColor="{DynamicResource Primary}"
                     TextColor="White"
-                    Grid.Row="1"
-                    Clicked="ClosePopup">
+                    Grid.Row="2"
+                    Clicked="Button_Clicked">
                 <Button.Shadow>
                     <Shadow Brush="Black"
                             Opacity="0.15"

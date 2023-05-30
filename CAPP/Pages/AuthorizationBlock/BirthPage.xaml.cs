@@ -41,7 +41,7 @@ public partial class BirthPage : ContentPage
                 Gender = gender,
                 Mode = mode,
                 BirthDate = dateTime.ToShortDateString(),
-                Bmi = weightValue / (heightValue / 100 * (heightValue / 100))
+                Bmi = weightValue / (heightValue / 100.0 * (heightValue / 100.0))
             };
 
             double calorieIntake = (gender == "f") ? 447.6 + (9.3 * weightValue) + (3.1 * heightValue) - (4.3 * ((DateTime.Now - dateTime).Days / 365)) * intakeCoefficient : 88.4 + (13.4 * weightValue) + (4.8 * heightValue) - (5.7 * ((DateTime.Now - dateTime).Days / 365)) * intakeCoefficient;

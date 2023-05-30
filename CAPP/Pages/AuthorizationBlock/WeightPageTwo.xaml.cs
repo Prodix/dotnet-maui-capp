@@ -89,14 +89,10 @@ public partial class WeightPageTwo : ContentPage
         if (((InputKit.Shared.Controls.CheckBox)sender).IsChecked)
         {
             GoNextButton.IsEnabled = true;
-            GoNextButton.TextColor = Color.FromArgb("#F83D7F");
-            GoNextButton.Background = SolidColorBrush.White;
         }
         else
         {
             GoNextButton.IsEnabled = false;
-            GoNextButton.TextColor = SolidColorBrush.White.Color;
-            GoNextButton.Background = new SolidColorBrush(Color.FromArgb("#747474"));
         }
     }
 

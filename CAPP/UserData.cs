@@ -19,5 +19,6 @@ namespace CAPP
         public int Carb { get; set; }
         public int Fat { get; set; }
         public int Protein { get; set; }
+        public string Theme { get; set; } = "Синяя";
     }
 }

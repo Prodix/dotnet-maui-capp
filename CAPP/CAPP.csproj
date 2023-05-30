@@ -40,6 +40,7 @@
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <PublishTrimmed>True</PublishTrimmed>
 	  <RunAOTCompilation>True</RunAOTCompilation>
+	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -61,9 +62,6 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\dumbbell.svg" />
-	  <None Remove="Resources\Images\home.svg" />
-	  <None Remove="Resources\Images\profile.svg" />
-	  <None Remove="Resources\Images\recipe.svg" />
 	  <None Remove="Resources\Raw\Products.db" />
 	</ItemGroup>
 
@@ -107,6 +105,12 @@
 	  <Compile Update="Pages\MainBlock\MainActivityPage.xaml.cs">
 	    <DependentUpon>MainActivityPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Resources\Styles\GreenTheme.xaml.cs">
+	    <DependentUpon>GreenTheme.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Styles\BlueTheme.xaml.cs">
+	    <DependentUpon>BlueTheme.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -114,6 +118,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\RecipePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\SettingsPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\AuthorizationBlock\BirthPage.xaml">
@@ -162,6 +169,18 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\MainBlock\RecipeInfo.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\MainBlock\SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\BlueTheme.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\GreenTheme.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\PinkTheme.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

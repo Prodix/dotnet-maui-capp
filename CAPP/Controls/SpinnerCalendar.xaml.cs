@@ -91,10 +91,18 @@ public partial class SpinnerCalendar : ContentView
         }
     }
 
-    public int CurrentDay
+    public string CurrentDay
     {
-        get => currentDay;
-        set => currentDay = value;
+        get 
+        {
+            if (currentDay < 10)
+                return "0" + currentDay.ToString();
+            else
+            {
+                return currentDay.ToString();
+            }
+        }
+        set => currentDay = Convert.ToInt32(value);
     }
 
     public SpinnerCalendar()

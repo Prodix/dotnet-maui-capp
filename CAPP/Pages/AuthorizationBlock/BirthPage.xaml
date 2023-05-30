@@ -9,9 +9,9 @@
     <VerticalStackLayout >
         <VerticalStackLayout.Background>
             <LinearGradientBrush EndPoint="0,1">
-                <GradientStop Color="#F54B87"
+                <GradientStop Color="{DynamicResource GradientStart}"
                               Offset="0.3"/>
-                <GradientStop Color="#F81464"
+                <GradientStop Color="{DynamicResource GradientStop}"
                               Offset="1.0"/>
             </LinearGradientBrush>
         </VerticalStackLayout.Background>
@@ -48,7 +48,7 @@
                 x:Name="GoNextButton"
                 BackgroundColor="White"
                 Clicked="GoNextButton_Clicked"
-                TextColor="#F83D7F"
+                TextColor="{DynamicResource Primary}"
                 FontAttributes="Bold"
                 FontFamily="OpenSans"
                 FontSize="24"/>

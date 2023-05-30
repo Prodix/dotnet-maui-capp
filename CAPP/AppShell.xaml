@@ -25,6 +25,9 @@
         <ShellContent Route="Recipes"
                       ContentTemplate="{DataTemplate localTwo:RecipesPage}"/>
 
+        <ShellContent Route="Settings"
+                      ContentTemplate="{DataTemplate localTwo:SettingsPage}"/>
+
     </TabBar>
 
 </Shell>

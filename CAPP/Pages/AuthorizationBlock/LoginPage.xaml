@@ -78,7 +78,7 @@
         
         <Label Text="CAPP"
                FontSize="34"
-               TextColor="#F83D7F"
+               TextColor="{DynamicResource Primary}"
                x:Name="cappLabel"
                FontAttributes="Bold"
                FontFamily="OpenSans"
@@ -93,19 +93,19 @@
                x:Name="textHeaderLabel"
                FontFamily="OpenSans"
                FontAttributes="Bold"
-               TextColor="#3C4043"/>
+               TextColor="{DynamicResource TextColor}"/>
         
         <Label Text=" Вы сможете отслеживать свою активность,&#10;  потребляемые каллории и выпитую воду"
                FontSize="16"
                x:Name="textLabel"
                HorizontalOptions="Center"
                FontFamily="OpenSans"
-               TextColor="#3C4043"/>
+               TextColor="{DynamicResource TextColor}"/>
 
         <Button Text="Начать"
                 WidthRequest="349"
                 HeightRequest="66"
-                BackgroundColor="#F83D7F"
+                BackgroundColor="{DynamicResource Primary}"
                 FontAttributes="Bold"
                 FontSize="24"
                 CornerRadius="50"
