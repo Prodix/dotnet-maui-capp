@@ -4,7 +4,39 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="CAPP.Pages.MainBlock.MainActivityPage"
              Title="MainActivityPage"
-             NavigatedTo="ContentPage_NavigatedTo">
+             NavigatedTo="ContentPage_NavigatedTo"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="Transparent" StatusBarStyle="LightContent"/>
+    </ContentPage.Behaviors>
+
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="Responsive">
+            <VisualState x:Name="xxhdpi">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="360" MinWindowHeight="720"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="xhdpi">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="360"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="default">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="0"/>
+                </VisualState.StateTriggers>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+    
     <ContentPage.Resources>
         <Style TargetType="Border">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -61,7 +93,7 @@
                         <Label Text="ккал осталось"
                                FontFamily=""
                                TextColor="White"
-                               FontSize="20"/>
+                               FontSize="19"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout>
                         <Label Text="Белки"

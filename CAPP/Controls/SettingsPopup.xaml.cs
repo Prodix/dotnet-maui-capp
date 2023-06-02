@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
 
 namespace CAPP.Controls;
@@ -19,10 +21,17 @@ public partial class SettingsPopup : Popup
 		Height.Text = height.ToString();
 	}
 
-    private void Button_Clicked(object sender, EventArgs e)
+    private async void Button_Clicked(object sender, EventArgs e)
     {
-		userData.WeightValue = Math.Round(double.Parse(Weight.Text), 2);
-		userData.HeightValue = Convert.ToInt32(double.Parse(Height.Text));
+		if (String.IsNullOrEmpty(Weight.Text) || String.IsNullOrEmpty(Height.Text))
+		{
+            string text = "Поля не могут быть пустыми";
+            await Toast.Make(text, ToastDuration.Short).Show();
+			return;
+        }
+
+		userData.WeightValue = Math.Round(double.Parse(Weight.Text.Replace(".", ",")), 2);
+		userData.HeightValue = Convert.ToInt32(double.Parse(Height.Text.Replace(".", ",")));
 
 		Close(userData);
     }

@@ -22,6 +22,11 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="Transparent" StatusBarStyle="LightContent"/>
+    </ContentPage.Behaviors>
+
     <VerticalStackLayout Background="{DynamicResource DefaultBG}">
         <Border HeightRequest="300"
                 StrokeShape="RoundRectangle 0,0,30,30"

@@ -4,8 +4,89 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="CAPP.WeightPageTwo"
              xmlns:controls="clr-namespace:CAPP.Controls"
-             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui">
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="Responsive">
+            <VisualState x:Name="xxhdpi">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="360" MinWindowHeight="720"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter TargetName="Number" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="Header" Property="Label.FontSize" Value="24"/>
+                    <Setter TargetName="Text" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="border1" Property="Border.WidthRequest" Value="125"/>
+                    <Setter TargetName="border1" Property="Border.HeightRequest" Value="125"/>
+                    <Setter TargetName="border2" Property="Border.WidthRequest" Value="125"/>
+                    <Setter TargetName="border2" Property="Border.HeightRequest" Value="125"/>
+                    <Setter TargetName="border3" Property="Border.WidthRequest" Value="125"/>
+                    <Setter TargetName="border3" Property="Border.HeightRequest" Value="125"/>
+                    <Setter TargetName="border4" Property="Border.WidthRequest" Value="125"/>
+                    <Setter TargetName="border4" Property="Border.HeightRequest" Value="125"/>
+                    <Setter TargetName="lay1" Property="AbsoluteLayout.WidthRequest" Value="125"/>
+                    <Setter TargetName="lay1" Property="AbsoluteLayout.HeightRequest" Value="125"/>
+                    <Setter TargetName="lay2" Property="AbsoluteLayout.WidthRequest" Value="125"/>
+                    <Setter TargetName="lay2" Property="AbsoluteLayout.HeightRequest" Value="125"/>
+                    <Setter TargetName="lay3" Property="AbsoluteLayout.WidthRequest" Value="125"/>
+                    <Setter TargetName="lay3" Property="AbsoluteLayout.HeightRequest" Value="125"/>
+                    <Setter TargetName="lay4" Property="AbsoluteLayout.WidthRequest" Value="125"/>
+                    <Setter TargetName="lay4" Property="AbsoluteLayout.HeightRequest" Value="125"/>
+                    <Setter TargetName="img1" Property="Image.HeightRequest" Value="50"/>
+                    <Setter TargetName="img1" Property="Image.WidthRequest" Value="50"/>
+                    <Setter TargetName="img2" Property="Image.HeightRequest" Value="50"/>
+                    <Setter TargetName="img2" Property="Image.WidthRequest" Value="50"/>
+                    <Setter TargetName="img3" Property="Image.HeightRequest" Value="50"/>
+                    <Setter TargetName="img3" Property="Image.WidthRequest" Value="50"/>
+                    <Setter TargetName="img4" Property="Image.HeightRequest" Value="50"/>
+                    <Setter TargetName="img4" Property="Image.WidthRequest" Value="50"/>
+                    <Setter TargetName="img1" Property="AbsoluteLayout.LayoutBounds" Value="37,10"/>
+                    <Setter TargetName="img2" Property="AbsoluteLayout.LayoutBounds" Value="37,10"/>
+                    <Setter TargetName="img3" Property="AbsoluteLayout.LayoutBounds" Value="37,10"/>
+                    <Setter TargetName="img4" Property="AbsoluteLayout.LayoutBounds" Value="37,10"/>
+                    <Setter TargetName="Label1" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="Label2" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="Label3" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="Label4" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="Label1" Property="AbsoluteLayout.LayoutBounds" Value="0, 70"/>
+                    <Setter TargetName="Label2" Property="AbsoluteLayout.LayoutBounds" Value="0, 70"/>
+                    <Setter TargetName="Label3" Property="AbsoluteLayout.LayoutBounds" Value="0, 71"/>
+                    <Setter TargetName="Label4" Property="AbsoluteLayout.LayoutBounds" Value="0, 71"/>
+                    <Setter TargetName="Label1" Property="Label.WidthRequest" Value="125"/>
+                    <Setter TargetName="Label2" Property="Label.WidthRequest" Value="125"/>
+                    <Setter TargetName="Flex" Property="FlexLayout.WidthRequest" Value="270"/>
+                    <Setter TargetName="GoNextButton" Property="Button.FontSize" Value="24"/>
+                    <Setter TargetName="GoNextButton" Property="Button.WidthRequest" Value="320"/>
+                    <Setter TargetName="GoNextButton" Property="Button.HeightRequest" Value="60"/>
+                    <Setter TargetName="GoNextButton" Property="Button.Margin" Value="0,0,0,10"/>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="xhdpi">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="360"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter TargetName="Number" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="Header" Property="Label.FontSize" Value="24"/>
+                    <Setter TargetName="Text" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="GoNextButton" Property="Button.FontSize" Value="24"/>
+                    <Setter TargetName="GoNextButton" Property="Button.WidthRequest" Value="320"/>
+                    <Setter TargetName="GoNextButton" Property="Button.HeightRequest" Value="60"/>
+                    <Setter TargetName="GoNextButton" Property="Button.Margin" Value="0,23,0,10"/>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="default">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="0"/>
+                </VisualState.StateTriggers>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="Transparent" StatusBarStyle="LightContent"/>
+    </ContentPage.Behaviors>
 
     <VerticalStackLayout >
         <VerticalStackLayout.Background>
@@ -17,6 +98,7 @@
             </LinearGradientBrush>
         </VerticalStackLayout.Background>
         <Label Text="4 / 6"
+               x:Name="Number"
                FontSize="24"
                FontFamily="OpenSans"
                TextColor="White"
@@ -24,6 +106,7 @@
                Margin="0,60,0,0"/>
         <Label Text="Выберите вашу нагрузку"
                FontSize="28"
+               x:Name="Header"
                FontFamily="OpenSans"
                TextColor="White"
                FontAttributes="Bold"
@@ -31,25 +114,31 @@
                Margin="0,25,0,0"/>
         <Label Text="Уровень вашей нагрузки влияет на расчёт основного обмена веществ"
                FontSize="18"
+               x:Name="Text"
                FontFamily="OpenSans"
                TextColor="White"
                HorizontalTextAlignment="Center"/>
         <FlexLayout Wrap="Wrap"
+                    x:Name="Flex"
                     JustifyContent="Center"
                     Margin="0,75,0,75">
             <Border WidthRequest="150" 
                     HeightRequest="150"
                     Margin="0,0,5,5"
+                    x:Name="border1"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 20,20,20,20">
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnTapOne"/>
                 </Border.GestureRecognizers>
                 <AbsoluteLayout WidthRequest="150"
-                                HeightRequest="150">
+                                HeightRequest="150"
+                                x:Name="lay1">
                     <Image Source="monitor.png"
+                           x:Name="img1"
                            AbsoluteLayout.LayoutBounds="43, 11"/>
                     <Label Text="Сидячий образ жизни"
+                           x:Name="Label1"
                            FontFamily=""
                            AbsoluteLayout.LayoutBounds="15, 86"
                            HorizontalTextAlignment="Center"
@@ -69,6 +158,7 @@
 
             <Border WidthRequest="150" 
                     HeightRequest="150"
+                    x:Name="border2"
                     StrokeThickness="0"
                     Margin="5,0,0,5"
                     StrokeShape="RoundRectangle 20,20,20,20">
@@ -76,11 +166,14 @@
                     <TapGestureRecognizer Tapped="OnTapTwo"/>
                 </Border.GestureRecognizers>
                 <AbsoluteLayout WidthRequest="150"
-                                HeightRequest="150">
+                                HeightRequest="150"
+                                x:Name="lay2">
                     <Image Source="man.png"
+                           x:Name="img2"
                            AbsoluteLayout.LayoutBounds="43, 11"/>
                     <Label Text="Умеренная активность"
                            FontFamily=""
+                           x:Name="Label2"
                            AbsoluteLayout.LayoutBounds="15, 86"
                            HorizontalTextAlignment="Center"
                            FontSize="20"
@@ -100,20 +193,24 @@
             <Border WidthRequest="150" 
                     HeightRequest="150"
                     Margin="0,5,5,0"
+                    x:Name="border3"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 20,20,20,20">
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnTapThree"/>
                 </Border.GestureRecognizers>
                 <AbsoluteLayout WidthRequest="150"
-                                HeightRequest="150">
+                                HeightRequest="150"
+                                x:Name="lay3">
                     <Image Source="biceps_emoji.png"
+                           x:Name="img3"
                            AbsoluteLayout.LayoutBounds="43, 11"/>
                     <Label Text="Средняя активность"
                            FontFamily=""
                            AbsoluteLayout.LayoutBounds="14, 86"
                            HorizontalTextAlignment="Center"
                            FontSize="20"
+                           x:Name="Label3"
                            WidthRequest="120"/>
                     <input:CheckBox CornerRadius="50"
                            BoxSizeRequest="30"
@@ -130,17 +227,21 @@
             <Border WidthRequest="150" 
                     HeightRequest="150"
                     Margin="5,5,0,0"
+                    x:Name="border4"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 20,20,20,20">
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnTapFour"/>
                 </Border.GestureRecognizers>
                 <AbsoluteLayout WidthRequest="150"
-                                HeightRequest="150">
+                                HeightRequest="150"
+                                x:Name="lay4">
                     <Image Source="athlete.png"
+                           x:Name="img4"
                            AbsoluteLayout.LayoutBounds="43, 11"/>
                     <Label Text="Высокая активность"
                            FontFamily=""
+                           x:Name="Label4"
                            AbsoluteLayout.LayoutBounds="7, 86"
                            HorizontalTextAlignment="Center"
                            FontSize="20"

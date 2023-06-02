@@ -3,7 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
              NavigationPage.HasNavigationBar="False"
-             x:Class="CAPP.GenderPage">
+             x:Class="CAPP.GenderPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="Responsive">
+            <VisualState x:Name="xxhdpi">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="360" MinWindowHeight="720"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter TargetName="Number" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="Header" Property="Label.FontSize" Value="24"/>
+                    <Setter TargetName="Text" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="Flex" Property="FlexLayout.WidthRequest" Value="320"/>
+                    <Setter TargetName="Flex" Property="FlexLayout.HeightRequest" Value="60"/>
+                    <Setter TargetName="label1" Property="AbsoluteLayout.LayoutBounds" Value="45, 17"/>
+                    <Setter TargetName="label2" Property="AbsoluteLayout.LayoutBounds" Value="45, 17"/>
+                    <Setter TargetName="label1" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="label2" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="lay1" Property="AbsoluteLayout.WidthRequest" Value="150"/>
+                    <Setter TargetName="lay2" Property="AbsoluteLayout.WidthRequest" Value="150"/>
+                    <Setter TargetName="CheckOne" Property="AbsoluteLayout.LayoutBounds" Value="10, 16"/>
+                    <Setter TargetName="CheckTwo" Property="AbsoluteLayout.LayoutBounds" Value="10, 16"/>
+                    <Setter TargetName="GoNextButton" Property="Button.FontSize" Value="24"/>
+                    <Setter TargetName="GoNextButton" Property="Button.WidthRequest" Value="320"/>
+                    <Setter TargetName="GoNextButton" Property="Button.HeightRequest" Value="60"/>
+                    <Setter TargetName="GoNextButton" Property="Button.Margin" Value="0,23,0,10"/>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="xhdpi">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="360"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter TargetName="Number" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="Header" Property="Label.FontSize" Value="24"/>
+                    <Setter TargetName="Text" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="GoNextButton" Property="Button.FontSize" Value="24"/>
+                    <Setter TargetName="GoNextButton" Property="Button.WidthRequest" Value="320"/>
+                    <Setter TargetName="GoNextButton" Property="Button.HeightRequest" Value="60"/>
+                    <Setter TargetName="GoNextButton" Property="Button.Margin" Value="0,23,0,10"/>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="default">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="0"/>
+                </VisualState.StateTriggers>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="Transparent" StatusBarStyle="DarkContent"/>
+    </ContentPage.Behaviors>
 
     <VerticalStackLayout>
         <VerticalStackLayout.Background>
@@ -16,12 +69,14 @@
         </VerticalStackLayout.Background>
         <Label Text="5 / 6"
                FontSize="24"
+               x:Name="Number"
                FontFamily="OpenSans"
                TextColor="White"
                HorizontalOptions="Center"
                Margin="0,60,0,0"/>
         <Label Text="Выберите ваш пол"
                FontSize="28"
+               x:Name="Header"
                FontFamily="OpenSans"
                TextColor="White"
                FontAttributes="Bold"
@@ -29,12 +84,14 @@
                Margin="0,25,0,0"/>
         <Label Text="Пол очень важен при расчёте калорий, например женщинам требуется меньше калорий"
                FontSize="18"
+               x:Name="Text"
                FontFamily="OpenSans"
                TextColor="White"
                HorizontalTextAlignment="Center"/>
-        <Image Source="sex"
+        <Image Source="gender"
                Margin="0,60,0,60"/>
         <FlexLayout WidthRequest="349"
+                    x:Name="Flex"
                     HeightRequest="66"
                     JustifyContent="SpaceBetween"
                     Margin="0,0,0,25">
@@ -43,7 +100,8 @@
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnTapOne"/>
                 </Border.GestureRecognizers>
-                <AbsoluteLayout WidthRequest="160">
+                <AbsoluteLayout WidthRequest="160"
+                                x:Name="lay1">
                     <input:CheckBox CornerRadius="50"
                            BoxSizeRequest="30"
                            AbsoluteLayout.LayoutBounds="10, 20"
@@ -55,6 +113,7 @@
                     <Label Text="Женщина"
                            AbsoluteLayout.LayoutBounds="45, 18"
                            FontSize="20"
+                           x:Name="label1"
                            FontFamily=""/>
                 </AbsoluteLayout>
             </Border>
@@ -63,7 +122,8 @@
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnTapTwo"/>
                 </Border.GestureRecognizers>
-                <AbsoluteLayout WidthRequest="160">
+                <AbsoluteLayout WidthRequest="160"
+                                x:Name="lay2">
                     <input:CheckBox CornerRadius="50"
                            BoxSizeRequest="30"
                            AbsoluteLayout.LayoutBounds="10, 20"
@@ -75,6 +135,7 @@
                     <Label Text="Мужчина"
                            AbsoluteLayout.LayoutBounds="45, 18"
                            FontSize="20"
+                           x:Name="label2"
                            FontFamily=""/>
                 </AbsoluteLayout>
             </Border>

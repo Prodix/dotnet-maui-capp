@@ -19,9 +19,9 @@ public partial class GenderPage : ContentPage
     private async void OnAccountCreating(object sender, EventArgs e)
     {
         if (CheckOne.IsChecked)
-            await Navigation.PushAsync(new BirthPage(mode, heightValue, weightValue, "m", intakeCoefficient));
-        else 
             await Navigation.PushAsync(new BirthPage(mode, heightValue, weightValue, "f", intakeCoefficient));
+        else 
+            await Navigation.PushAsync(new BirthPage(mode, heightValue, weightValue, "m", intakeCoefficient));
     }
 
     private void ButtonOn()

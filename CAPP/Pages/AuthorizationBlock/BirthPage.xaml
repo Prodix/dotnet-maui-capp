@@ -3,8 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
              xmlns:controls="clr-namespace:CAPP.Controls"
-             x:Class="CAPP.BirthPage">
+             x:Class="CAPP.BirthPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="Responsive">
+            <VisualState x:Name="xxhdpi">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="360" MinWindowHeight="720"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter TargetName="Number" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="Header" Property="Label.FontSize" Value="24"/>
+                    <Setter TargetName="Text" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="GoNextButton" Property="Button.FontSize" Value="24"/>
+                    <Setter TargetName="GoNextButton" Property="Button.WidthRequest" Value="320"/>
+                    <Setter TargetName="GoNextButton" Property="Button.HeightRequest" Value="60"/>
+                    <Setter TargetName="GoNextButton" Property="Button.Margin" Value="0,23,0,10"/>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="xhdpi">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="360"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter TargetName="Number" Property="Label.FontSize" Value="20"/>
+                    <Setter TargetName="Header" Property="Label.FontSize" Value="24"/>
+                    <Setter TargetName="Text" Property="Label.FontSize" Value="16"/>
+                    <Setter TargetName="GoNextButton" Property="Button.FontSize" Value="24"/>
+                    <Setter TargetName="GoNextButton" Property="Button.WidthRequest" Value="320"/>
+                    <Setter TargetName="GoNextButton" Property="Button.HeightRequest" Value="60"/>
+                    <Setter TargetName="GoNextButton" Property="Button.Margin" Value="0,23,0,10"/>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="default">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="0"/>
+                </VisualState.StateTriggers>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="Transparent" StatusBarStyle="LightContent"/>
+    </ContentPage.Behaviors>
 
     <VerticalStackLayout >
         <VerticalStackLayout.Background>
@@ -18,18 +60,21 @@
         <Label Text="6 / 6"
                FontSize="24"
                FontFamily="OpenSans"
+               x:Name="Number"
                TextColor="White"
                HorizontalOptions="Center"
                Margin="0,60,0,0"/>
         <Label Text="Когда вы родились?"
                FontSize="28"
                FontFamily="OpenSans"
+               x:Name="Header"
                TextColor="White"
                FontAttributes="Bold"
                HorizontalOptions="Center"
                Margin="0,25,0,0"/>
         <Label Text="Количество калорий меняется с каждым годом"
                FontSize="18"
+               x:Name="Text"
                FontFamily="OpenSans"
                TextColor="White"
                HorizontalTextAlignment="Center"/>

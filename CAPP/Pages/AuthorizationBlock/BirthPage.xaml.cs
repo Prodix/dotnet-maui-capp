@@ -44,26 +44,26 @@ public partial class BirthPage : ContentPage
                 Bmi = weightValue / (heightValue / 100.0 * (heightValue / 100.0))
             };
 
-            double calorieIntake = (gender == "f") ? 447.6 + (9.3 * weightValue) + (3.1 * heightValue) - (4.3 * ((DateTime.Now - dateTime).Days / 365)) * intakeCoefficient : 88.4 + (13.4 * weightValue) + (4.8 * heightValue) - (5.7 * ((DateTime.Now - dateTime).Days / 365)) * intakeCoefficient;
+            double calorieIntake = (gender == "f") ? 447.6 + (9.3 * weightValue) + (3.1 * heightValue) - (4.3 * ((DateTime.Now - dateTime).Days / 365)) * intakeCoefficient : (88.4 + (13.4 * weightValue) + (4.8 * heightValue)) - (5.7 * ((DateTime.Now - dateTime).Days / 365) * intakeCoefficient);
 
             switch (userData.Mode)
             {
                 case 1:
-                    calorieIntake -= weightValue * 0.02 * 1540 / 3;
+                    calorieIntake -= weightValue * 0.01 * 1540 / 3;
                     userData.CalorieIntake = (int)Math.Round(calorieIntake, 2);
                     userData.Carb = (int)(userData.CalorieIntake * 0.5 / 9);
                     userData.Fat = (int)(userData.CalorieIntake * 0.3 / 4);
                     userData.Protein = (int)(userData.CalorieIntake * 0.2 / 4);
                     break;
                 case 2:
-                    calorieIntake += weightValue * 0.02 * 1540 / 3;
+                    calorieIntake += weightValue * 0.01 * 1540 / 3;
                     userData.CalorieIntake = (int)Math.Round(calorieIntake, 2);
                     userData.Carb = (int)(userData.CalorieIntake * 0.6 / 9);
                     userData.Fat = (int)(userData.CalorieIntake * 0.15 / 4);
                     userData.Protein = (int)(userData.CalorieIntake * 0.25 / 4);
                     break;
                 case 3:
-                    calorieIntake += weightValue * 0.02 * 1540 / 3;
+                    calorieIntake += weightValue * 0.01 * 1540 / 3;
                     userData.CalorieIntake = (int)Math.Round(calorieIntake, 2);
                     userData.Carb = (int)(userData.CalorieIntake * 0.5 / 9);
                     userData.Fat = (int)(userData.CalorieIntake * 0.2 / 4);
